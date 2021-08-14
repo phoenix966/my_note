@@ -1,0 +1,50 @@
+.blog
+  position: relative
+  min-height: 100vh
+  width: 100%
+  &__overlay
+    position: absolute
+    top:  -200px
+    left: 0
+    width: 100%
+    min-height: 540vh
+    background: #000000a6
+    transition: .6s
+    opacity: 0
+    z-index: -2
+    &--active
+      opacity: 100%
+      z-index: unset    
+  &__sidebar
+    position: absolute
+    top: 20px
+    left: 0
+    width: 70%
+    height: 600px
+    background: var(--color-btn)
+    border-top-right-radius: 15px
+    border-bottom-right-radius: 15px
+    border: 10px solid rgba(27, 255, 255, 0.267)
+    padding: 5px 
+    transition: all 0.6s
+    transform: translateX(-98%) 
+    +media(928px)
+      width: 35%
+    &--active
+      transform: translateX(0)
+  // &__scroll
+  //   position: absolute
+  //   top: 50%
+  //   right: -58px
+  //   height: 30px
+  //   border-top-right-radius: 15px
+  //   border-top-left-radius: 15px
+  //   border: none
+  //   background: var(--color-btn)
+  //   transform: rotateZ(90deg)
+  //   cursor: pointer
+  //   font-family: var(--font-regular)
+  //   font-size: 14px
+  //   color: var(--color-second)
+  &__posts
+    padding: 0 10%

@@ -94,10 +94,12 @@ html {
 
 .header {
   position: relative;
-  transition: all 0.6s;
+  transition: 0.6s;
+  width: 100%;
 }
 .header--hide {
   transform: translateY(-110px);
+  height: 40px;
 }
 .header__container {
   height: 100px;
@@ -114,8 +116,6 @@ html {
 .header__logo {
   width: 90px;
   height: 90px;
-  object-fit: cover;
-  object-position: center;
   margin: 0 5px;
 }
 .header__img {
@@ -134,7 +134,7 @@ html {
   border: 4px solid #f8f8f8;
   border-radius: 5px;
   height: 50px;
-  min-width: 60vw;
+  width: 75%;
   -webkit-box-shadow: -7px 16px 15px -18px rgba(0, 0, 0, 0.21);
   -moz-box-shadow: -7px 16px 15px -18px rgba(0, 0, 0, 0.21);
   box-shadow: -7px 16px 15px -18px rgba(0, 0, 0, 0.21);
@@ -295,6 +295,52 @@ html {
   top: -80px;
   transform: translate3d(-80px, 80px, 0) rotate(-45deg);
   transition: right 0.125s ease-out, top 0.05s 0.125s linear, transform 0.125s 0.175s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.blog {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+}
+.blog__overlay {
+  position: absolute;
+  top: -200px;
+  left: 0;
+  width: 100%;
+  min-height: 540vh;
+  background: #000000a6;
+  transition: 0.6s;
+  opacity: 0;
+  z-index: -2;
+}
+.blog__overlay--active {
+  opacity: 100%;
+  z-index: unset;
+}
+.blog__sidebar {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  width: 70%;
+  height: 600px;
+  background: var(--color-btn);
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border: 10px solid rgba(27, 255, 255, 0.267);
+  padding: 5px;
+  transition: all 0.6s;
+  transform: translateX(-98%);
+}
+@media screen and (min-width: 928px) {
+  .blog__sidebar {
+    width: 35%;
+  }
+}
+.blog__sidebar--active {
+  transform: translateX(0);
+}
+.blog__posts {
+  padding: 0 10%;
 }
 
 /*# sourceMappingURL=style.css.map */

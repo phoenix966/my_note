@@ -24,36 +24,60 @@
           <div class="header__logo">
             <a href="#"><img src="./img/logo.png" alt="logo" class="header__img"></a>
           </div>
+          <form>
         </div>
-        <form>
         <div class="header__wrap">
             <input type="text" class="header__input" placeholder="Найти запись...">
             <button class="header__btn">Поиск</button>
           </div>
+          <button class="header__btn header__btn--round">Новая+</button>
         </form>
-        <button class="header__btn header__btn--round">Новая+</button>
       </div>
       <div class="container">
-        <button class="header__scroll">Открыть</button>
+        <button class="header__scroll">закрыть</button>
       </div>
     </header>
+    <section class="blog">
+      <div class="blog__posts">
+        ....
+      </div>
+      <div class="blog__overlay"></div>
+      <div class="blog__sidebar">
+          <!-- <button class="blog__scroll">открыть</button> -->
+          <ul class="blog__list">
+            <li class="blog__item">Loren</li>
+            <li class="blog__item">Loren</li>
+            <li class="blog__item">Loren</li>
+          </ul>
+      </div>
+    </section>
   </div>
 
   <script>
-    // Look for .hamburger
-    var hamburger = document.querySelector(".hamburger");
-    // On click
+    let hamburger = document.querySelector(".hamburger");
+    let overlay = document.querySelector('.blog__overlay');
+    let sidebar = document.querySelector('.blog__sidebar');
     hamburger.addEventListener("click", function () {
-      // Toggle class "is-active"
       hamburger.classList.toggle("is-active");
-      // Do something else, like open/close menu
+      overlay.classList.toggle('blog__overlay--active');
+      sidebar.classList.toggle('blog__sidebar--active');
     });
   </script>
   <script>
     let scroll = document.querySelector('.header__scroll');
     let header = document.querySelector('.header');
+    let isOpen = false;
     scroll.addEventListener('click',function(){
+      isOpen ? scroll.innerText = 'закрыть' : scroll.innerText = 'открыть';
+      isOpen ? isOpen = false : isOpen = true;
       header.classList.toggle('header--hide');
+    });
+  </script>
+  <script>
+    overlay.addEventListener('click',function(){
+      hamburger.classList.remove("is-active");
+      overlay.classList.remove('blog__overlay--active');
+      sidebar.classList.remove('blog__sidebar--active');
     });
   </script>
 </body>
