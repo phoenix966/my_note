@@ -14,10 +14,12 @@
     background: #000000a6
     transition: .6s
     opacity: 0
-    z-index: -2
+    visibility: hidden
+    // z-index: -2
     &--active
       opacity: 100%
-      z-index: unset
+      visibility: visible
+      z-index: 2
   &__sidebar
     position: absolute
     top: 20px
@@ -27,7 +29,8 @@
     background: var(--color-btn)
     border-top-right-radius: 15px
     border-bottom-right-radius: 15px
-    border: 10px solid rgba(27, 255, 255, 0.267)
+    border: 5px solid rgba(27, 255, 255, 0.267)
+    border-left: none
     padding: 5px
     transition: all 0.6s
     transform: translateX(-98%)
@@ -35,6 +38,7 @@
       width: 35%
     &--active
       transform: translateX(0)
+      z-index: 3
   &__list
     display: flex
     justify-content: space-between
@@ -113,3 +117,5 @@
     font-size: 14px
     color: #4e4e4e93
     border: none
+  &__link
+    text-decoration: none

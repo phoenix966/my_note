@@ -22,7 +22,7 @@
             </button>
           </div>
           <div class="header__logo">
-            <a href="#"><img src="./img/logo.png" alt="logo" class="header__img"></a>
+            <a href="/"><img src="./img/logo.png" alt="logo" class="header__img"></a>
           </div>
           <form>
         </div>
@@ -38,6 +38,7 @@
       </div>
 
       <div class="modal">
+        <div class="modal__overlay"></div>
         <form>
           <div class="modal__window">
             <div class="modal__wrapper">
@@ -50,7 +51,7 @@
             </div>
             <div class="modal__wrapper">
               <p class="modal__title">Содержимое: </p>
-              <textarea name="area"  class="modal__area"></textarea>
+              <textarea name="area" class="modal__area"></textarea>
             </div>
             <button class="modal__btn">Добавить</button>
           </div>
@@ -65,7 +66,7 @@
             <li class="blog__post">
               <div class="blog__head">
                 <div class="blog__pin"></div>
-                <h2 class="blog__category">PHP</h2>
+                <a class="blog__link" href="./pages/post.html"><h2 class="blog__category">Переход</h2></a>
               </div>
               <div class="blog__info">
                 <div class="blog__sticky"></div>
@@ -159,7 +160,6 @@
       </div>
       <div class="blog__overlay"></div>
       <div class="blog__sidebar">
-        <!-- <button class="blog__scroll">открыть</button> -->
         <ul class="blog__note">
           <li class="blog__item">Loren</li>
           <li class="blog__item">Loren</li>
@@ -170,53 +170,8 @@
     <footer class="footer">
       <p class="footer__text">All rights reserved by Phoenix</p>
     </footer>
-    <!-- <div class="modal">
-      <form>
-        <div class="modal__window">
-          <div class="modal__wrapper">
-            <p class="modal__title">Название: </p>
-            <input type="text" class="modal__input">
-          </div>
-          <div class="modal__wrapper">
-            <p class="modal__title">Категория: </p>
-            <input type="text" class="modal__input">
-          </div>
-          <div class="modal__wrapper">
-            <p class="modal__title">Содержимое: </p>
-            <textarea name="area"  class="modal__area"></textarea>
-          </div>
-        </div>
-      </form>
-    </div> -->
   </div>
 
-  <script>
-    let hamburger = document.querySelector(".hamburger");
-    let overlay = document.querySelector('.blog__overlay');
-    let sidebar = document.querySelector('.blog__sidebar');
-    hamburger.addEventListener("click", function () {
-      hamburger.classList.toggle("is-active");
-      overlay.classList.toggle('blog__overlay--active');
-      sidebar.classList.toggle('blog__sidebar--active');
-    });
-  </script>
-  <script>
-    let scroll = document.querySelector('.header__scroll');
-    let header = document.querySelector('.header');
-    let isOpen = false;
-    scroll.addEventListener('click', function () {
-      isOpen ? scroll.innerText = 'закрыть' : scroll.innerText = 'открыть';
-      isOpen ? isOpen = false : isOpen = true;
-      header.classList.toggle('header--hide');
-    });
-  </script>
-  <script>
-    overlay.addEventListener('click', function () {
-      hamburger.classList.remove("is-active");
-      overlay.classList.remove('blog__overlay--active');
-      sidebar.classList.remove('blog__sidebar--active');
-    });
-  </script>
+<script src="./js/logic.js"></script>
 </body>
-
 </html>

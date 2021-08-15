@@ -1,11 +1,18 @@
 .modal
-  position: fixed
-  z-index: 1
-  top: 0
-  left: 0
-  width: 100%
-  height: 100%
-  background: #00000086
+  &__overlay
+    position: fixed
+    z-index: 1
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background: #00000086
+    transition: .6s
+    visibility: hidden
+    opacity: 0
+    &--active
+      visibility: visible
+      opacity: 100%
   &__window
     padding: 15px
     position: absolute
@@ -13,6 +20,9 @@
     z-index: 2
     left: 0
     right: 0
+    opacity: 0
+    visibility: hidden
+    // transform: translateY(-700px)
     margin: 0 auto
     width: 90%
     height: 350px
@@ -21,10 +31,15 @@
     border-bottom-right-radius: 15px
     border-top: none
     background: var(--color-btn)
+    transition: 1s
     +media(928px)
       left: unset
       right: 10%
       width: 60%
+    &--active
+      opacity: 100%
+      visibility: visible
+      // transform: translateY(100px)
   &__title
     margin: 10px 0
     font-family: var(--font-regular)

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+  <div class="wrapper">
+    <header class="header">
+      <div class="container header__container">
+        <div class="header__wrapper">
+          <div class="header__burger">
+            <button class="hamburger hamburger--emphatic" type="button">
+              <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+              </span>
+            </button>
+          </div>
+          <div class="header__logo">
+            <a href="/"><img src="../img/logo.png" alt="logo" class="header__img"></a>
+          </div>
+          <form>
+        </div>
+        <div class="header__wrap">
+          <input type="text" class="header__input" placeholder="Найти запись...">
+          <button class="header__btn">Поиск</button>
+        </div>
+        <button class="header__btn header__btn--round">Новая+</button>
+        </form>
+      </div>
+      <div class="container">
+        <button class="header__scroll">закрыть</button>
+      </div>
+      <div class="modal">
+        <div class="modal__overlay"></div>
+        <form>
+          <div class="modal__window">
+            <div class="modal__wrapper">
+              <p class="modal__title">Название: </p>
+              <input type="text" class="modal__input">
+            </div>
+            <div class="modal__wrapper">
+              <p class="modal__title">Категория: </p>
+              <input type="text" class="modal__input">
+            </div>
+            <div class="modal__wrapper">
+              <p class="modal__title">Содержимое: </p>
+              <textarea name="area" class="modal__area"></textarea>
+            </div>
+            <button class="modal__btn">Добавить</button>
+          </div>
+        </form>
+      </div>
+    </header>
+    <section class="post">
+      <div class="container post__wrapper">
+          <h1 class="post__title">Название записи</h1>
+      </div>
+      <div class="blog__overlay"></div>
+      <div class="blog__sidebar">
+        <ul class="blog__note">
+          <li class="blog__item">Loren</li>
+          <li class="blog__item">Loren</li>
+          <li class="blog__item">Loren</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+
+<script src="../js/logic.js"></script>
+</body>
+
+</html>
