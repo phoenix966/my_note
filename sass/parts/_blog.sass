@@ -2,9 +2,12 @@
   position: relative
   min-height: 100vh
   width: 100%
+  padding: 20px 10px 0 10px
+  +media(928px)
+    padding: 20px 0 0 0 
   &__overlay
     position: absolute
-    top:  -200px
+    top: -200px
     left: 0
     width: 100%
     min-height: 540vh
@@ -14,7 +17,7 @@
     z-index: -2
     &--active
       opacity: 100%
-      z-index: unset    
+      z-index: unset
   &__sidebar
     position: absolute
     top: 20px
@@ -25,9 +28,9 @@
     border-top-right-radius: 15px
     border-bottom-right-radius: 15px
     border: 10px solid rgba(27, 255, 255, 0.267)
-    padding: 5px 
+    padding: 5px
     transition: all 0.6s
-    transform: translateX(-98%) 
+    transform: translateX(-98%)
     +media(928px)
       width: 35%
     &--active
@@ -36,6 +39,7 @@
     display: flex
     justify-content: space-between
     list-style-type: none
+    flex-wrap: wrap
     margin: 0
     padding: 0
   &__posts
@@ -45,34 +49,67 @@
     display: flex
     flex-direction: column
     justify-content: space-between
-    flex: 0 1 23%
-    border: 1px solid red
+    flex: 1 1 95%
+    border-radius: 8px
+    -webkit-box-shadow: 2px 1px 11px 1px rgba(0,0,0,0.2)
+    -moz-box-shadow: 2px 1px 11px 1px rgba(0,0,0,0.2)
+    box-shadow: 2px 1px 11px 1px rgba(0,0,0,0.2)
     min-height: 300px
+    margin-bottom: 40px
+    +media(598px)
+      flex: 0 1 43%
+    +media(728px)
+      flex: 0 1 23%
+  &__head
+    position: absolute
+    top: -40px
+    left: 0
+    right: 0
+    margin: 0 auto
   &__pin
-    // position: absolute
-    // top: -15px
-    // right: 0
-    // left: 0
     margin: 0 auto
     width: 10px
     height: 10px
     border-radius: 50%
-    background: red
-    margin: 0 auto
+    // background: red
   &__category
-    width: 80%
-    border: 1px solid blue
+    font-family: var(--font-bold)
+    font-size: 16px
+    padding: 2px
+    text-align: center
+    height: 28px
+    overflow: hidden
+    width: 90%
+    border-top-left-radius: 15px
+    border-top-right-radius: 15px
     margin: 0 auto
+    color: var(--color-second)
+    background: #e2dede
   &__info
     text-align: left
     width: 90%
     margin: 0 auto
-    border: 1px solid green
+    // border: 1px solid green
   &__wrap
     display: flex
     justify-content: space-between
     width: 90%
     margin: 0 auto
   &__text
+    font-family: var(--font-regular)
+    font-size: 14px
+    color: #585858
     max-height: 250px
     overflow: scroll
+  &__sticky
+    width: 100%
+    height: 30px
+    margin-bottom: 10px
+    background: #e2dede
+    padding: 5px
+  &__btn
+    cursor: pointer
+    font-family: var(--font-bold)
+    font-size: 14px
+    color: #4e4e4e93
+    border: none

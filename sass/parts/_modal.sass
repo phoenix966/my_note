@@ -1,0 +1,54 @@
+.modal
+  position: fixed
+  z-index: 1
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  background: #00000086
+  &__window
+    padding: 15px
+    position: absolute
+    top: 100px
+    z-index: 2
+    left: 0
+    right: 0
+    margin: 0 auto
+    width: 90%
+    height: 350px
+    border: 5px solid rgba(27, 255, 255, 0.267)
+    border-bottom-left-radius: 15px
+    border-bottom-right-radius: 15px
+    border-top: none
+    background: var(--color-btn)
+    +media(928px)
+      left: unset
+      right: 10%
+      width: 60%
+  &__title
+    margin: 10px 0
+    font-family: var(--font-regular)
+    font-size: 16px
+    color: var(--color-second)
+  &__input
+    width: 100%
+    height: 30px
+    border: none
+    border-radius: 5px
+    background: #fff
+    font-family: var(--font-regular)
+    color: #666
+  &__area
+    width: 100%
+    height: 100px
+    font-family: var(--font-regular)
+    color: #666
+  &__btn
+    font-family: var(--font-regular)
+    color: var(--color-second)
+    font-size: 14px
+    border: none
+    border-radius: 10px
+    margin-top: 5px
+    padding: 10px
+    cursor: pointer
