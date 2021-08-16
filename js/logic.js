@@ -18,7 +18,6 @@ scroll.addEventListener('click', function () {
   header.classList.toggle('header--hide');
 });
 
-
 overlay.addEventListener('click', function () {
   hamburger.classList.remove("is-active");
   overlay.classList.remove('blog__overlay--active');

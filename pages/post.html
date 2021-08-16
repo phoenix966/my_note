@@ -58,11 +58,16 @@
       </div>
     </header>
     <section class="post">
-      <div class="container post__wrapper">
-          <h1 class="post__title">Название записи</h1>
+      <div class="container post__container">
+
+        <h1 class="post__title">Название записи</h1>
+        <button class="post__add" onclick = "logHtmlContent ()">Add</button>
+        <div class="post__editor" id="editor">
+          
+        </div>
       </div>
       <div class="blog__overlay"></div>
-      <div class="blog__sidebar">
+      <div class="blog__sidebar post__sidebar">
         <ul class="blog__note">
           <li class="blog__item">Loren</li>
           <li class="blog__item">Loren</li>
@@ -73,7 +78,46 @@
   </div>
 
 
-<script src="../js/logic.js"></script>
+  <script src="../js/logic.js"></script>
+  <script src="../js/quill.js"></script>
+
+  <script>
+
+    let toolbarOptions = [
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+      [{ 'font': [] }],
+      ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+      ['blockquote', 'code-block'],
+      ['link', 'image'],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      // [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+      [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+      [{ 'direction': 'rtl' }],                         // text direction
+
+      [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+      [{ 'align': [] }],
+
+      ['clean']                                         // remove formatting button
+    ];
+
+    let quill = new Quill('#editor', {
+      modules: {
+        toolbar: toolbarOptions
+      },
+      placeholder: 'Начните что-нибудь писать ...',
+      theme: 'snow'
+    });
+
+    let ed = document.querySelector('.post__content');
+    let text = '';
+    function logHtmlContent () {
+      text = quill.root.innerHTML;
+      let str = text.toString()
+      console.log(str);
+      quill.root.innerHTML = str
+  };
+  </script>
+
 </body>
 
 </html>
