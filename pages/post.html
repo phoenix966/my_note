@@ -61,10 +61,12 @@
       <div class="container post__container">
 
         <h1 class="post__title">Название записи</h1>
-        <button class="post__add" onclick = "logHtmlContent ()">Add</button>
-        <div class="post__editor" id="editor">
+        <button class="post__btn" onclick="logHtmlContent ()">Создать</button>
+        <button class="post__btn">Удалить</button>
+        <div class="post__editor" style="height: 70vh" id="editor">
           
         </div>
+        <div class="post__test"></div>
       </div>
       <div class="blog__overlay"></div>
       <div class="blog__sidebar post__sidebar">
@@ -75,6 +77,9 @@
         </ul>
       </div>
     </section>
+    <footer class="footer">
+      <p class="footer__text">All rights reserved by Phoenix</p>
+    </footer>
   </div>
 
 
@@ -108,14 +113,21 @@
       theme: 'snow'
     });
 
-    let ed = document.querySelector('.post__content');
-    let text = '';
-    function logHtmlContent () {
-      text = quill.root.innerHTML;
-      let str = text.toString()
-      console.log(str);
-      quill.root.innerHTML = str
-  };
+    let test = document.querySelector('.post__test');
+    let edit = document.querySelector('.ql-editor');
+    function logHtmlContent() {
+      let text = '';
+      // var delta = quill.getContents();
+      // text = quill.root.innerHTML;
+      text = edit.innerHTML
+      edit.innerHTML = text
+      alert(edit.innerHTML)
+      // let str = text.toString()
+      // console.log(text);
+      // quill.root.innerHTML = str
+      // test.innerHTML = text
+      
+    };
   </script>
 
 </body>

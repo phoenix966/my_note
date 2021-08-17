@@ -1393,7 +1393,19 @@ html {
 }
 .post__editor {
   font-family: var(--font-regular);
+  margin-bottom: 30px;
   font-size: 16px;
+}
+.post__btn {
+  font-family: var(--font-bold);
+  color: var(--color-second);
+  font-size: 14px;
+  border-radius: 5px;
+  border: none;
+  background: #ebe9e9;
+  padding: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=style.css.map */
