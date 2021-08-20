@@ -144,7 +144,7 @@ addBtn.addEventListener('click',function(e){
       success: function(data)
         {
            alert(`Готово` );
-           window.location.href = "./post.php";
+           window.location.href = "../index.php";
         }
 });
 })

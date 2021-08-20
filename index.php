@@ -55,7 +55,7 @@
             <li class="blog__post">
               <div class="blog__head">
                 <div class="blog__pin">id</div>
-                <a class="blog__link" href="./pages/post.php"><h2 class="blog__category">Переход</h2></a>
+                <a class="blog__link" href="./pages/post-redact.php"><h2 class="blog__category">Переход</h2></a>
               </div>
               <div class="blog__info">
                 <div class="blog__sticky"></div>
@@ -96,6 +96,7 @@
                     echo '<li class="blog__item">' . $cat['categorie_title'] . '(' . $articles_count_result['total_count'] .')</li>';
                   }
                 }
+                mysqli_close($connection);
                   ?>
                 </ul>
         <!-- <ul class="blog__note">
@@ -111,6 +112,12 @@
   </div>
 
 <script src="./js/logic.js"></script>
-
+<script>
+  let btn = document.querySelector('.header__btn--new');
+  btn.addEventListener('click',function(e){
+    e.preventDefault();
+    window.location.href = "./pages/post-new.php";
+  })
+</script>
 </body>
 </html>

@@ -23,9 +23,3 @@ overlay.addEventListener('click', function () {
   overlay.classList.remove('blog__overlay--active');
   sidebar.classList.remove('blog__sidebar--active');
 });
-
-let btn = document.querySelector('.header__btn--new');
-  btn.addEventListener('click',function(e){
-    e.preventDefault();
-    window.location.href = "./pages/post.php";
-  })
