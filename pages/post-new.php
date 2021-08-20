@@ -129,7 +129,6 @@ let addBtn = document.querySelector('.modal__btn');
 addBtn.addEventListener('click',function(e){
   e.preventDefault();
     let text =  quill.root.innerHTML;
-    // let text = 'tested'
     let title = document.querySelector('.modal__name').value;
     let cat = document.querySelector('.modal__cat').value;
     let obj = {

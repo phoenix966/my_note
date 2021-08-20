@@ -50,9 +50,31 @@
     <section class="blog">
       <div class="blog__posts">
         <div class="container blog__container">
+        <ul class="blog__list">
+          <?php
+            $title = mysqli_query($connection, "SELECT `title` FROM `articles`" );
+            $text = mysqli_query($connection, "SELECT `text` FROM `articles`" );
+            $id = mysqli_query($connection, "SELECT `id` FROM `articles`" );
+            $cat_id = mysqli_query($connection, "SELECT `categorie_id` FROM `articles`" );
+            if( mysqli_num_rows($id) == 0){
+              echo 'Категорий не найдено!';
+            } else{
+                while($item_id = mysqli_fetch_assoc($id) AND $item_title = mysqli_fetch_assoc($title) 
+                AND $item_text = mysqli_fetch_assoc($text) AND $item_cat_id = mysqli_fetch_assoc($cat_id)){
+                  echo '<li class="blog__post"><div class="blog__head"><div class="blog__pin">' . $item_id['id'] . '</div>' 
+                  . '<a class="blog__link" href="./pages/post-redact.php"><h2 class="blog__category">' . $item_title['title'] . '</h2></a>
+                  </div><div class="blog__info"><div class="blog__sticky"></div><div class="blog__text">' . $item_text['text'] . '</div></div>' .
+                  '<div class="blog__wrap"><button class="blog__btn">Del</button><button class="blog__btn">Red</button></div></li>';
+                }
+            }
+          ?>
+        </ul>
+            
 
-          <ul class="blog__list">
-            <li class="blog__post">
+
+
+          <!-- <ul class="blog__list">
+            <li class="blog__post"> 
               <div class="blog__head">
                 <div class="blog__pin">id</div>
                 <a class="blog__link" href="./pages/post-redact.php"><h2 class="blog__category">Переход</h2></a>
@@ -74,7 +96,7 @@
                 <button class="blog__btn">Del</button>
                 <button class="blog__btn">Red</button>
               </div>
-            </li>
+            </li> -->
            
           </ul>
         </div>
@@ -90,6 +112,7 @@
               <ul class="blog__note">
                 <?php
                   while(($cat = mysqli_fetch_assoc($result)) ){
+                    print_r ($cat);
                     $articles_count = mysqli_query($connection, "SELECT COUNT(`id`) AS `total_count` FROM `articles`
                     WHERE `categorie_id` = " . $cat['id']);
                     $articles_count_result = mysqli_fetch_assoc($articles_count);
