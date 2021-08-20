@@ -41,7 +41,7 @@
       z-index: 3
   &__list
     display: flex
-    justify-content: space-between
+    justify-content: flex-start
     list-style-type: none
     flex-wrap: wrap
     margin: 0
@@ -59,7 +59,8 @@
     -moz-box-shadow: 2px 1px 11px 1px rgba(0,0,0,0.2)
     box-shadow: 2px 1px 11px 1px rgba(0,0,0,0.2)
     min-height: 300px
-    margin-bottom: 40px
+    margin: 0 10px
+    margin-bottom: 80px
     +media(598px)
       flex: 0 1 43%
     +media(728px)
@@ -104,13 +105,16 @@
     font-size: 14px
     color: #585858
     max-height: 250px
-    overflow: scroll
+    max-width: 240px
+    overflow: hidden
   &__sticky
     width: 100%
     height: 30px
     margin-bottom: 10px
     background: #e2dede
     padding: 5px
+    color: #00000000
+    cursor: pointer
   &__btn
     cursor: pointer
     font-family: var(--font-bold)
@@ -119,3 +123,7 @@
     border: none
   &__link
     text-decoration: none
+img
+  width: 100%
+  height: 100%
+  text-align: center

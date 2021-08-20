@@ -10,6 +10,15 @@
 </head>
 
 <body>
+  <?php
+    $connection = mysqli_connect('localhost:8889','root','root','note_db');
+
+    if($connection == false){
+      echo 'не удалось подключится к базе данных!<br>';
+      echo mysqli_connect_error();
+      exit();
+    }
+  ?>
   <div class="wrapper">
     <header class="header">
       <div class="container header__container">
@@ -30,7 +39,7 @@
           <input type="text" class="header__input" placeholder="Найти запись...">
           <button class="header__btn">Поиск</button>
         </div>
-        <button class="header__btn header__btn--round header__btn--action">Создать+</button>
+        <button class="header__btn header__btn--round header__btn--action">Изменить+</button>
         </form>
       </div>
       <div class="container">
@@ -59,20 +68,17 @@
     </header>
     <section class="post">
       <div class="container post__container">
-        <!-- <div class="post__wrapper">
-          <form class="post__form">
-            <div class="post__row">
-              <input type="text" class="post__input" placeholder="Напишите название записи">
-            </div>
-            <div class="post__row">
-              <input type="text" class="post__cat" placeholder="Напишите название категории">
-            </div>
-            </form>
-          </div> -->
-        <h1 class="post__title">Название записи</h1>
-        <!-- <button  class="post__btn" onclick="addNewFile ()">Добавить</button> -->
+          <?php
+            $result = mysqli_query($connection,"SELECT `id` FROM `temp_id`");
+            $temp_id = mysqli_fetch_assoc($result);
+            $value = $temp_id['id'];
+            $res = mysqli_query($connection,"SELECT * FROM `articles` WHERE  `id` = '$value' ");
+            $info = mysqli_fetch_assoc($res);
+            // print_r($info);
+          ?>
+        <h1 class="post__title"> <?php echo $info['title']; ?> </h1>
         <div class="post__editor" style="height: 70vh" id="editor">
-          
+          <?php echo $info['text']; ?>
         </div>
         <div class="post__test"></div>
       </div>
@@ -119,7 +125,8 @@
         toolbar: toolbarOptions
       },
       placeholder: 'Начните что-нибудь писать ...',
-      theme: 'snow'
+      theme: 'snow',
+      readOnly: true,
     });
   </script>
 

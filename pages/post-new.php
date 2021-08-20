@@ -46,7 +46,7 @@
             </div>
             <div class="modal__wrapper">
               <p class="modal__title">Категория: </p>
-              <input type="text" class="modal__input modal__cat" id="cat">
+              <input type="number" class="modal__input modal__cat" id="cat">
             </div>
             <!-- <div class="modal__wrapper">
               <p class="modal__title">Содержимое: </p>
