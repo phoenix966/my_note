@@ -5,11 +5,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Main</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+<?php 
+  $connection = mysqli_connect('localhost:8889','root','root','note_db');
+
+  if($connection == false){
+    echo 'не удалось подключится к базе данных!<br>';
+    echo mysqli_connect_error();
+    exit();
+  }
+?>
   <div class="wrapper">
     <header class="header">
       <div class="container header__container">
@@ -22,7 +31,7 @@
             </button>
           </div>
           <div class="header__logo">
-            <a href="/"><img src="./img/logo.png" alt="logo" class="header__img"></a>
+            <a href="./index.php"><img src="./img/logo.png" alt="logo" class="header__img"></a>
           </div>
           <form>
         </div>
@@ -30,44 +39,23 @@
           <input type="text" class="header__input" placeholder="Найти запись...">
           <button class="header__btn">Поиск</button>
         </div>
-        <button class="header__btn header__btn--round">Новая+</button>
+        <button class="header__btn  header__btn--round header__btn--new">Новая+</button>
         </form>
       </div>
       <div class="container">
         <button class="header__scroll">закрыть</button>
       </div>
 
-      <div class="modal">
-        <div class="modal__overlay"></div>
-        <form>
-          <div class="modal__window">
-            <div class="modal__wrapper">
-              <p class="modal__title">Название: </p>
-              <input type="text" class="modal__input">
-            </div>
-            <div class="modal__wrapper">
-              <p class="modal__title">Категория: </p>
-              <input type="text" class="modal__input">
-            </div>
-            <div class="modal__wrapper">
-              <p class="modal__title">Содержимое: </p>
-              <textarea name="area" class="modal__area"></textarea>
-            </div>
-            <button class="modal__btn">Добавить</button>
-          </div>
-        </form>
-      </div>
-
     </header>
     <section class="blog">
       <div class="blog__posts">
         <div class="container blog__container">
+
           <ul class="blog__list">
-            
             <li class="blog__post">
               <div class="blog__head">
-                <div class="blog__pin"></div>
-                <a class="blog__link" href="./pages/post.html"><h2 class="blog__category">Переход</h2></a>
+                <div class="blog__pin">id</div>
+                <a class="blog__link" href="./pages/post.php"><h2 class="blog__category">Переход</h2></a>
               </div>
               <div class="blog__info">
                 <div class="blog__sticky"></div>
@@ -93,11 +81,28 @@
       </div>
       <div class="blog__overlay"></div>
       <div class="blog__sidebar">
-        <ul class="blog__note">
+      <?php
+            $result = mysqli_query($connection, "SELECT * FROM `articles_categories` " );
+            if( mysqli_num_rows($result) == 0){
+              echo 'Категорий не найдено!';
+            } else{
+            ?>
+              <ul class="blog__note">
+                <?php
+                  while(($cat = mysqli_fetch_assoc($result)) ){
+                    $articles_count = mysqli_query($connection, "SELECT COUNT(`id`) AS `total_count` FROM `articles`
+                    WHERE `categorie_id` = " . $cat['id']);
+                    $articles_count_result = mysqli_fetch_assoc($articles_count);
+                    echo '<li class="blog__item">' . $cat['categorie_title'] . '(' . $articles_count_result['total_count'] .')</li>';
+                  }
+                }
+                  ?>
+                </ul>
+        <!-- <ul class="blog__note">
           <li class="blog__item">Loren</li>
           <li class="blog__item">Loren</li>
           <li class="blog__item">Loren</li>
-        </ul>
+        </ul> -->
       </div>
     </section>
     <footer class="footer">
@@ -106,5 +111,6 @@
   </div>
 
 <script src="./js/logic.js"></script>
+
 </body>
 </html>

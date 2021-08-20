@@ -22,7 +22,7 @@
             </button>
           </div>
           <div class="header__logo">
-            <a href="/"><img src="../img/logo.png" alt="logo" class="header__img"></a>
+            <a href="../index.php"><img src="../img/logo.png" alt="logo" class="header__img"></a>
           </div>
           <form>
         </div>
@@ -30,7 +30,7 @@
           <input type="text" class="header__input" placeholder="Найти запись...">
           <button class="header__btn">Поиск</button>
         </div>
-        <button class="header__btn header__btn--round">Новая+</button>
+        <button class="header__btn header__btn--round header__btn--action">Создать+</button>
         </form>
       </div>
       <div class="container">
@@ -42,16 +42,16 @@
           <div class="modal__window">
             <div class="modal__wrapper">
               <p class="modal__title">Название: </p>
-              <input type="text" class="modal__input">
+              <input type="text" class="modal__input modal__name" id="title">
             </div>
             <div class="modal__wrapper">
               <p class="modal__title">Категория: </p>
-              <input type="text" class="modal__input">
+              <input type="text" class="modal__input modal__cat" id="cat">
             </div>
-            <div class="modal__wrapper">
+            <!-- <div class="modal__wrapper">
               <p class="modal__title">Содержимое: </p>
               <textarea name="area" class="modal__area"></textarea>
-            </div>
+            </div> -->
             <button class="modal__btn">Добавить</button>
           </div>
         </form>
@@ -59,10 +59,18 @@
     </header>
     <section class="post">
       <div class="container post__container">
-
+        <!-- <div class="post__wrapper">
+          <form class="post__form">
+            <div class="post__row">
+              <input type="text" class="post__input" placeholder="Напишите название записи">
+            </div>
+            <div class="post__row">
+              <input type="text" class="post__cat" placeholder="Напишите название категории">
+            </div>
+            </form>
+          </div> -->
         <h1 class="post__title">Название записи</h1>
-        <button class="post__btn" onclick="logHtmlContent ()">Создать</button>
-        <button class="post__btn">Удалить</button>
+        <!-- <button  class="post__btn" onclick="addNewFile ()">Добавить</button> -->
         <div class="post__editor" style="height: 70vh" id="editor">
           
         </div>
@@ -83,6 +91,7 @@
   </div>
 
 
+  <script src="../js/jquery.min.js"></script>
   <script src="../js/logic.js"></script>
   <script src="../js/quill.js"></script>
 
@@ -112,24 +121,63 @@
       placeholder: 'Начните что-нибудь писать ...',
       theme: 'snow'
     });
-
-    let test = document.querySelector('.post__test');
-    let edit = document.querySelector('.ql-editor');
-    function logHtmlContent() {
-      let text = '';
-      // var delta = quill.getContents();
-      // text = quill.root.innerHTML;
-      text = edit.innerHTML
-      edit.innerHTML = text
-      alert(edit.innerHTML)
-      // let str = text.toString()
-      // console.log(text);
-      // quill.root.innerHTML = str
-      // test.innerHTML = text
-      
-    };
   </script>
+
+ <script>
+ //рабочий скрипт
+let addBtn = document.querySelector('.modal__btn');
+addBtn.addEventListener('click',function(e){
+  e.preventDefault();
+    let text =  quill.root.innerHTML;
+    // let text = 'tested'
+    let title = document.querySelector('.modal__name').value;
+    let cat = document.querySelector('.modal__cat').value;
+    let obj = {
+      'title': `${title}`,
+      'text': `${text}`,
+      'cat_id': `${cat}`
+    }
+    $.ajax({
+      url:'foo.php',
+      type: "POST",
+      data: obj,
+      success: function(data)
+        {
+           alert(`Готово` );
+           window.location.href = "./post.php";
+        }
+});
+})
+ </script>
+<script>
+  let modalOverlay = document.querySelector('.modal__overlay');
+  let topBtn = document.querySelector('.header__btn--action');
+  let modalPanel = document.querySelector('.modal__window');
+  topBtn.addEventListener('click', function (e) {
+  e.preventDefault();
+  modalOverlay.classList.toggle('modal__overlay--active');
+  modalPanel.classList.toggle('modal__window--active');
+});
+modalOverlay.addEventListener('click', function () {
+  modalOverlay.classList.remove('modal__overlay--active');
+  modalPanel.classList.remove('modal__window--active');
+});
+</script>
 
 </body>
 
 </html>
+
+<!-- // let edit = document.querySelector('.ql-editor');
+    // function logHtmlContent() {
+    //   let text = '';
+    //   // var delta = quill.getContents();
+    //   // text = quill.root.innerHTML;
+    //   text = edit.innerHTML
+    //   edit.innerHTML = text
+    //   alert(edit.innerHTML)
+    //   // let str = text.toString()
+    //   // console.log(text);
+    //   // quill.root.innerHTML = str
+    //   // test.innerHTML = text 
+    // }; -->
