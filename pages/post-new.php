@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Post</title>
+  <title>New post</title>
   <link rel="stylesheet" href="../css/style.css">
 </head>
 
@@ -48,10 +48,6 @@
               <p class="modal__title">Категория: </p>
               <input type="number" class="modal__input modal__cat" id="cat">
             </div>
-            <!-- <div class="modal__wrapper">
-              <p class="modal__title">Содержимое: </p>
-              <textarea name="area" class="modal__area"></textarea>
-            </div> -->
             <button class="modal__btn">Добавить</button>
           </form>
           </div>
@@ -59,18 +55,7 @@
     </header>
     <section class="post">
       <div class="container post__container">
-        <!-- <div class="post__wrapper">
-          <form class="post__form">
-            <div class="post__row">
-              <input type="text" class="post__input" placeholder="Напишите название записи">
-            </div>
-            <div class="post__row">
-              <input type="text" class="post__cat" placeholder="Напишите название категории">
-            </div>
-            </form>
-          </div> -->
-        <!-- <h1 class="post__title">Название записи</h1> -->
-        <!-- <button  class="post__btn" onclick="addNewFile ()">Добавить</button> -->
+        <div class="post__btn post__btn--redact">Создание новой записи</div>
         <div class="post__editor" style="height: 70vh" id="editor">
           
         </div>
@@ -157,26 +142,12 @@ addBtn.addEventListener('click',function(e){
   modalOverlay.classList.toggle('modal__overlay--active');
   modalPanel.classList.toggle('modal__window--active');
 });
-modalOverlay.addEventListener('click', function () {
-  modalOverlay.classList.remove('modal__overlay--active');
-  modalPanel.classList.remove('modal__window--active');
-});
+  modalOverlay.addEventListener('click', function () {
+    modalOverlay.classList.remove('modal__overlay--active');
+    modalPanel.classList.remove('modal__window--active');
+  });
 </script>
 
 </body>
 
 </html>
-
-<!-- // let edit = document.querySelector('.ql-editor');
-    // function logHtmlContent() {
-    //   let text = '';
-    //   // var delta = quill.getContents();
-    //   // text = quill.root.innerHTML;
-    //   text = edit.innerHTML
-    //   edit.innerHTML = text
-    //   alert(edit.innerHTML)
-    //   // let str = text.toString()
-    //   // console.log(text);
-    //   // quill.root.innerHTML = str
-    //   // test.innerHTML = text 
-    // }; -->

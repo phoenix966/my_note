@@ -48,8 +48,8 @@
     background: #f8f8f8
     cursor: pointer
     &--round
-      width: 70px
-      height: 70px
+      width: 80px
+      height: 80px
       border-radius: 50%
       padding: 7px
       border: none
@@ -59,6 +59,10 @@
       -webkit-box-shadow: -7px 16px 15px -18px rgba(0,0,0,0.21)
       -moz-box-shadow: -7px 16px 15px -18px rgba(0,0,0,0.21)
       box-shadow: -7px 16px 15px -18px rgba(0,0,0,0.21)
+      &:disabled
+        background: #ebebeb
+        color: #7a7a7a
+        cursor: not-allowed
   &__input
     width: 90%
     height: 100%

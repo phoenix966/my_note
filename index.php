@@ -63,8 +63,8 @@
                 AND $item_text = mysqli_fetch_assoc($text) AND $item_cat_id = mysqli_fetch_assoc($cat_id)){
                   echo '<li class="blog__post">'.'<div class="blog__head"><div class="blog__pin">' . '</div>' 
                   . '<h2 class="blog__category">' . $item_title['title'] . '</h2>
-                  </div><div class="blog__info"><div class="blog__sticky">'. $item_id['id']  .'</div><div class="blog__text">' . $item_text['text'] . '</div></div>' .
-                  '<div class="blog__wrap"><button class="blog__btn">Del</button><button class="blog__btn">Red</button></div></li>';
+                  </div><div class="blog__info"><div class="blog__sticky">' . '</div><div class="blog__text">' . $item_text['text'] . '</div></div>' .
+                  '<div class="blog__wrap"><button class="blog__btn blog__btn--delete" value="'. $item_id['id'] .'" >Delete</button><button value="'. $item_id['id'] .'" class="blog__btn blog__btn--redact">Open</button></div></li>';
                 }
             }
           ?>
@@ -145,11 +145,11 @@
 </script>
 <script>
 
-  const lists = document.querySelectorAll('.blog__sticky');
+  const lists = document.querySelectorAll('.blog__btn--redact');
   lists.forEach((list) => {
     list.addEventListener('click',function() {
-      let value = this.innerText;
-      console.log(value);
+      let value = this.value;
+      // console.log(value);
       $.ajax({
         url: './pages/link.php',
         type: 'POST',
@@ -158,13 +158,33 @@
         },
         success: function(data)
         {
-           alert(`Готово` );
-          window.location.href = "./pages/post-redact.php";
+          //  alert(`Готово` );
+          window.location.href = "./pages/post-read.php";
         }
       })
     })
-})
-  
+}) 
+</script>
+<script>
+  const removeBtn = document.querySelectorAll('.blog__btn--delete');
+  removeBtn.forEach((removeBtn)=>{
+    removeBtn.addEventListener('click',function(){
+      let value = this.value;
+      // console.log(value);
+      $.ajax({
+        url:'./pages/delete.php',
+        type: 'GET',
+        data:{
+          'removeKey': value
+        },
+        success: function(data){
+          window.location.href = "./index.php";
+          
+        }
+      });
+
+    })
+  });
 </script>
 </body>
 </html>
