@@ -105,12 +105,44 @@
         <div class="post__test"></div>
       </div>
       <div class="blog__overlay"></div>
-      <div class="blog__sidebar post__sidebar">
+      <!-- <div class="blog__sidebar post__sidebar">
         <ul class="blog__note">
           <li class="blog__item">Loren</li>
           <li class="blog__item">Loren</li>
           <li class="blog__item">Loren</li>
         </ul>
+      </div> -->
+      <div class="blog__sidebar">
+        <form>
+          <div class="blog__row">
+            <input class="blog__input" type="text" >
+            <button class="blog__btn">Поиск</button>
+          </div>
+        </form>
+      <?php
+            $result = mysqli_query($connection, "SELECT * FROM `articles_categories` " );
+            if( mysqli_num_rows($result) == 0){
+              echo 'Категорий не найдено!';
+            } else{
+            ?>
+              <ul class="blog__note">
+                <?php
+                  while(($cat = mysqli_fetch_assoc($result)) ){
+                    // print_r ($cat);
+                    $articles_count = mysqli_query($connection, "SELECT COUNT(`id`) AS `total_count` FROM `articles`
+                    WHERE `categorie_id` = " . $cat['id']);
+                    $articles_count_result = mysqli_fetch_assoc($articles_count);
+                    echo '<li class="blog__item">'.
+                          '<span class="blog__cat" id="'. $cat['id'] .'">'
+                             . $cat['categorie_title'] . '[' . $articles_count_result['total_count'] .']'.
+                          '</span>' .
+                          '<div class="blog__id"> </div>' . 
+                        '</li>';
+                  }
+                }
+                mysqli_close($connection);
+                  ?>
+                </ul>
       </div>
     </section>
     <footer class="footer">
@@ -199,33 +231,6 @@
 
 </script>
 
- <!-- <script>
- //рабочий скрипт
-let addBtn = document.querySelector('.modal__btn');
-addBtn.addEventListener('click',function(e){
-  e.preventDefault();
-  let value = addBtn.value;
-  let text =  quill.root.innerHTML;
-  let title = document.querySelector('.modal__name').value;
-  let cat = document.querySelector('.modal__cat').value;
-  let obj = {
-      updateKey: value,
-      'text': `${text}`,
-      'title': `${title}`,
-      'cat': `${cat}`,
-    }
-    $.ajax({
-      url:'./update.php',
-      type: "POST",
-      data: obj,
-      success: function(data)
-        {
-           alert(`Готово` );
-          window.location.href = "./post-editor.php";
-        }
-});
-})
- </script> -->
 <script>
   let modalOverlay = document.querySelector('.modal__overlay');
   let topBtn = document.querySelector('.header__btn--action');
@@ -247,6 +252,25 @@ modalOverlay.addEventListener('click', function () {
     window.location.href = "./post-read.php";
   });
 
+</script>
+<script>
+  let buttonsCatSort = document.querySelectorAll('.blog__cat');
+  let blog_ids = document.querySelectorAll('.blog__id');
+  buttonsCatSort.forEach((cat)=>{
+    cat.addEventListener('click',function(e){
+      let tempId = this.id;
+      $.ajax({
+        url:'./sort-cat.php',
+        type:'GET',
+        data:{
+          'tempId':`${tempId}`
+        },success: function(data){
+          window.location.href = "./sort.php";
+        }
+      });
+
+    })
+  });
 </script>
 
 </body>

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Main</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
@@ -31,7 +31,7 @@
             </button>
           </div>
           <div class="header__logo">
-            <a href="./index.php"><img src="./img/logo.png" alt="logo" class="header__img"></a>
+            <a href="../index.php"><img src="../img/logo.png" alt="logo" class="header__img"></a>
           </div>
           <form>
         </div>
@@ -52,7 +52,10 @@
         <div class="container blog__container">
         <ul class="blog__list">
         <?php
-          $articles = mysqli_query($connection, "SELECT * FROM `articles`" );
+          $temp = mysqli_query($connection,"SELECT * FROM `temp_cat_id`");
+          $temp_cat_id = mysqli_fetch_assoc($temp);
+          $cat_id = $temp_cat_id['id'];
+          $articles = mysqli_query($connection, "SELECT * FROM `articles` WHERE `categorie_id` = '$cat_id' " );
           if( mysqli_num_rows($articles) == 0){
             echo 'Записей не найдено!';
           } else{
@@ -125,11 +128,6 @@
                 mysqli_close($connection);
                   ?>
                 </ul>
-        <!-- <ul class="blog__note">
-          <li class="blog__item">Loren</li>
-          <li class="blog__item">Loren</li>
-          <li class="blog__item">Loren</li>
-        </ul> -->
       </div>
     </section>
     <footer class="footer">
@@ -137,13 +135,13 @@
     </footer>
   </div>
 
-<script src="./js/logic.js"></script>
-<script src="./js/jquery.min.js"></script>
+<script src="../js/logic.js"></script>
+<script src="../js/jquery.min.js"></script>
 <script>
   let btn = document.querySelector('.header__btn--new');
   btn.addEventListener('click',function(e){
     e.preventDefault();
-    window.location.href = "./pages/post-new.php";
+    window.location.href = "./post-new.php";
   })
 </script>
 <script>
@@ -154,7 +152,7 @@
       let value = this.value;
       // console.log(value);
       $.ajax({
-        url: './pages/link.php',
+        url: './link.php',
         type: 'POST',
         data:{
           'temp_id': value
@@ -162,7 +160,7 @@
         success: function(data)
         {
           //  alert(`Готово` );
-          window.location.href = "./pages/post-read.php";
+          window.location.href = "./post-read.php";
         }
       })
     })
@@ -175,13 +173,13 @@
       let value = this.value;
       // console.log(value);
       $.ajax({
-        url:'./pages/delete.php',
+        url:'./delete.php',
         type: 'GET',
         data:{
           'removeKey': value
         },
         success: function(data){
-          window.location.href = "./index.php";
+          window.location.href = "../index.php";
           
         }
       });
@@ -195,14 +193,13 @@
   buttonsCatSort.forEach((cat)=>{
     cat.addEventListener('click',function(e){
       let tempId = this.id;
-      console.log(tempId);
       $.ajax({
-        url:'./pages/sort-cat.php',
+        url:'./sort-cat.php',
         type:'GET',
         data:{
           'tempId':`${tempId}`
         },success: function(data){
-          window.location.href = "./pages/sort.php";
+          window.location.href = "./sort.php";
         }
       });
 

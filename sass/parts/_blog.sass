@@ -26,6 +26,7 @@
     left: 0
     width: 70%
     height: 600px
+    overflow-y: scroll
     background: var(--color-btn)
     border-top-right-radius: 15px
     border-bottom-right-radius: 15px
@@ -62,8 +63,8 @@
     margin: 0 10px
     margin-bottom: 80px
     +media(598px)
-      flex: 0 1 43%
-    +media(728px)
+      flex: 1 1 43%
+    +media(928px)
       flex: 0 1 23%
   &__head
     position: absolute
@@ -122,7 +123,61 @@
     border: none
   &__link
     text-decoration: none
-img
-  width: 100%
-  height: 100%
-  text-align: center
+  &__row
+    margin-top: 10px
+    position: relative
+    height: 30px
+    display: flex
+    justify-content: center
+    margin-bottom: 60px
+    &::before
+      position: absolute
+      content: ''
+      bottom: -25px
+      left: 0
+      right: 0
+      height: 2px
+      margin: 0 auto
+      border-radius: 10px
+      background: var(--color-border)
+      width: 60%
+    &::after
+      position: absolute
+      content: ''
+      top: 35px
+      left: 0
+      right: 0
+      height: 2px
+      margin: 0 auto
+      border-radius: 10px
+      background: var(--color-border)
+      width: 80%
+  &__input
+    border: none
+    color: #555
+    border-top-left-radius: 5px
+    border-bottom-left-radius: 5px
+    padding-right: 5px
+    width: 70%
+  &__btn
+    color: var(--color-second)
+    border: none
+    border-top-right-radius: 5px
+    border-bottom-right-radius: 5px
+    font-family: var(--font-bold)
+    font-size: 12px
+    margin-left: 3px
+    padding: 5px
+  &__cat
+    cursor: pointer
+    color: #555
+    margin: 5px 0
+    &:hover
+      color: var(--color-second)
+  &__id
+    font-size: 12px
+  & img
+    width: 100%
+    height: 100%
+    object-fit: cover
+    text-align: center
