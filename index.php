@@ -51,28 +51,20 @@
       <div class="blog__posts">
         <div class="container blog__container">
         <ul class="blog__list">
-          <?php
-            $title = mysqli_query($connection, "SELECT `title` FROM `articles`" );
-            $text = mysqli_query($connection, "SELECT `text` FROM `articles`" );
-            $id = mysqli_query($connection, "SELECT `id` FROM `articles`" );
-            $cat_id = mysqli_query($connection, "SELECT `categorie_id` FROM `articles`" );
-            if( mysqli_num_rows($id) == 0){
-              echo 'Записей не найдено!';
-            } else{
-                while($item_id = mysqli_fetch_assoc($id) AND $item_title = mysqli_fetch_assoc($title) 
-                AND $item_text = mysqli_fetch_assoc($text) AND $item_cat_id = mysqli_fetch_assoc($cat_id)){
-                  echo '<li class="blog__post">'.'<div class="blog__head"><div class="blog__pin">' . '</div>' 
-                  . '<h2 class="blog__category">' . $item_title['title'] . '</h2>
-                  </div><div class="blog__info"><div class="blog__sticky">' . '</div><div class="blog__text">' . $item_text['text'] . '</div></div>' .
-                  '<div class="blog__wrap"><button class="blog__btn blog__btn--delete" value="'. $item_id['id'] .'" >Delete</button><button value="'. $item_id['id'] .'" class="blog__btn blog__btn--redact">Open</button></div></li>';
-                }
-            }
+        <?php
+          $articles = mysqli_query($connection, "SELECT * FROM `articles`" );
+          if( mysqli_num_rows($articles) == 0){
+            echo 'Записей не найдено!';
+          } else{
+              while($item = mysqli_fetch_assoc($articles)){
+                echo '<li class="blog__post">'.'<div class="blog__head"><div class="blog__pin">' . '</div>' 
+                      . '<h2 class="blog__category">' . $item['title'] . '</h2>
+                      </div><div class="blog__info"><div class="blog__sticky">' . '</div><div class="blog__text">' . $item['text'] . '</div></div>' .
+                      '<div class="blog__wrap"><button class="blog__btn blog__btn--delete" value="'. $item['id'] .'" >Delete</button><button value="'. $item['id'] .'" class="blog__btn blog__btn--redact">Open</button></div></li>';
+              }
+          }
           ?>
         </ul>
-            
-
-
-
           <!-- <ul class="blog__list">
             <li class="blog__post"> 
               <div class="blog__head">
@@ -112,7 +104,7 @@
               <ul class="blog__note">
                 <?php
                   while(($cat = mysqli_fetch_assoc($result)) ){
-                    print_r ($cat);
+                    // print_r ($cat);
                     $articles_count = mysqli_query($connection, "SELECT COUNT(`id`) AS `total_count` FROM `articles`
                     WHERE `categorie_id` = " . $cat['id']);
                     $articles_count_result = mysqli_fetch_assoc($articles_count);

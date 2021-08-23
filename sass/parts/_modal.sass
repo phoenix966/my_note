@@ -67,3 +67,37 @@
     margin-top: 5px
     padding: 10px
     cursor: pointer
+    &--show
+      padding: 0 5px
+      border-radius: 5px
+      font-size: 22px
+      margin: 0 10px
+    &--create
+      margin: 0 10px
+  &__row
+    height: 30px
+    display: flex
+    align-items: center
+    justify-content: flex-start
+    margin-bottom: 20px
+  &__bar
+    opacity: 0
+    overflow: hidden
+    visibility: hidden
+    transition: 0.6s
+    &--active
+      visibility: visible
+      opacity: 100%
+      overflow: visible
+  &__select
+    border: none
+    border-radius: 5px
+    height: 24px
+    padding: 2px
+    color: #666666
+  &__new-category
+    border: none
+    border-radius: 5px
+    padding: 2px
+    height: 26px
+    color: #666666

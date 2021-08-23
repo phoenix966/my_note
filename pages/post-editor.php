@@ -55,28 +55,47 @@
       </div>
       <div class="modal">
         <div class="modal__overlay"></div>
-        <form>
+        <form class="modal__form">
           <div class="modal__window">
             <div class="modal__wrapper">
               <p class="modal__title">Название: </p>
-              <input type="text" class="modal__input modal__name" id="title" value="<?php echo $info['title']; ?>">
+              <input type="text" class="modal__input modal__name" name="title" value="<?php echo $info['title']; ?>">
             </div>
             <div class="modal__wrapper">
               <p class="modal__title">Категория: </p>
-              <input type="text" class="modal__input modal__cat" id="cat" value="<?php echo $info['categorie_id']; ?>">
+              <div class="modal__row">
+                <select name="catSelect" class="modal__select">
+                <?php
+                    $temp_cat = mysqli_query($connection," SELECT * FROM `articles_categories` ");
+                    // $cat = mysqli_fetch_assoc($temp_cat);
+                    // print_r($cat);
+                    $selected_cat_id = $info['categorie_id'];
+                    while(($cat = mysqli_fetch_assoc($temp_cat)) ){
+                      if($cat['id'] == $selected_cat_id){
+                        echo '<option selected="true" value="'. $cat['id'] .'">' . $cat['categorie_title'] . '</option>';
+                        continue;
+                      }
+                        echo '<option value="'. $cat['id'] .'">' . $cat['categorie_title'] . '</option>';
+                    }
+                  ?>
+              </select>
+              <button class="modal__btn modal__btn--show">+</button>
+                <div class="modal__bar">
+                  <input type="text" class="modal__new-category" name="newCat" placeholder="Новая категория...">
+                </div>
+              </div>
+              
             </div>
-            <!-- <div class="modal__wrapper">
-              <p class="modal__title">Содержимое: </p>
-              <textarea name="area" class="modal__area"></textarea>
-            </div> -->
-            <button class="modal__btn" value="<?php echo  $value?>">Изменить</button>
+            <button value="<?php echo $value; ?>" type="submit" class="modal__btn modal__btn--add">Добавить</button>
+          </form>
           </div>
-        </form>
       </div>
     </header>
     <section class="post">
       <div class="container post__container">
         <h1 class="post__title"> <?php echo $info['title']; ?> </h1>
+        
+        <!-- <p class="post__title"><?php echo $info['categorie_id'] ?></p> -->
 
         <button class="post__btn post__btn--redact">Включен режим редактирования<div class="post__btn-dot post__btn-dot--unlock"></div></button>
 
@@ -134,8 +153,53 @@
 
 
   </script>
+  <script>
+    let showNewCat = document.querySelector('.modal__btn--show');
+    let bar = document.querySelector('.modal__bar');
+    let select = document.querySelector('.modal__select');
+    let isNewCatActive = false;
+    showNewCat.addEventListener('click',(e)=>{
+      e.preventDefault();
+      bar.classList.toggle('modal__bar--active');
+      isNewCatActive ? isNewCatActive = false : isNewCatActive = true;
+      isNewCatActive ? select.disabled = true : select.disabled = false;
+    });
 
- <script>
+  </script>
+  <script>  
+  let addBtn = document.querySelector('.modal__btn--add');
+  document.querySelector('.modal__form').addEventListener('submit',(e)=>{
+    e.preventDefault();
+    const form = document.querySelector('.modal__form');
+    // form.elements.newCat.value = form.elements.catSelect.value;
+    let value = addBtn.value;
+    let obj = {
+      updateKey: value,
+      'title': `${form.elements.title.value}`,
+      'text': `${quill.root.innerHTML}`,
+    }
+    if(!isNewCatActive){
+      obj.cat_id = `${form.elements.catSelect.value}`;
+    }else{
+      obj.new_cat = `${form.elements.newCat.value}`;
+    }
+    
+    console.log(obj);
+    $.ajax({
+      url:'update.php',
+      type: "POST",
+      data: obj,
+      success: function(data)
+        {
+           alert(`Готово` );
+          window.location.href = "../index.php";
+        }
+});
+  });
+
+</script>
+
+ <!-- <script>
  //рабочий скрипт
 let addBtn = document.querySelector('.modal__btn');
 addBtn.addEventListener('click',function(e){
@@ -161,7 +225,7 @@ addBtn.addEventListener('click',function(e){
         }
 });
 })
- </script>
+ </script> -->
 <script>
   let modalOverlay = document.querySelector('.modal__overlay');
   let topBtn = document.querySelector('.header__btn--action');

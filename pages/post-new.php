@@ -10,6 +10,15 @@
 </head>
 
 <body>
+<?php
+    $connection = mysqli_connect('localhost:8889','root','root','note_db');
+
+    if($connection == false){
+      echo 'не удалось подключится к базе данных!<br>';
+      echo mysqli_connect_error();
+      exit();
+    }
+  ?>
   <div class="wrapper">
     <header class="header">
       <div class="container header__container">
@@ -38,17 +47,33 @@
       </div>
       <div class="modal">
         <div class="modal__overlay"></div>
-        <form>
+        <form class="modal__form">
           <div class="modal__window">
             <div class="modal__wrapper">
               <p class="modal__title">Название: </p>
-              <input type="text" class="modal__input modal__name" id="title">
+              <input type="text" class="modal__input modal__name" name="title">
             </div>
             <div class="modal__wrapper">
               <p class="modal__title">Категория: </p>
-              <input type="number" class="modal__input modal__cat" id="cat">
+              <div class="modal__row">
+                <select name="catSelect" class="modal__select">
+                <?php
+                    $temp_cat = mysqli_query($connection," SELECT * FROM `articles_categories` ");
+                    // $cat = mysqli_fetch_assoc($temp_cat);
+                    // print_r($cat); 
+                    while(($cat = mysqli_fetch_assoc($temp_cat)) ){
+                      echo '<option value="'. $cat['id'] .'">' . $cat['categorie_title'] . '</option>';
+                    }
+                  ?>
+              </select>
+              <button class="modal__btn modal__btn--show">+</button>
+                <div class="modal__bar">
+                  <input type="text" class="modal__new-category" name="newCat" placeholder="Новая категория...">
+                </div>
+              </div>
+              
             </div>
-            <button class="modal__btn">Добавить</button>
+            <button type="submit" class="modal__btn">Добавить</button>
           </form>
           </div>
       </div>
@@ -81,7 +106,6 @@
   <script src="../js/quill.js"></script>
 
   <script>
-
     let toolbarOptions = [
       [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
       [{ 'font': [] }],
@@ -92,10 +116,8 @@
       // [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
       [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
       [{ 'direction': 'rtl' }],                         // text direction
-
       [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
       [{ 'align': [] }],
-
       ['clean']                                         // remove formatting button
     ];
 
@@ -107,20 +129,35 @@
       theme: 'snow'
     });
   </script>
+  <script>
+    let showNewCat = document.querySelector('.modal__btn--show');
+    let bar = document.querySelector('.modal__bar');
+    let select = document.querySelector('.modal__select');
+    let isNewCatActive = false;
+    showNewCat.addEventListener('click',(e)=>{
+      e.preventDefault();
+      bar.classList.toggle('modal__bar--active');
+      isNewCatActive ? isNewCatActive = false : isNewCatActive = true;
+      isNewCatActive ? select.disabled = true : select.disabled = false;
+    });
 
- <script>
- //рабочий скрипт
-let addBtn = document.querySelector('.modal__btn');
-addBtn.addEventListener('click',function(e){
-  e.preventDefault();
-    let text =  quill.root.innerHTML;
-    let title = document.querySelector('.modal__name').value;
-    let cat = document.querySelector('.modal__cat').value;
+  </script>
+<script>  
+  document.querySelector('.modal__form').addEventListener('submit',(e)=>{
+    e.preventDefault();
+    const form = document.querySelector('.modal__form');
+    // form.elements.newCat.value = form.elements.catSelect.value;
     let obj = {
-      'title': `${title}`,
-      'text': `${text}`,
-      'cat_id': `${cat}`
+      'title': `${form.elements.title.value}`,
+      'text': `${quill.root.innerHTML}`,
     }
+    if(!isNewCatActive){
+      obj.cat_id = `${form.elements.catSelect.value}`;
+    }else{
+      obj.new_cat = `${form.elements.newCat.value}`;
+    }
+    
+    // console.log(obj);
     $.ajax({
       url:'foo.php',
       type: "POST",
@@ -131,8 +168,10 @@ addBtn.addEventListener('click',function(e){
           window.location.href = "../index.php";
         }
 });
-})
- </script>
+  });
+
+</script>
+
 <script>
   let modalOverlay = document.querySelector('.modal__overlay');
   let topBtn = document.querySelector('.header__btn--action');
