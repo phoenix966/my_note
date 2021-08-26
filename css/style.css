@@ -320,6 +320,24 @@ hr {
     padding: 20px 0 0 0;
   }
 }
+.blog__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 5px;
+  margin: 10px 0;
+}
+.blog__del {
+  border: none;
+  background: transparent;
+  color: #bfbfbf;
+  font-family: var(--font-bold);
+}
+.blog__del:hover {
+  color: #fc0013;
+  cursor: pointer;
+}
 .blog__overlay {
   position: absolute;
   top: -200px;
@@ -517,9 +535,6 @@ hr {
 }
 .blog__cat:hover {
   color: var(--color-second);
-}
-.blog__id {
-  font-size: 12px;
 }
 .blog img {
   width: 100%;

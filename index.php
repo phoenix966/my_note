@@ -118,7 +118,7 @@
                           '<span class="blog__cat" id="'. $cat['id'] .'">'
                              . $cat['categorie_title'] . '[' . $articles_count_result['total_count'] .']'.
                           '</span>' .
-                          '<div class="blog__id"> </div>' . 
+                          '<button value="'. $cat['id'] .'" class="blog__del">[X]</button>' . 
                         '</li>';
                   }
                 }
@@ -208,6 +208,26 @@
 
     })
   });
+</script>
+<script>
+  let catRemover = document.querySelectorAll('.blog__del');
+  catRemover.forEach(function(item){
+    item.addEventListener('click',function(e){
+      e.preventDefault();
+      let value = e.target.value;
+      $.ajax({
+        url:'./pages/categorie-remover.php',
+        type:'GET',
+        data:{
+          id: `${value}`,
+        },success: ()=>{
+          alert('ok');
+          window.location.href = "./index.php";
+        }
+      });
+    })
+  });
+
 </script>
 </body>
 </html>
