@@ -86,7 +86,7 @@
               </div>
               
             </div>
-            <button value="<?php echo $value; ?>" type="submit" class="modal__btn modal__btn--add">Добавить</button>
+            <button value="<?php echo $value; ?>" type="submit" class="modal__btn modal__btn--add">Изменить</button>
           </form>
           </div>
       </div>
@@ -112,7 +112,7 @@
           <li class="blog__item">Loren</li>
         </ul>
       </div> -->
-      <div class="blog__sidebar">
+      <div class="blog__sidebar blog__sidebar--mix">
         <form>
           <div class="blog__row">
             <input class="blog__input" type="text" >
@@ -203,12 +203,22 @@
   document.querySelector('.modal__form').addEventListener('submit',(e)=>{
     e.preventDefault();
     const form = document.querySelector('.modal__form');
-    // form.elements.newCat.value = form.elements.catSelect.value;
+    let textTemp = quill.root.innerHTML;
+    let textArray = textTemp.split('');
+    let text = '';
+    for(let value of textArray){
+      if(value == "'"){
+        value = '"';
+        text += value;
+      } else{
+        text += value;
+      }
+    }
     let value = addBtn.value;
     let obj = {
       updateKey: value,
       'title': `${form.elements.title.value}`,
-      'text': `${quill.root.innerHTML}`,
+      'text': `${text}`,
     }
     if(!isNewCatActive){
       obj.cat_id = `${form.elements.catSelect.value}`;

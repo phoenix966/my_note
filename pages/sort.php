@@ -63,37 +63,12 @@
                 echo '<li class="blog__post">'.'<div class="blog__head"><div class="blog__pin">' . '</div>' 
                       . '<h2 class="blog__category">' . $item['title'] . '</h2>
                       </div><div class="blog__info"><div class="blog__sticky">' . '</div><div class="blog__text">' . $item['text'] . '</div></div>' .
-                      '<div class="blog__wrap"><button class="blog__btn blog__btn--delete" value="'. $item['id'] .'" >Delete</button><button value="'. $item['id'] .'" class="blog__btn blog__btn--redact">Open</button></div></li>';
+                      '<div class="blog__wrap"><button class="blog__btn blog__btn--delete" value="'. $item['id'] .'" ><span class="icon-bin"></span></button><button value="'. $item['id'] .'" class="blog__btn blog__btn--redact"><span class="icon-pencil"></span></button></div></li>';
               }
           }
           ?>
         </ul>
-          <!-- <ul class="blog__list">
-            <li class="blog__post"> 
-              <div class="blog__head">
-                <div class="blog__pin">id</div>
-                <a class="blog__link" href="./pages/post-redact.php"><h2 class="blog__category">Переход</h2></a>
-              </div>
-              <div class="blog__info">
-                <div class="blog__sticky"></div>
-                <p class="blog__text">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates quidem deleniti dicta vel, animi
-                  suscipit id omnis hic ullam similique reprehenderit recusandae itaque? Nihil adipisci, iusto
-                  consequuntur accusantium expedita tempore placeat molestias reprehenderit eum quis facilis odit
-                  similique animi omnis. Eveniet quas, commodi quisquam placeat necessitatibus itaque suscipit ipsum
-                  expedita impedit laboriosam, iusto accusamus? Autem, ipsum explicabo numquam ut aperiam nam a culpa,
-                  error reprehenderit quo hic. Molestias, molestiae nisi nihil commodi enim porro quo deleniti harum?
-                  Reiciendis suscipit rem nostrum in sed tempore quia dolore voluptate atque voluptatibus? Tempora
-                  asperiores aliquam quae sunt dicta aliquid voluptates nam nesciunt architecto.
-                </p>
-              </div>
-              <div class="blog__wrap">
-                <button class="blog__btn">Del</button>
-                <button class="blog__btn">Red</button>
-              </div>
-            </li> -->
-           
-          </ul>
+          
         </div>
       </div>
       <div class="blog__overlay"></div>

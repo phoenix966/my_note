@@ -20,6 +20,7 @@
     &:hover
       color: #fc0013
       cursor: pointer
+
   &__overlay
     position: absolute
     top: -200px
@@ -52,6 +53,8 @@
     transform: translateX(-98%)
     +media(928px)
       width: 35%
+    &--mix
+      top: 80px
     &--active
       transform: translateX(0)
       z-index: 3
@@ -95,8 +98,8 @@
     // background: red
   &__category
     font-family: var(--font-bold)
-    font-size: 16px
-    padding: 2px
+    font-size: 14px
+    padding: 4px
     text-align: center
     height: 28px
     overflow: hidden
@@ -144,7 +147,7 @@
     height: 30px
     display: flex
     justify-content: center
-    margin-bottom: 60px
+    margin-bottom: 40px
     &::before
       position: absolute
       content: ''
@@ -174,6 +177,19 @@
     border-bottom-left-radius: 5px
     padding-right: 5px
     width: 70%
+  &__search
+    &-bar
+      list-style-type: none
+      border-bottom: 1px solid #bfbfbf
+      padding: 15px 0
+      text-align: center
+    &_btn
+      border: none
+      width: 90%
+      height: 30px
+      margin: 0 auto
+      border-radius: 5px
+      cursor: pointer
   &__btn
     color: var(--color-second)
     border: none

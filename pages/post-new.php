@@ -94,7 +94,7 @@
           <li class="blog__item">Loren</li>
         </ul>
       </div> -->
-      <div class="blog__sidebar">
+      <div class="blog__sidebar blog__sidebar--mix">
         <form>
           <div class="blog__row">
             <input class="blog__input" type="text" >
@@ -179,24 +179,34 @@
     e.preventDefault();
     const form = document.querySelector('.modal__form');
     // form.elements.newCat.value = form.elements.catSelect.value;
+    let textTemp = quill.root.innerHTML;
+    let textArray = textTemp.split('');
+    let text = '';
+    for(let value of textArray){
+      if(value == "'"){
+        value = '"';
+        text += value;
+      } else{
+        text += value;
+      }
+    }
+    let title = form.elements.title.value;
     let obj = {
-      'title': `${form.elements.title.value}`,
-      'text': `${quill.root.innerHTML}`,
+      'title': `${title}`,
+      'text': `${text}`,
     }
     if(!isNewCatActive){
       obj.cat_id = `${form.elements.catSelect.value}`;
     }else{
       obj.new_cat = `${form.elements.newCat.value}`;
     }
-    
-    // console.log(obj);
     $.ajax({
-      url:'foo.php',
+      url:'./foo.php',
       type: "POST",
       data: obj,
       success: function(data)
         {
-           alert(`Готово` );
+           // alert(`Готово` );
           window.location.href = "../index.php";
         }
 });

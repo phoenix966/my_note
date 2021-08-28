@@ -41,6 +41,36 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: "icomoon";
+  src: url("../fonts/icomoon/icomoon.eot?lj1nue");
+  src: url("../fonts/icomoon/icomoon.eot?lj1nue#iefix") format("embedded-opentype"), url("../fonts/icomoon/icomoon.ttf?lj1nue") format("truetype"), url("../fonts/icomoon/icomoon.woff?lj1nue") format("woff"), url("../fonts/icomoon/icomoon.svg?lj1nue#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+[class^=icon-], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "icomoon" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-pencil:before, .icon-write:before, .icon-edit:before {
+  content: "";
+}
+
+.icon-bin:before, .icon-trashcan:before, .icon-remove:before, .icon-delete:before, .icon-recycle:before, .icon-dispose:before {
+  content: "";
+}
+
 :root {
   --font-regular: "Roboto-regular",sans-serif;
   --font-bold: "Roboto-bold",sans-serif;
@@ -375,6 +405,9 @@ hr {
     width: 35%;
   }
 }
+.blog__sidebar--mix {
+  top: 80px;
+}
 .blog__sidebar--active {
   transform: translateX(0);
   z-index: 3;
@@ -429,8 +462,8 @@ hr {
 }
 .blog__category {
   font-family: var(--font-bold);
-  font-size: 16px;
-  padding: 2px;
+  font-size: 14px;
+  padding: 4px;
   text-align: center;
   height: 28px;
   overflow: hidden;
@@ -484,7 +517,7 @@ hr {
   height: 30px;
   display: flex;
   justify-content: center;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 }
 .blog__row::before {
   position: absolute;
@@ -517,6 +550,20 @@ hr {
   border-bottom-left-radius: 5px;
   padding-right: 5px;
   width: 70%;
+}
+.blog__search-bar {
+  list-style-type: none;
+  border-bottom: 1px solid #bfbfbf;
+  padding: 15px 0;
+  text-align: center;
+}
+.blog__search_btn {
+  border: none;
+  width: 90%;
+  height: 30px;
+  margin: 0 auto;
+  border-radius: 5px;
+  cursor: pointer;
 }
 .blog__btn {
   color: var(--color-second);

@@ -60,47 +60,45 @@
                 echo '<li class="blog__post">'.'<div class="blog__head"><div class="blog__pin">' . '</div>' 
                       . '<h2 class="blog__category">' . $item['title'] . '</h2>
                       </div><div class="blog__info"><div class="blog__sticky">' . '</div><div class="blog__text">' . $item['text'] . '</div></div>' .
-                      '<div class="blog__wrap"><button class="blog__btn blog__btn--delete" value="'. $item['id'] .'" >Delete</button><button value="'. $item['id'] .'" class="blog__btn blog__btn--redact">Open</button></div></li>';
+                      '<div class="blog__wrap"><button class="blog__btn blog__btn--delete" value="'. $item['id'] .'" ><span class="icon-bin"></span></button><button value="'. $item['id'] .'" class="blog__btn blog__btn--redact"><span class="icon-pencil"></span></button></div></li>';
               }
           }
           ?>
         </ul>
-          <!-- <ul class="blog__list">
-            <li class="blog__post"> 
-              <div class="blog__head">
-                <div class="blog__pin">id</div>
-                <a class="blog__link" href="./pages/post-redact.php"><h2 class="blog__category">Переход</h2></a>
-              </div>
-              <div class="blog__info">
-                <div class="blog__sticky"></div>
-                <p class="blog__text">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates quidem deleniti dicta vel, animi
-                  suscipit id omnis hic ullam similique reprehenderit recusandae itaque? Nihil adipisci, iusto
-                  consequuntur accusantium expedita tempore placeat molestias reprehenderit eum quis facilis odit
-                  similique animi omnis. Eveniet quas, commodi quisquam placeat necessitatibus itaque suscipit ipsum
-                  expedita impedit laboriosam, iusto accusamus? Autem, ipsum explicabo numquam ut aperiam nam a culpa,
-                  error reprehenderit quo hic. Molestias, molestiae nisi nihil commodi enim porro quo deleniti harum?
-                  Reiciendis suscipit rem nostrum in sed tempore quia dolore voluptate atque voluptatibus? Tempora
-                  asperiores aliquam quae sunt dicta aliquid voluptates nam nesciunt architecto.
-                </p>
-              </div>
-              <div class="blog__wrap">
-                <button class="blog__btn">Del</button>
-                <button class="blog__btn">Red</button>
-              </div>
-            </li> -->
-           
-          </ul>
+          
         </div>
       </div>
       <div class="blog__overlay"></div>
       <div class="blog__sidebar">
-        <form>
+        <form class="blog__search" method="POST">
           <div class="blog__row">
-            <input class="blog__input" type="text" >
-            <button class="blog__btn">Поиск</button>
+            <input class="blog__input" type="text" name="cat_search">
+            <button class="blog__btn" type="submit" name="submit">Поиск</button>
           </div>
         </form>
+          <ul class="blog__search-bar">
+            <?php
+                  if(isset($_POST['cat_search'])){
+                    $cat_search = $_POST['cat_search'];
+                    $search_result_temp = mysqli_query($connection,"SELECT * FROM `articles_categories` WHERE `categorie_title` = '$cat_search' ");
+                    $search_result = mysqli_fetch_assoc($search_result_temp);
+                    if(mysqli_num_rows($search_result_temp)== 0){
+                      echo '<li>ничего не найдено</li>';
+                    }else{
+                      // echo $search_result['categorie_title'];
+                      echo '<li class="blog__search-item">
+                              <p>Найденная категория: </p>
+                              <br>
+                              <button value="'. $search_result['id'] .'" class="blog__search_btn">'.$search_result['categorie_title'].'</button></li>';
+               
+                    }
+                    
+                  }else{
+                    echo '';
+                  }
+
+                ?>   
+          </ul>
       <?php
             $result = mysqli_query($connection, "SELECT * FROM `articles_categories` " );
             if( mysqli_num_rows($result) == 0){
@@ -110,26 +108,30 @@
               <ul class="blog__note">
                 <?php
                   while(($cat = mysqli_fetch_assoc($result)) ){
-                    // print_r ($cat);
                     $articles_count = mysqli_query($connection, "SELECT COUNT(`id`) AS `total_count` FROM `articles`
                     WHERE `categorie_id` = " . $cat['id']);
                     $articles_count_result = mysqli_fetch_assoc($articles_count);
-                    echo '<li class="blog__item">'.
+                    $id = $cat['id'];
+                    if($id == 18){
+                      echo '<li class="blog__item">'.
+                              '<span class="blog__cat" id="'. $cat['id'] .'">'
+                                 . $cat['categorie_title'] . '[' . $articles_count_result['total_count'] .']'.
+                              '</span>' .'
+                            </li>';
+                    }else{
+                      echo '<li class="blog__item">'.
                           '<span class="blog__cat" id="'. $cat['id'] .'">'
                              . $cat['categorie_title'] . '[' . $articles_count_result['total_count'] .']'.
                           '</span>' .
-                          '<button value="'. $cat['id'] .'" class="blog__del">[X]</button>' . 
-                        '</li>';
+                          '<button '. $var .' class="blog__del" value="'. $cat['id'] .'"><span class="icon-bin"></span></button> 
+                        </li>';  
+                    }
+                    
                   }
                 }
                 mysqli_close($connection);
                   ?>
                 </ul>
-        <!-- <ul class="blog__note">
-          <li class="blog__item">Loren</li>
-          <li class="blog__item">Loren</li>
-          <li class="blog__item">Loren</li>
-        </ul> -->
       </div>
     </section>
     <footer class="footer">
@@ -152,7 +154,6 @@
   lists.forEach((list) => {
     list.addEventListener('click',function() {
       let value = this.value;
-      // console.log(value);
       $.ajax({
         url: './pages/link.php',
         type: 'POST',
@@ -161,7 +162,6 @@
         },
         success: function(data)
         {
-          //  alert(`Готово` );
           window.location.href = "./pages/post-read.php";
         }
       })
@@ -210,18 +210,18 @@
   });
 </script>
 <script>
+
   let catRemover = document.querySelectorAll('.blog__del');
   catRemover.forEach(function(item){
     item.addEventListener('click',function(e){
       e.preventDefault();
-      let value = e.target.value;
+      let value = e.currentTarget.value;
       $.ajax({
         url:'./pages/categorie-remover.php',
         type:'GET',
         data:{
           id: `${value}`,
         },success: ()=>{
-          alert('ok');
           window.location.href = "./index.php";
         }
       });
@@ -229,5 +229,26 @@
   });
 
 </script>
+<script>
+  let catSearch = document.querySelector('.blog__search_btn');
+  if(catSearch){
+    catSearch.addEventListener('click',function(e){
+    e.preventDefault();
+    let value = this.value;
+    $.ajax({
+        url:'./pages/sort-cat.php',
+        type:'GET',
+        data:{
+          'tempId':`${value}`
+        },success: function(data){
+          window.location.href = "./pages/sort.php";
+        }
+      });
+
+  })
+  };
+  
+</script>
+
 </body>
 </html>

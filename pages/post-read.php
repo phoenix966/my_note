@@ -72,7 +72,7 @@
           <li class="blog__item">Loren</li>
         </ul>
       </div> -->
-      <div class="blog__sidebar">
+      <div class="blog__sidebar blog__sidebar--mix">
         <form>
           <div class="blog__row">
             <input class="blog__input" type="text" >
