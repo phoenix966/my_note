@@ -156,7 +156,9 @@ if ($connection == false) {
                 $val = 3;
                 $min = $currentPage - $val;
                 $max = $currentPage + $val;
-                if($min > 1 OR $max > $currentPage + 4){
+                $limit = $pages - $currentPage;
+                $lastNumber = $pages - $val;
+                if($min > 1 AND $max <= $pages){
                     for($i = $min;$i <=$max;$i++){
                         if($i == $currentPage){
                             echo '<li>
@@ -168,7 +170,7 @@ if ($connection == false) {
                               </li>';
                         }
                     }
-                }else{
+                }elseif($min < 3){
                    for($p = 1;$p < 5;$p++){
                        if($p == $currentPage){
                            echo '<li>
@@ -180,6 +182,19 @@ if ($connection == false) {
                               </li>';
                        }
                    }
+                }elseif($max >= $lastNumber){
+
+                    for($h = 0;$h <= $limit;$h++){
+                        if($currentPage == ($currentPage + $h)){
+                            echo '<li>
+                                <button class="blog__pagination-btn blog__pagination-btn--active">'.($currentPage + $h).'</button>
+                              </li>';
+                        }else{
+                            echo '<li>
+                                <button class="blog__pagination-btn">'.($currentPage + $h).'</button>
+                              </li>';
+                        }
+                    }
                 }
 
             ?>
