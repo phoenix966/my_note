@@ -59,7 +59,7 @@
 
         <button class="post__btn post__btn--redact post__btn--down">Включен режим чтения<div class="post__btn-dot"></div></button>
 
-        <div class="post__editor" style="height: 70vh" id="editor">
+        <div class="post__editor" style="height: 90vh" id="editor">
           <?php echo $info['text']; ?>
         </div>
         <div class="post__test"></div>
@@ -153,6 +153,21 @@
 
     })
   });
+</script>
+<script>
+  let textNotSorted = quill.root.innerHTML;
+    let array = textNotSorted.split('');
+    let newText = '';
+    for(let value of array){
+      if(value == "~"){
+        value = "'";
+        newText += value;
+      } else{
+        newText += value;
+      }
+    }
+    quill.root.innerHTML = newText; 
+
 </script>
 </body>
 

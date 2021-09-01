@@ -51,7 +51,7 @@
           <div class="modal__window">
             <div class="modal__wrapper">
               <p class="modal__title">Название: </p>
-              <input type="text" class="modal__input modal__name" name="title">
+              <input maxlength="65" type="text" class="modal__input modal__name" name="title">
             </div>
             <div class="modal__wrapper">
               <p class="modal__title">Категория: </p>
@@ -184,7 +184,7 @@
     let text = '';
     for(let value of textArray){
       if(value == "'"){
-        value = '"';
+        value = "~";
         text += value;
       } else{
         text += value;

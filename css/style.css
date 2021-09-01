@@ -449,10 +449,11 @@ hr {
 }
 .blog__head {
   position: absolute;
-  top: -40px;
+  top: -50px;
   left: 0;
   right: 0;
   margin: 0 auto;
+  overflow: hidden;
 }
 .blog__pin {
   margin: 0 auto;
@@ -462,10 +463,10 @@ hr {
 }
 .blog__category {
   font-family: var(--font-bold);
-  font-size: 14px;
+  font-size: 12px;
   padding: 4px;
   text-align: center;
-  height: 28px;
+  height: 38px;
   overflow: hidden;
   width: 90%;
   border-top-left-radius: 15px;
@@ -505,6 +506,7 @@ hr {
   cursor: pointer;
   font-family: var(--font-bold);
   font-size: 14px;
+  background: #f1f1f1;
   color: #4e4e4e93;
   border: none;
 }
@@ -583,11 +585,45 @@ hr {
 .blog__cat:hover {
   color: var(--color-second);
 }
+.blog__arrow {
+  border: 1px solid #000;
+  padding: 2px;
+  cursor: pointer;
+}
+.blog__pagination {
+  display: flex;
+  margin: 20px 0;
+  padding: 0;
+  height: 25px;
+  justify-content: flex-start;
+  align-items: center;
+  list-style-type: none;
+  max-width: 192px;
+  overflow: hidden;
+  border: 1px solid #000;
+}
+.blog__pagination-btn {
+  cursor: pointer;
+}
+.blog__pagination-btn--active {
+  color: red;
+}
+.blog__pagination li {
+  margin: 0 2px;
+}
 .blog img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   text-align: center;
+}
+
+.container__pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  margin-bottom: 30px;
 }
 
 .modal__overlay {
@@ -1561,7 +1597,6 @@ hr {
 }
 
 .post {
-  padding-top: 40px;
   min-height: 40vh;
   width: 100%;
 }

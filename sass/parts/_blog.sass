@@ -86,10 +86,11 @@
       flex: 0 1 23%
   &__head
     position: absolute
-    top: -40px
+    top: -50px
     left: 0
     right: 0
     margin: 0 auto
+    overflow: hidden
   &__pin
     margin: 0 auto
     width: 10px
@@ -98,10 +99,10 @@
     // background: red
   &__category
     font-family: var(--font-bold)
-    font-size: 14px
+    font-size: 12px
     padding: 4px
     text-align: center
-    height: 28px
+    height: 38px
     overflow: hidden
     width: 90%
     border-top-left-radius: 15px
@@ -137,6 +138,7 @@
     cursor: pointer
     font-family: var(--font-bold)
     font-size: 14px
+    background: #f1f1f1
     color: #4e4e4e93
     border: none
   &__link
@@ -205,8 +207,37 @@
     margin: 5px 0
     &:hover
       color: var(--color-second)
+  &__arrow
+    border: 1px solid #000
+    padding: 2px
+    cursor: pointer
+  &__pagination
+    display: flex
+    margin: 20px 0
+    padding: 0
+    height: 25px
+    justify-content: flex-start
+    align-items: center
+    list-style-type: none
+    max-width: 192px
+    overflow: hidden
+    border: 1px solid #000
+    &-btn
+      cursor: pointer
+      &--active
+        color: red
+    & li
+      margin: 0 2px
   & img
     width: 100%
     height: 100%
     object-fit: cover
     text-align: center
+.container__pagination
+  display: flex
+  justify-content: center
+  align-items: center
+  height: 50px
+  margin-bottom: 30px
+
+

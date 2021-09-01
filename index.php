@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Main</title>
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -31,7 +32,7 @@
             </button>
           </div>
           <div class="header__logo">
-            <a href="./index.php"><img src="./img/logo.png" alt="logo" class="header__img"></a>
+            <a href="./index.php?page=1"><img src="./img/logo.png" alt="logo" class="header__img"></a>
           </div>
           <form>
         </div>
@@ -52,11 +53,17 @@
         <div class="container blog__container">
         <ul class="blog__list">
         <?php
-          $articles = mysqli_query($connection, "SELECT * FROM `articles`" );
-          if( mysqli_num_rows($articles) == 0){
+          $limit = 8;
+          $offset = ($limit * $_GET['page']) - $limit;
+
+          $articles_all = mysqli_query($connection, "SELECT * FROM `articles`");
+          $count = mysqli_num_rows($articles_all);
+
+          $selected_articles = mysqli_query($connection, "SELECT * FROM `articles` LIMIT $offset,$limit " );
+          if( mysqli_num_rows($selected_articles) == 0){
             echo 'Записей не найдено!';
           } else{
-              while($item = mysqli_fetch_assoc($articles)){
+              while($item = mysqli_fetch_assoc($selected_articles)){
                 echo '<li class="blog__post">'.'<div class="blog__head"><div class="blog__pin">' . '</div>' 
                       . '<h2 class="blog__category">' . $item['title'] . '</h2>
                       </div><div class="blog__info"><div class="blog__sticky">' . '</div><div class="blog__text">' . $item['text'] . '</div></div>' .
@@ -65,7 +72,6 @@
           }
           ?>
         </ul>
-          
         </div>
       </div>
       <div class="blog__overlay"></div>
@@ -89,7 +95,8 @@
                       echo '<li class="blog__search-item">
                               <p>Найденная категория: </p>
                               <br>
-                              <button value="'. $search_result['id'] .'" class="blog__search_btn">'.$search_result['categorie_title'].'</button></li>';
+                              <button value="'. $search_result['id'] .'" class="blog__search_btn">'.$search_result['categorie_title'].'</button>
+                            </li>';
                
                     }
                     
@@ -134,6 +141,51 @@
                 </ul>
       </div>
     </section>
+    <?php 
+      $pages_temp = $count / $limit;
+      $pages = ceil($pages_temp);
+      $currentPage = $_GET['page'];
+      $prev_page = $currentPage == 1 ? $currentPage : $currentPage - 1; 
+      $next_page = $currentPage == $pages ? $currentPage : $currentPage + 1; 
+    ?>
+    <div class="container container__pagination">
+       <span class="blog__arrow"><a href="./index.php?page=<?php echo $prev_page; ?>" class="blog__link"> < </a></span>
+          <ul class="blog__pagination">
+            <?php 
+              for($i = 1;$i <= $pages;$i++){
+                  if($i == $currentPage){
+                    echo '<li>
+                            <button class="blog__pagination-btn blog__pagination-btn--active">'.$i.'</button>
+                          <li>';
+                  }else{
+                    echo '<li>
+                            <button class="blog__pagination-btn">'.$i.'</button>
+                          <li>';
+                  }
+                    
+                  }       
+            ?>
+              <!-- <li>
+                <button class="blog_pagination-btn">2</button>
+              <li>
+                <li>
+                <button class="blog_pagination-btn">2</button>
+              <li>
+                <li>
+                <button class="blog_pagination-btn">2</button>
+              <li>
+                <li>
+                <button class="blog_pagination-btn">2</button>
+              <li>
+                <li>
+                <button class="blog_pagination-btn">2</button>
+              <li>
+                <li>
+                <button class="blog_pagination-btn">2</button>
+              <li> -->
+           </ul>
+           <span class="blog__arrow"><a href="./index.php?page=<?php echo $next_page; ?>" class="blog__link"> > </a></span>
+        </div>
     <footer class="footer">
       <p class="footer__text">All rights reserved by Phoenix</p>
     </footer>
@@ -247,7 +299,14 @@
 
   })
   };
-  
+</script>
+<script>
+  let paginationBtns = document.querySelectorAll('.blog__pagination-btn'); 
+  paginationBtns.forEach((post)=>{
+    post.addEventListener('click',function(){
+      window.location.href=`./index.php?page=${this.innerText}`;
+    })
+  })
 </script>
 
 </body>
