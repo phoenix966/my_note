@@ -53,7 +53,7 @@ if ($connection == false) {
             <div class="container blog__container">
                 <ul class="blog__list">
                     <?php
-                    $limit = 1;
+                    $limit = 8;
                     $offset = ($limit * $_GET['page']) - $limit;
 
                     $articles_all = mysqli_query($connection, "SELECT * FROM `articles`");
@@ -142,68 +142,75 @@ if ($connection == false) {
         </div>
     </section>
     <?php
-    $pages_temp = $count / $limit;
-    $pages = ceil($pages_temp);
-    $currentPage = $_GET['page'];
-    $prev_page = $currentPage == 1 ? $currentPage : $currentPage - 1;
-    $next_page = $currentPage == $pages ? $currentPage : $currentPage + 1;
+        $pages_temp = $count / $limit;
+        $pages = ceil($pages_temp);
+        $currentPage = $_GET['page'];
+        $prev_page = $currentPage == 1 ? $currentPage : $currentPage - 1;
+        $next_page = $currentPage == $pages ? $currentPage : $currentPage + 1;
     ?>
     <div class="container container__pagination">
         <span class="blog__arrow"><a href="./index.php?page=<?php echo $prev_page; ?>" class="blog__link"> < </a></span>
-        <ul class="blog__pagination">
+        <?php
+           $min = $currentPage - 2;
+           $max = $currentPage + 2;
+           $linksPerPage = 5;
+           $classDefault = 'blog__pagination-btn';
+           $classActive = 'blog__pagination-btn blog__pagination-btn--active';
 
-            <?php
-                $val = 3;
-                $min = $currentPage - $val;
-                $max = $currentPage + $val;
-                $limit = $pages - $currentPage;
-                $lastNumber = $pages - $val;
-                if($min > 1 AND $max <= $pages){
-                    for($i = $min;$i <=$max;$i++){
-                        if($i == $currentPage){
-                            echo '<li>
-                                <button class="blog__pagination-btn blog__pagination-btn--active">'. $i .'</button>  
-                              </li>';
-                        }else{
-                            echo '<li>
-                                <button class="blog__pagination-btn">'. $i .'</button>  
-                              </li>';
-                        }
-                    }
-                }elseif($min < 3){
-                   for($p = 1;$p < 5;$p++){
-                       if($p == $currentPage){
-                           echo '<li>
-                                <button class="blog__pagination-btn blog__pagination-btn--active">'. $p .'</button>  
-                              </li>';
-                       }else{
-                           echo '<li>
-                                <button class="blog__pagination-btn">'. $p .'</button>  
-                              </li>';
-                       }
+           function getLinks($currentPage, $linksPerPage,$pages,$min,$max,$classActive,$classDefault){
+               if($pages <= $linksPerPage){
+                   for($i=1;$i <= $pages;$i++){
+                       $isActive = $i == $currentPage ? $classActive : $classDefault;
+                       echo '<li><button class="'. $isActive .'">'. $i .'</button></li>';
+
                    }
-                }elseif($max >= $lastNumber){
+                   return;
+               }
 
-                    for($h = 0;$h <= $limit;$h++){
-                        if($currentPage == ($currentPage + $h)){
-                            echo '<li>
-                                <button class="blog__pagination-btn blog__pagination-btn--active">'.($currentPage + $h).'</button>
-                              </li>';
-                        }else{
-                            echo '<li>
-                                <button class="blog__pagination-btn">'.($currentPage + $h).'</button>
-                              </li>';
-                        }
-                    }
-                }
+               if($currentPage <= 3){
+                   for($i=1;$i <= $linksPerPage;$i++){
+                       $isActive = $i == $currentPage ? $classActive : $classDefault;
+                       echo '<li><button class="'. $isActive .'">'. $i .'</button></li>';
 
+                   }
+                   return;
+               }
+
+               if($currentPage >= $pages - 2){
+                   for($i=$pages - $linksPerPage + 1;$i <= $pages;$i++){
+                       $isActive = $i == $currentPage ? $classActive : $classDefault;
+                       echo '<li><button class="'. $isActive .'">'. $i .'</button></li>';
+
+                   }
+                   return;
+
+               }
+
+               for($i=$min;$i <= $max; $i++){
+                   $isActive = $i == $currentPage ? 'blog__pagination-btn blog__pagination-btn--active' : 'blog__pagination-btn';
+                   echo '<li><button class="'. $isActive .'">'. $i .'</button></li>';
+
+               }
+
+
+           }
+
+
+        ?>
+
+        <ul class="blog__pagination">
+            <?php
+                getLinks($currentPage, $linksPerPage,$pages,$min,$max,$classActive,$classDefault);
             ?>
-
         </ul>
         <span class="blog__arrow"><a href="./index.php?page=<?php echo $next_page; ?>" class="blog__link"> > </a></span>
     </div>
     <footer class="footer">
-        <p class="footer__text">All rights reserved by Phoenix</p>
+<!--        <p class="footer__text">All rights reserved by Phoenix</p>-->
+
+        <p>
+
+        </p>
     </footer>
 </div>
 
