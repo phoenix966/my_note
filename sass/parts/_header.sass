@@ -7,6 +7,7 @@
     height: 40px
   &__container
     height: 100px
+    //width: 100%
     display: flex
     align-items: center
     justify-content: space-between
@@ -26,7 +27,20 @@
   &__wrapper
     display: flex
     align-items: center
+  &__form-wrapper
+    display: flex
+    align-items: center
+    justify-content: flex-end
+    width: 100%
+  &__form
+    width: 90%
+    margin: 0
+    padding: 0
+    display: flex
+    align-items: center
+    justify-content: flex-end
   &__wrap
+    position: relative
     display: none
     align-items: center
     background: var(--color-btn)
@@ -34,12 +48,33 @@
     border: 4px solid #f8f8f8
     border-radius: 5px
     height: 50px
-    width: 75%
+    width: 90%
     -webkit-box-shadow: -7px 16px 15px -18px rgba(0,0,0,0.21)
     -moz-box-shadow: -7px 16px 15px -18px rgba(0,0,0,0.21)
     box-shadow: -7px 16px 15px -18px rgba(0,0,0,0.21)
     +media(728px)
       display: flex
+  &__searchbar
+    position: absolute
+    visibility: hidden
+    opacity: 0
+    top: 48px
+    left: 0
+    right: 0
+    z-index: 2
+    margin: 0 auto
+    width: 100%
+    height: 0
+    background: var(--color-btn)
+    border-bottom-left-radius: 5px
+    border-bottom-right-radius: 5px
+    border: 4px solid rgba(27, 255, 255, 0.267)
+    border-top: none
+    transition: 0.6s
+    &--active
+      min-height: 40vh
+      opacity: 100%
+      visibility: visible
   &__btn
     height: 42px
     border: none

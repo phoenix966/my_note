@@ -1,6 +1,8 @@
+<?php
+    include('../config/db.php');
+  ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,76 +10,20 @@
   <title>New post</title>
   <link rel="stylesheet" href="../css/style.css">
 </head>
-
 <body>
-<?php
-    $connection = mysqli_connect('localhost:8889','root','root','note_db');
-
-    if($connection == false){
-      echo 'не удалось подключится к базе данных!<br>';
-      echo mysqli_connect_error();
-      exit();
-    }
-  ?>
   <div class="wrapper">
-    <header class="header">
-      <div class="container header__container">
-        <div class="header__wrapper">
-          <div class="header__burger">
-            <button class="hamburger hamburger--emphatic" type="button">
-              <span class="hamburger-box">
-                <span class="hamburger-inner"></span>
-              </span>
-            </button>
-          </div>
-          <div class="header__logo">
-            <a href="../index.php"><img src="../img/logo.png" alt="logo" class="header__img"></a>
-          </div>
-          <form>
-        </div>
-        <div class="header__wrap">
-          <input type="text" class="header__input" placeholder="Найти запись...">
-          <button class="header__btn">Поиск</button>
-        </div>
-        <button class="header__btn header__btn--round header__btn--action">Создать+</button>
-        </form>
+    <?php 
+      $conf = array(
+        'class' => 'header__btn--action',
+        'text' => 'Создать+',
+        'disabled' => ''
+      );
+      include('../includes/header.php');
+     ?>
+
+    <?php include('../includes/modal.php');?>
+
       </div>
-      <div class="container">
-        <button class="header__scroll">закрыть</button>
-      </div>
-      <div class="modal">
-        <div class="modal__overlay"></div>
-        <form class="modal__form">
-          <div class="modal__window">
-            <div class="modal__wrapper">
-              <p class="modal__title">Название: </p>
-              <input maxlength="65" type="text" class="modal__input modal__name" name="title">
-            </div>
-            <div class="modal__wrapper">
-              <p class="modal__title">Категория: </p>
-              <div class="modal__row">
-                <select name="catSelect" class="modal__select">
-                <?php
-                    $temp_cat = mysqli_query($connection," SELECT * FROM `articles_categories` ");
-                    // $cat = mysqli_fetch_assoc($temp_cat);
-                    // print_r($cat); 
-                    while(($cat = mysqli_fetch_assoc($temp_cat)) ){
-                      echo '<option value="'. $cat['id'] .'">' . $cat['categorie_title'] . '</option>';
-                    }
-                  ?>
-              </select>
-              <button class="modal__btn modal__btn--show">+</button>
-                <div class="modal__bar">
-                  <input type="text" class="modal__new-category" name="newCat" placeholder="Новая категория...">
-                </div>
-              </div>
-              
-            </div>
-            <button type="submit" class="modal__btn">Добавить</button>
-          </form>
-          </div>
-      </div>
-    </header>
     <section class="post">
       <div class="container post__container">
         <div class="post__btn post__btn--redact">Создание новой записи</div>
