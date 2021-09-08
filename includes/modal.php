@@ -44,7 +44,7 @@
           </div>
         </div>
         </div>
-        <?php $titleText = $type == 'new' ? 'Добавить' : 'Изменить';?>
+        <?php $titleText = $get_type == 'new' ? 'Добавить' : 'Изменить';?>
         <button type="submit" class="modal__btn modal__btn--add"><?php echo $titleText ?></button>
   </form>
 </div>
