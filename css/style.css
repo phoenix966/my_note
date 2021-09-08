@@ -1658,6 +1658,7 @@ hr {
   position: relative;
 }
 .post__btn {
+  text-decoration: none;
   display: flex;
   align-items: center;
   font-family: var(--font-bold);
@@ -1669,6 +1670,9 @@ hr {
   padding: 8px;
   margin-bottom: 10px;
   cursor: pointer;
+}
+.post__btn--disabled {
+  pointer-events: none;
 }
 .post__btn--down {
   position: absolute;

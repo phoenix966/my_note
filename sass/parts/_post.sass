@@ -18,6 +18,7 @@
   &__container
     position: relative
   &__btn
+    text-decoration: none
     display: flex
     align-items: center
     font-family: var(--font-bold)
@@ -29,6 +30,8 @@
     padding: 8px
     margin-bottom: 10px
     cursor: pointer
+    &--disabled
+      pointer-events: none
     &--down
       position: absolute
       top: 44px

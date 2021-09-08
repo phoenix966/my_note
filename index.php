@@ -41,7 +41,7 @@
                                 echo '<li class="blog__post">' . '<div class="blog__head"><div class="blog__pin">' . '</div>'
                                     . '<h2 class="blog__category">' . $item['title'] . '</h2>
                           </div><div class="blog__info"><div class="blog__sticky">' . '</div><div class="blog__text">' . $item['text'] . '</div></div>' .
-                                    '<div class="blog__wrap"><button class="blog__btn blog__btn--delete" value="' . $item['id'] . '" ><span class="icon-bin"></span></button><a href="./pages/post-read.php?id='. $item['id'] .'" ' . $item['id'] . '" class="blog__btn blog__btn--redact"><span class="icon-pencil"></span></a></div></li>';
+                                    '<div class="blog__wrap"><button class="blog__btn blog__btn--delete" value="' . $item['id'] . '" ><span class="icon-bin"></span></button><a href="./pages/post-editor.php?id='. $item['id'] .'&type=read" ' . $item['id'] . '" class="blog__btn blog__btn--redact"><span class="icon-pencil"></span></a></div></li>';
                             }
                         }
                     ?>
@@ -128,7 +128,7 @@
     let btn = document.querySelector('.header__btn--new');
     btn.addEventListener('click', function (e) {
         e.preventDefault();
-        window.location.href = "./pages/post-new.php?type=new";
+        window.location.href = "./pages/post-editor.php?type=new";
     })
 </script>
 <script>
@@ -152,6 +152,7 @@
         })
     });
 </script>
+
 <script>
     let buttonsCatSort = document.querySelectorAll('.blog__cat');
     // let blog_ids = document.querySelectorAll('.blog__id');
@@ -165,52 +166,15 @@
                 data: {
                     'tempId': `${tempId}`
                 }, success: function (data) {
-                    window.location.href = "./pages/sort.php";
+                    window.location.href = "./pages/sort.php";  // Сортировка нужно переделать
                 }
             });
 
         })
     });
 </script>
-<script>
 
-    let catRemover = document.querySelectorAll('.blog__del');
-    catRemover.forEach(function (item) {
-        item.addEventListener('click', function (e) {
-            e.preventDefault();
-            let value = e.currentTarget.value;
-            $.ajax({
-                url: './pages/categorie-remover.php',
-                type: 'GET',
-                data: {
-                    id: `${value}`,
-                }, success: () => {
-                    window.location.href = "./index.php";
-                }
-            });
-        })
-    });
 
-</script>
-<script>
-    let catSearch = document.querySelector('.blog__search_btn');
-    if (catSearch) {
-        catSearch.addEventListener('click', function (e) {
-            e.preventDefault();
-            let value = this.value;
-            $.ajax({
-                url: './pages/sort-cat.php',
-                type: 'GET',
-                data: {
-                    'tempId': `${value}`
-                }, success: function (data) {
-                    window.location.href = "./pages/sort.php";
-                }
-            })
-
-        })
-    }
-</script>
 <script>
     let paginationBtns = document.querySelectorAll('.blog__pagination-btn');
     paginationBtns.forEach((post) => {
@@ -219,6 +183,7 @@
         })
     })
 </script>
+
 <script>
     let defaultSearchInput = document.querySelector('.header__input');
     let defaultSearch = document.querySelector('.header__searchbar');

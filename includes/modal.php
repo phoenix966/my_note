@@ -5,12 +5,13 @@
       <div class="modal__wrapper">
         <p class="modal__title">Название: </p>
         <?php 
-          $dataInfo = $info["title"];
-          $inputUpdate = '<input maxlength="65" type="text" class="modal__input modal__name" name="title" value="'.$dataInfo.'">';
-          $inputNew = '<input maxlength="65" type="text" class="modal__input modal__name" name="title">'; 
+          $dataInfo = $info['title'];
           $get_type = $_GET['type'];
-          $type = $get_type == 'new' ? $inputNew : $inputUpdate;
-          echo $type;
+          if($get_type == 'edit'){
+            echo '<input maxlength="65" type="text" class="modal__input modal__name" name="title" value="'. $dataInfo .'">';
+          }else{
+            echo '<input maxlength="65" type="text" class="modal__input modal__name" name="title">';
+          }
         ?>
       </div>
       <div class="modal__wrapper">

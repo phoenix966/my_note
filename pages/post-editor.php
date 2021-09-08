@@ -13,72 +13,73 @@
 <body>
    <?php
       $currentId = $_GET['id'];
+      $currentType = $_GET['type'];
       $res = mysqli_query($connection,"SELECT * FROM `articles` WHERE  `id` = '$currentId' ");
       $info = mysqli_fetch_assoc($res);
     ?>
   <div class="wrapper">
-    <?php 
-      $conf = array(
-        'class' => 'header__btn--action',
-        'text' => 'Изменить',
-        'disabled' => ''
-      );
-      include('../includes/header.php');
-     ?>
-     <?php 
-      include('../includes/modal.php');
+    <?php
+      $conf = [];
+       if($_GET['type'] == 'edit'){
+         $conf = array(
+          'class' => 'header__btn--action',
+          'text' => 'Изменить',
+          'disabled' => ''
+        );
+       }elseif($_GET['type'] == 'new'){
+         $conf = array(
+          'class' => 'header__btn--action',
+          'text' => 'Добавить',
+          'disabled' => ''
+        );
+       }else{
+        $conf = array(
+          'class' => 'header__btn--action',
+          'text' => 'Изменить',
+          'disabled' => 'disabled'
+        );
+       }
+        
+        include('../includes/header.php');
+       ?>
+       <?php 
+        include('../includes/modal.php');
      ?>
 
       </div>
     <section class="post">
       <div class="container post__container">
         <h1 class="post__title"> <?php echo $info['title']; ?> </h1>
-        <a href="./post-read.php?id=<?php echo $currentId; ?>" class="post__btn post__btn--redact">Включен режим редактирования<span class="post__btn-dot post__btn-dot--unlock"></span></a>
+        <?php 
+          $btn_text = '';
+          $btn_url = '';
+          $btn_class = '';
+          $btn_link_class = '';
+          if($currentType == 'edit'){
+            $btn_text = 'Включен режим редактирования';
+            $btn_class = '';
+            $btn_url = 'read';
+          }elseif($currentType == 'read'){
+            $btn_text = 'Включен режим чтения';
+            $btn_class = 'post__btn-dot--unlock';
+            $btn_url = 'edit';
+          }else{
+            $btn_text = 'Включен режим создания новой записи';
+            $btn_class = 'post__btn-dot--unlock';
+            $btn_url = '';
+            $btn_link_class = 'post__btn--disabled';
+          }
+        ?>
+        <a href="./post-editor.php?id=<?php echo $currentId; ?>&type=<?php echo $btn_url; ?>" class="post__btn post__btn--redact <?php echo $btn_link_class; ?>"><?php echo $btn_text;?><span class="post__btn-dot <?php echo $btn_class; ?>"></span></a>
         <div class="post__editor" style="height: 70vh" id="editor">
           <?php echo $info['text']; ?>
         </div>
         <div class="post__test"></div>
       </div>
-      <div class="blog__overlay"></div>
-      <!-- <div class="blog__sidebar post__sidebar">
-        <ul class="blog__note">
-          <li class="blog__item">Loren</li>
-          <li class="blog__item">Loren</li>
-          <li class="blog__item">Loren</li>
-        </ul>
-      </div> -->
-      <div class="blog__sidebar blog__sidebar--mix">
-        <form>
-          <div class="blog__row">
-            <input class="blog__input" type="text" >
-            <button class="blog__btn">Поиск</button>
-          </div>
-        </form>
-      <?php
-            $result = mysqli_query($connection, "SELECT * FROM `articles_categories` " );
-            if( mysqli_num_rows($result) == 0){
-              echo 'Категорий не найдено!';
-            } else{
-            ?>
-              <ul class="blog__note">
-                <?php
-                  while(($cat = mysqli_fetch_assoc($result)) ){
-                    // print_r ($cat);
-                    $articles_count = mysqli_query($connection, "SELECT COUNT(`id`) AS `total_count` FROM `articles`
-                    WHERE `categorie_id` = " . $cat['id']);
-                    $articles_count_result = mysqli_fetch_assoc($articles_count);
-                    echo '<li class="blog__item">'.
-                          '<span class="blog__cat" id="'. $cat['id'] .'">'
-                             . $cat['categorie_title'] . '[' . $articles_count_result['total_count'] .']'.
-                          '</span>' .
-                          '<div class="blog__id"> </div>' . 
-                        '</li>';
-                  }
-                }
-                mysqli_close($connection);
-                  ?>
-                </ul>
-      </div>
+      <?php 
+        $style = 'blog__sidebar--mix';
+        include('../includes/sidebar.php');
+      ?>
     </section>
     <footer class="footer">
       <p class="footer__text">All rights reserved by Phoenix</p>
@@ -91,7 +92,13 @@
   <script src="../js/quill.js"></script>
 
   <script>
-    let isTrue = false;
+    let temp = window.location;
+    let url = new URL(`${temp.href}`);
+    let searchParams = new URLSearchParams(url.search);
+    let getType = searchParams.get('type'); 
+    let getId = searchParams.get('id'); 
+    // let isTrue = false;
+
     let toolbarOptions = [
       [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
       // [{ 'font': [] }],
@@ -109,15 +116,20 @@
       ['clean']                                         // remove formatting button
     ];
 
-    let quill = new Quill('#editor', {
+    let options = {
       modules: {
         toolbar: toolbarOptions
       },
       placeholder: 'Начните что-нибудь писать ...',
       theme: 'snow',
       readOnly: false,
-    });
-
+    }
+    if(getType == 'new' || getType == 'edit'){
+      options.readOnly = false; 
+    }else{
+      options.readOnly = true;
+    }
+    let editor = new Quill('#editor', options);
 
   </script>
   <script>
@@ -134,13 +146,12 @@
 
   </script>
   <script>  
-  let addBtn = document.querySelector('.modal__btn--add');
   document.querySelector('.modal__form').addEventListener('submit',(e)=>{
     e.preventDefault();
-    const form = document.querySelector('.modal__form');
-    let textTemp = quill.root.innerHTML;
+    let textTemp = editor.root.innerHTML;
     let textArray = textTemp.split('');
     let text = '';
+    const form = document.querySelector('.modal__form');
     for(let value of textArray){
       if(value == "'"){
         value = "~";
@@ -149,9 +160,7 @@
         text += value;
       }
     }
-    let value = addBtn.value;
     let obj = {
-      updateKey: value,
       'title': `${form.elements.title.value}`,
       'text': `${text}`,
     }
@@ -160,18 +169,34 @@
     }else{
       obj.new_cat = `${form.elements.newCat.value}`;
     }
-    
-    // console.log(obj);
+    //Редактирование
+
+    if(getType == 'edit'){
+    obj.updateKey = getId;
     $.ajax({
-      url:'update.php',
+      url:'./update.php',
       type: "POST",
       data: obj,
       success: function(data)
         {
-           // alert(`Готово` );
           window.location.href = "../index.php";
         }
 });
+    return;
+    }
+     //Создание новой
+    if(getType == 'new'){
+    $.ajax({
+      url:'./foo.php',
+      type: "POST",
+      data: obj,
+      success: function(data)
+        {
+          window.location.href = "../index.php";
+        }
+});
+    }
+    return;
   });
 
 </script>
@@ -190,14 +215,14 @@ modalOverlay.addEventListener('click', function () {
   modalPanel.classList.remove('modal__window--active');
 });
 </script>
-<script>
+<!-- <script>
   
   let redactBtn = document.querySelector('.post__btn--redact');
   redactBtn.addEventListener('click',function(){
     window.location.href = "./post-read.php";
   });
 
-</script>
+</script> -->
 <script>
   let buttonsCatSort = document.querySelectorAll('.blog__cat');
   let blog_ids = document.querySelectorAll('.blog__id');
