@@ -29,11 +29,21 @@
                 <ul class="blog__list">
                     <?php
                         $limit = 8;
+                        $currentSortId = $_GET['sort'];
                         $currentPage = $_GET['page'] ? $_GET['page'] : 1;
                         $offset = ($limit * $currentPage) - $limit;
-                        $articles_all = mysqli_query($connection, "SELECT * FROM `articles`");
+                        $articles_all = $currentSortId ?
+
+                        mysqli_query($connection, "SELECT * FROM `articles` WHERE `categorie_id` = '$currentSortId' ") :
+                        mysqli_query($connection,"SELECT * FROM `articles` ");
+
                         $count = mysqli_num_rows($articles_all);
-                        $selected_articles = mysqli_query($connection, "SELECT * FROM `articles` ORDER BY `pubdate` DESC LIMIT $offset,$limit");
+
+                        $selected_articles = $currentSortId ?
+                        mysqli_query($connection, "SELECT * FROM `articles` WHERE `categorie_id` = '$currentSortId' ORDER BY `pubdate` DESC LIMIT $offset,$limit") :
+                        mysqli_query($connection,"SELECT * FROM `articles` ORDER BY `pubdate` DESC LIMIT $offset,$limit" );
+
+
                         if (mysqli_num_rows($selected_articles) == 0) {
                             echo 'Записей не найдено!';
                         } else {
@@ -54,13 +64,14 @@
       ?>
     </section>
     <?php
-    $pages_temp = $count / $limit;
-    $pages = ceil($pages_temp);
-    $prev_page = $currentPage == 1 ? $currentPage : $currentPage - 1;
-    $next_page = $currentPage == $pages ? $currentPage : $currentPage + 1;
+        $pages_temp = $count / $limit;
+        $pages = ceil($pages_temp);
+        $prev_page = $currentPage == 1 ? $currentPage : $currentPage - 1;
+        $next_page = $currentPage == $pages ? $currentPage : $currentPage + 1;
+        $page_sort_url = $currentSortId ? '&sort='. $currentSortId .'' : '';
     ?>
     <div class="container container__pagination">
-        <span class="blog__arrow"><a href="./index.php?page=<?php echo $prev_page; ?>" class="blog__link"> < </a></span>
+        <span class="blog__arrow"><a href="./index.php?page=<?php echo $prev_page . $page_sort_url; ?>" class="blog__link"> < </a></span>
         <?php
         $min = $currentPage - 2;
         $max = $currentPage + 2;
@@ -68,12 +79,12 @@
         $classDefault = 'blog__pagination-btn';
         $classActive = 'blog__pagination-btn blog__pagination-btn--active';
 
-        function getLinks($currentPage, $linksPerPage, $pages, $min, $max, $classActive, $classDefault)
+        function getLinks($currentPage, $linksPerPage, $pages, $min, $max, $classActive, $classDefault,$page_sort_url)
         {
             if ($pages <= $linksPerPage) {
                 for ($i = 1; $i <= $pages; $i++) {
                     $isActive = $i == $currentPage ? $classActive : $classDefault;
-                    echo '<li><button class="' . $isActive . '">' . $i . '</button></li>';
+                    echo '<li><a href="./index.php?page='. $i .''.  $page_sort_url .'" class="' . $isActive . '">' . $i . '</a></li>';
 
                 }
                 return;
@@ -82,7 +93,8 @@
             if ($currentPage <= 3) {
                 for ($i = 1; $i <= $linksPerPage; $i++) {
                     $isActive = $i == $currentPage ? $classActive : $classDefault;
-                    echo '<li><button class="' . $isActive . '">' . $i . '</button></li>';
+                    // echo '<li><a class="' . $isActive . '">' . $i . '</a></li>';
+                    echo '<li><a href="./index.php?page='. $i .''.  $page_sort_url .'" class="' . $isActive . '">' . $i . '</a></li>';
 
                 }
                 return;
@@ -91,7 +103,8 @@
             if ($currentPage >= $pages - 2) {
                 for ($i = $pages - $linksPerPage + 1; $i <= $pages; $i++) {
                     $isActive = $i == $currentPage ? $classActive : $classDefault;
-                    echo '<li><button class="' . $isActive . '">' . $i . '</button></li>';
+                    // echo '<li><a class="' . $isActive . '">' . $i . '</a></li>';
+                    echo '<li><a href="./index.php?page='. $i .''.  $page_sort_url .'" class="' . $isActive . '">' . $i . '</a></li>';
 
                 }
                 return;
@@ -100,7 +113,8 @@
 
             for ($i = $min; $i <= $max; $i++) {
                 $isActive = $i == $currentPage ? 'blog__pagination-btn blog__pagination-btn--active' : 'blog__pagination-btn';
-                echo '<li><button class="' . $isActive . '">' . $i . '</button></li>';
+                // echo '<li><a class="' . $isActive . '">' . $i . '</a></li>';
+                echo '<li><a href="./index.php?page='. $i .''.  $page_sort_url .'" class="' . $isActive . '">' . $i . '</a></li>';
 
             }
 
@@ -112,10 +126,10 @@
 
         <ul class="blog__pagination">
             <?php
-              getLinks($currentPage, $linksPerPage, $pages, $min, $max, $classActive, $classDefault);
+              getLinks($currentPage, $linksPerPage, $pages, $min, $max, $classActive, $classDefault,$page_sort_url);
             ?>
         </ul>
-        <span class="blog__arrow"><a href="./index.php?page=<?php echo $next_page; ?>" class="blog__link"> > </a></span>
+        <span class="blog__arrow"><a href="./index.php?page=<?php echo $next_page . $page_sort_url; ?>" class="blog__link"> > </a></span>
     </div>
     <?php
         include('includes/footer.php');
@@ -153,7 +167,7 @@
     });
 </script>
 
-<script>
+<!-- <script>
     let buttonsCatSort = document.querySelectorAll('.blog__cat');
     // let blog_ids = document.querySelectorAll('.blog__id');
     buttonsCatSort.forEach((cat) => {
@@ -172,17 +186,17 @@
 
         })
     });
-</script>
+</script> -->
 
 
-<script>
+<!-- <script>
     let paginationBtns = document.querySelectorAll('.blog__pagination-btn');
     paginationBtns.forEach((post) => {
         post.addEventListener('click', function () {
             window.location.href = `./index.php?page=${this.innerText}`;
         })
     })
-</script>
+</script> -->
 
 <script>
     let defaultSearchInput = document.querySelector('.header__input');

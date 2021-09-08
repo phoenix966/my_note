@@ -46,12 +46,12 @@ if (catSearch) {
         e.preventDefault();
         let value = this.value;
         $.ajax({
-            url: './pages/sort-cat.php',
+            url: '/my_note/pages/sort-cat.php',
             type: 'GET',
             data: {
                 'tempId': `${value}`
             }, success: function (data) {
-                window.location.href = "./pages/sort.php";
+                window.location.href = "/my_note/pages/sort.php";
             }
         })
 

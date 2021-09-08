@@ -1,12 +1,6 @@
 <?php
 
-$connection = mysqli_connect('localhost:8889','root','root','note_db');
-
-  if($connection == false){
-    echo 'не удалось подключится к базе данных!<br>';
-    echo mysqli_connect_error();
-    exit();
-  }
+include('../config/db.php');
 
 $result = $_GET['tempId'];
 

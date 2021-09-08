@@ -49,7 +49,7 @@
       </div>
     <section class="post">
       <div class="container post__container">
-        <h1 class="post__title"> <?php echo $info['title']; ?> </h1>
+        <h1 class="post__title"> <?php echo $info['title']?> </h1>
         <?php 
           $btn_text = '';
           $btn_url = '';
@@ -70,7 +70,7 @@
             $btn_link_class = 'post__btn--disabled';
           }
         ?>
-        <a href="./post-editor.php?id=<?php echo $currentId; ?>&type=<?php echo $btn_url; ?>" class="post__btn post__btn--redact <?php echo $btn_link_class; ?>"><?php echo $btn_text;?><span class="post__btn-dot <?php echo $btn_class; ?>"></span></a>
+        <a href="/my_note/pages/post-editor.php?id=<?php echo $currentId; ?>&type=<?php echo $btn_url; ?>" class="post__btn post__btn--redact <?php echo $btn_link_class; ?>"><?php echo $btn_text;?><span class="post__btn-dot <?php echo $btn_class; ?>"></span></a>
         <div class="post__editor" style="height: 70vh" id="editor">
           <?php echo $info['text']; ?>
         </div>
@@ -179,7 +179,7 @@
       data: obj,
       success: function(data)
         {
-          window.location.href = "../index.php";
+          window.location.href = "/my_note/index.php";
         }
 });
     return;
@@ -187,12 +187,12 @@
      //Создание новой
     if(getType == 'new'){
     $.ajax({
-      url:'./foo.php',
+      url:'/my_note/pages/foo.php',
       type: "POST",
       data: obj,
       success: function(data)
         {
-          window.location.href = "../index.php";
+          window.location.href = "/my_note/index.php";
         }
 });
     }
@@ -230,12 +230,12 @@ modalOverlay.addEventListener('click', function () {
     cat.addEventListener('click',function(e){
       let tempId = this.id;
       $.ajax({
-        url:'./sort-cat.php',
+        url:'/my_note/pages/sort-cat.php',
         type:'GET',
         data:{
           'tempId':`${tempId}`
         },success: function(data){
-          window.location.href = "./sort.php";
+          window.location.href = "/my_note/pages/sort.php";
         }
       });
 

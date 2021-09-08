@@ -1,12 +1,7 @@
 <?php
 
-$connection = mysqli_connect('localhost:8889','root','root','note_db');
+include('../config/db.php');
 
-if($connection == false){
-  echo 'Не удалось подключиться к базе данных';
-  echo mysqli_connect_error();
-  exit();
-}
 
 if(isset($_POST['updateKey'])){
   $updateId = $_POST['updateKey'];

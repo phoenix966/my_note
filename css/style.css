@@ -64,11 +64,11 @@
 }
 
 .icon-pencil:before, .icon-write:before, .icon-edit:before {
-  content: "";
+  content: "\e900";
 }
 
 .icon-bin:before, .icon-trashcan:before, .icon-remove:before, .icon-delete:before, .icon-recycle:before, .icon-dispose:before {
-  content: "";
+  content: "\e901";
 }
 
 :root {

@@ -51,9 +51,9 @@
                             </li>';
             } else {
                 echo '<li class="blog__item">' .
-                    '<span class="blog__cat" id="' . $cat['id'] . '">'
+                    '<a href="/my_note/index.php?sort='. $cat['id'] .'" class="blog__cat">'
                     . $cat['categorie_title'] . '[' . $articles_count_result['total_count'] . ']' .
-                    '</span>' .
+                    '</a>' .
                     '<button ' . $var . ' class="blog__del" value="' . $cat['id'] . '"><span class="icon-bin"></span></button>
                         </li>';
             }

@@ -1,15 +1,6 @@
 <?php
 
-// $_POST
-// $_GET
-
-// $connection = mysqli_connect('localhost:8889','root','root','note_db');
-
-// if($connection == false){
-//   echo 'Не удалось подключиться к базе данных';
-//   echo mysqli_connect_error();
-//   exit();
-// }
+// include('../config/db.php');
 
 // if(isset($_POST['textSearch'])){
 // 	$text = $_POST['textSearch'];
