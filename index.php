@@ -138,65 +138,6 @@
 
 <script src="./js/logic.js"></script>
 <script src="./js/jquery.min.js"></script>
-<script>
-    let btn = document.querySelector('.header__btn--new');
-    btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        window.location.href = "./pages/post-editor.php?type=new";
-    })
-</script>
-<script>
-    const removeBtn = document.querySelectorAll('.blog__btn--delete');
-    removeBtn.forEach((removeBtn) => {
-        removeBtn.addEventListener('click', function () {
-            let value = this.value;
-            // console.log(value);
-            $.ajax({
-                url: './pages/delete.php',
-                type: 'GET',
-                data: {
-                    'removeKey': value
-                },
-                success: function (data) {
-                    window.location.href = "./index.php";
-
-                }
-            });
-
-        })
-    });
-</script>
-
-<!-- <script>
-    let buttonsCatSort = document.querySelectorAll('.blog__cat');
-    // let blog_ids = document.querySelectorAll('.blog__id');
-    buttonsCatSort.forEach((cat) => {
-        cat.addEventListener('click', function (e) {
-            let tempId = this.id;
-            console.log(tempId);
-            $.ajax({
-                url: './pages/sort-cat.php',
-                type: 'GET',
-                data: {
-                    'tempId': `${tempId}`
-                }, success: function (data) {
-                    window.location.href = "./pages/sort.php";  // Сортировка нужно переделать
-                }
-            });
-
-        })
-    });
-</script> -->
-
-
-<!-- <script>
-    let paginationBtns = document.querySelectorAll('.blog__pagination-btn');
-    paginationBtns.forEach((post) => {
-        post.addEventListener('click', function () {
-            window.location.href = `./index.php?page=${this.innerText}`;
-        })
-    })
-</script> -->
 
 <script>
     let defaultSearchInput = document.querySelector('.header__input');
@@ -215,6 +156,44 @@
         defaultSearch.classList.remove('header__searchbar--active');
     })
 </script>
+<!-- 
+<script>
+    let blogCatForm = document.querySelector('.blog__search');
+    let blogCats = document.querySelectorAll('.blog__cat');
+    let blogItems = document.querySelectorAll('.blog__item');
 
+    blogCatForm.addEventListener('input',function(e){
+        e.preventDefault();
+        let value = blogCatForm.elements.catSearch.value;
+
+        for(let i=0;i < blogItems.length;i++){
+            let item = blogItems[i];
+            let cat = blogCats[i];
+            if(value){
+              if(cat.innerText.includes(value)){
+                item.classList.remove('blog__cat--hide');
+            } else{
+                item.classList.add('blog__cat--hide');
+             }
+            }else{
+              item.classList.remove('blog__cat--hide');
+            }
+        }
+            
+
+    })
+    
+
+</script>  -->  
+<script>
+    let btn = document.querySelector('.header__btn--new');
+    if(btn){
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        window.location.href = "./pages/post-editor.php?type=new";
+    })  
+    }
+    
+</script>
 </body>
 </html>

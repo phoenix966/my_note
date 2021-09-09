@@ -24,6 +24,8 @@ overlay.addEventListener('click', function () {
   sidebar.classList.remove('blog__sidebar--active');
 });
 
+// Удаление категорий
+
 let catRemover = document.querySelectorAll('.blog__del');
 catRemover.forEach(function (item) {
     item.addEventListener('click', function (e) {
@@ -40,20 +42,54 @@ catRemover.forEach(function (item) {
         });
     })
 });
-let catSearch = document.querySelector('.blog__search_btn');
-if (catSearch) {
-    catSearch.addEventListener('click', function (e) {
-        e.preventDefault();
-        let value = this.value;
-        $.ajax({
-            url: '/my_note/pages/sort-cat.php',
-            type: 'GET',
-            data: {
-                'tempId': `${value}`
-            }, success: function (data) {
-                window.location.href = "/my_note/pages/sort.php";
-            }
+
+// Удаление постов
+
+const removeBtn = document.querySelectorAll('.blog__btn--delete');
+    removeBtn.forEach((removeBtn) => {
+        removeBtn.addEventListener('click', function () {
+            let value = this.value;
+            // console.log(value);
+            $.ajax({
+                url: '/my_note/pages/delete.php',
+                type: 'GET',
+                data: {
+                    'removeKey': value
+                },
+                success: function (data) {
+                    window.location.href = "/my_note/index.php";
+
+                }
+            });
+
         })
+    });
+
+
+
+//Живой поиск категорий
+
+let blogCatForm = document.querySelector('.blog__search');
+    let blogCats = document.querySelectorAll('.blog__cat');
+    let blogItems = document.querySelectorAll('.blog__item');
+
+    blogCatForm.addEventListener('input',function(e){
+        e.preventDefault();
+        let value = blogCatForm.elements.catSearch.value;
+
+        for(let i=0;i < blogItems.length;i++){
+            let item = blogItems[i];
+            let cat = blogCats[i];
+            if(value){
+              if(cat.innerText.includes(value)){
+                item.classList.remove('blog__cat--hide');
+            } else{
+                item.classList.add('blog__cat--hide');
+             }
+            }else{
+              item.classList.remove('blog__cat--hide');
+            }
+        }
+            
 
     })
-}

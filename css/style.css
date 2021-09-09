@@ -591,12 +591,6 @@ hr {
   padding-right: 5px;
   width: 70%;
 }
-.blog__search-bar {
-  list-style-type: none;
-  border-bottom: 1px solid #bfbfbf;
-  padding: 15px 0;
-  text-align: center;
-}
 .blog__search_btn {
   border: none;
   width: 90%;
@@ -622,6 +616,9 @@ hr {
 }
 .blog__cat:hover {
   color: var(--color-second);
+}
+.blog__cat--hide {
+  display: none;
 }
 .blog__arrow {
   border: 1px solid #000;

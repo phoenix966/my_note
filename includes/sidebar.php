@@ -2,34 +2,10 @@
 <div class="blog__sidebar <?php echo $style; ?>">
     <form class="blog__search" method="POST">
         <div class="blog__row">
-            <input class="blog__input" type="text" name="cat_search">
-            <button class="blog__btn" type="submit" name="submit">Поиск</button>
+            <input class="blog__input" type="text" name="catSearch">
+            <button class="blog__btn" type="submit">Поиск</button>
         </div>
     </form>
-    <ul class="blog__search-bar">
-        <?php
-        if (isset($_POST['cat_search'])) {
-            $cat_search = $_POST['cat_search'];
-            $search_result_temp = mysqli_query($connection, "SELECT * FROM `articles_categories` WHERE `categorie_title` = '$cat_search' ");
-            $search_result = mysqli_fetch_assoc($search_result_temp);
-            if (mysqli_num_rows($search_result_temp) == 0) {
-                echo '<li>ничего не найдено</li>';
-            } else {
-                // echo $search_result['categorie_title'];
-                echo '<li class="blog__search-item">
-                              <p>Найденная категория: </p>
-                              <br>
-                              <button value="' . $search_result['id'] . '" class="blog__search_btn">' . $search_result['categorie_title'] . '</button>
-                            </li>';
-
-            }
-
-        } else {
-            echo '';
-        }
-
-        ?>
-    </ul>
     <?php
     $result = mysqli_query($connection, "SELECT * FROM `articles_categories` ");
     if (mysqli_num_rows($result) == 0){
@@ -43,19 +19,25 @@
                     WHERE `categorie_id` = " . $cat['id']);
             $articles_count_result = mysqli_fetch_assoc($articles_count);
             $id = $cat['id'];
-            if ($id == 18) {
-                echo '<li class="blog__item">' .
-                    '<span class="blog__cat" id="' . $cat['id'] . '">'
-                    . $cat['categorie_title'] . '[' . $articles_count_result['total_count'] . ']' .
-                    '</span>' . '
-                            </li>';
-            } else {
-                echo '<li class="blog__item">' .
-                    '<a href="/my_note/index.php?sort='. $cat['id'] .'" class="blog__cat">'
-                    . $cat['categorie_title'] . '[' . $articles_count_result['total_count'] . ']' .
-                    '</a>' .
-                    '<button ' . $var . ' class="blog__del" value="' . $cat['id'] . '"><span class="icon-bin"></span></button>
-                        </li>';
+            $total_count = $articles_count_result['total_count'];
+            $cat_id = $cat['id'];
+            $cat_title = $cat['categorie_title']; 
+            if ($id == 18){
+                echo  "<li class='blog__item'>
+                                <span class='blog__row-wrap'>
+                                    <a href='/my_note/index.php?sort=${cat_id}' class='blog__cat'>{$cat_title}</a><span class='blog__count'>[{$total_count}]</span>
+                                </span>
+                            </li>";
+            }else{
+                echo "<li class='blog__item'>
+                        <span class='blog__row-wrap'>
+                            <a href='/my_note/index.php?sort=${cat_id}' class='blog__cat'>{$cat_title}</a>
+                            <span class='blog__count'>[{$total_count}]</span>
+                        </span>
+                        <button ${var} class='blog__del' value='${cat_id}'>
+                            <span class='icon-bin'></span>
+                        </button>
+                    </li>";
             }
 
         }

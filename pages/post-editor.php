@@ -9,6 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Edit post</title>
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
 </head>
 <body>
    <?php
@@ -223,7 +224,7 @@ modalOverlay.addEventListener('click', function () {
   });
 
 </script> -->
-<script>
+<!-- <script>
   let buttonsCatSort = document.querySelectorAll('.blog__cat');
   let blog_ids = document.querySelectorAll('.blog__id');
   buttonsCatSort.forEach((cat)=>{
@@ -241,7 +242,7 @@ modalOverlay.addEventListener('click', function () {
 
     })
   });
-</script>
+</script> -->
 
 </body>
 </html>
