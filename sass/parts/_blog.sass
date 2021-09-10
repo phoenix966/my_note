@@ -200,29 +200,86 @@
     cursor: pointer
     color: #555
     margin: 5px 0
+    background: #fff
+    width: 80%
+    border-left: 2px solid var(--color-second)
+    padding: 5px 10px
+    font-family: var(--font-regular)
+    font-size: 16px
+    padding-right: 10px
+    text-transform: lowercase
     &:hover
       color: var(--color-second)
     &--hide
       display: none
+  &__count
+    font-family: var(--font-regular)
+    color: #888
   &__arrow
-    border: 1px solid #000
-    padding: 2px
+    display: block
+    border: none
+    padding: 2%
     cursor: pointer
+    padding: 15px
+    background: #fff
+    &--left
+      position: fixed
+      z-index: 1
+      top: 50vh
+      left: 5px
+      border-top-left-radius: 50%
+      border-bottom-left-radius: 50%
+      border-bottom-right-radius: 5px
+      border-top-right-radius: 5px
+      -webkit-box-shadow: 2px 0px 9px 2px rgba(0, 0, 0, 0.1)
+      -moz-box-shadow: 2px 0px 9px 2px rgba(0, 0, 0, 0.1)
+      box-shadow: 2px 0px 9px 2px rgba(0, 0, 0, 0.1)
+      +media(1200px)
+        left: 12px
+    &--right
+      position: fixed
+      top: 50vh
+      right: 5px
+      z-index: 1
+      border-top-right-radius: 50%
+      border-bottom-right-radius: 50%
+      border-bottom-left-radius: 5px
+      border-top-left-radius: 5px
+      -webkit-box-shadow: 2px 0px 9px 2px rgba(0, 0, 0, 0.1)
+      -moz-box-shadow: 2px 0px 9px 2px rgba(0, 0, 0, 0.1)
+      box-shadow: 2px 0px 9px 2px rgba(0, 0, 0, 0.1)
+      +media(1200px)
+        right: 12px
   &__pagination
     display: flex
     margin: 20px 0
     padding: 0
-    height: 25px
+    height: 70px
     justify-content: flex-start
     align-items: center
     list-style-type: none
-    max-width: 192px
+    max-width: 392px
     overflow: hidden
-    border: 1px solid #000
+    font-family: var(--font-regular)
     &-btn
+      display: flex
+      justify-content: center
+      align-items: center
       cursor: pointer
+      width: 40px
+      height: 40px
+      border-radius: 25px
+      background: #fff
+      color: #888
+      border: none
+      margin: 5px
       &--active
-        color: red
+        color: var(--color-second)
+        width: 50px
+        height: 50px
+        -webkit-box-shadow: 2px 0px 9px 2px rgba(0, 0, 0, 0.1)
+        -moz-box-shadow: 2px 0px 9px 2px rgba(0, 0, 0, 0.1)
+        box-shadow: 2px 0px 9px 2px rgba(0, 0, 0, 0.1)
     & li
       margin: 0 2px
   & img

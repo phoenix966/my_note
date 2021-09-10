@@ -19,10 +19,10 @@
             <div class="header__form-wrapper">
                 <div class="header__wrap">
                     <input type="text" class="header__input" placeholder="Найти запись...">
-                    <button class="header__btn">Поиск</button>
+                    <div class="header__btn header__btn--search">Поиск</div>
                     <div class="header__searchbar">
                         <ul class="header__searchbar-list">
-                            <li class="header__searchbar-item">Go to test</li>
+                            
                         </ul>
                     </div>
                 </div>
