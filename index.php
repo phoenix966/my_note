@@ -72,6 +72,7 @@
 
 <script src="./js/jquery.min.js"></script>
 <script src="./js/logic.js"></script>
+<script src="./js/jquery.nicescroll.min.js"></script>
 
 </body>
 </html>

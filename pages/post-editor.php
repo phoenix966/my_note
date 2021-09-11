@@ -10,6 +10,7 @@
   <title>Edit post</title>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
+<!--   <link href="highlight.js/monokai-sublime.min.css" rel="stylesheet"> -->
 </head>
 <body>
    <?php
@@ -46,9 +47,8 @@
        <?php 
         include('../includes/modal.php');
      ?>
-
     <section class="post">
-      <div class="container post__container">
+      <div class="post__container">
         <h1 class="post__title"> <?php echo $info['title']?> </h1>
         <?php 
           $btn_text = '';
@@ -86,7 +86,9 @@
 
 
 <script src="../js/jquery.min.js"></script>
+<!-- <script href="highlight.js"></script> -->
 <script src="../js/quill.js"></script>
+<script src="../js/jquery.nicescroll.min.js"></script>
 <script src="../js/logic.js"></script>
 <script src="../js/logic-edit.js"></script>
 

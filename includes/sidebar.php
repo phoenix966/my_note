@@ -2,8 +2,8 @@
 <div class="blog__sidebar <?php echo $style; ?>">
     <form class="blog__search" method="POST">
         <div class="blog__row">
-            <input class="blog__input" type="text" name="catSearch">
-            <button class="blog__btn" type="submit">Поиск</button>
+            <input class="blog__input" type="text" name="catSearch" autocomplete="off">
+            <div class="blog__btn" type="submit">Поиск</div>
         </div>
     </form>
     <?php

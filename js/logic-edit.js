@@ -1,3 +1,10 @@
+//Highlight логика
+
+// hljs.configure({   // optionally configure hljs
+//   languages: ['javascript', 'ruby', 'python']
+// });
+
+
 // Quill логика
 
 let temp = window.location;
@@ -25,7 +32,8 @@ let temp = window.location;
 
     let options = {
       modules: {
-        toolbar: toolbarOptions
+        toolbar: toolbarOptions,
+        // syntax: true, 
       },
       placeholder: 'Начните что-нибудь писать ...',
       theme: 'snow',
@@ -119,4 +127,10 @@ topBtn.addEventListener('click', function (e) {
 modalOverlay.addEventListener('click', function () {
     modalOverlay.classList.remove('modal__overlay--active');
     modalPanel.classList.remove('modal__window--active');
+});
+
+// управление скролом
+
+ $(function() {  
+    $(".ql-editor").niceScroll({cursorcolor:"",cursorwidth: "80px",cursorborderradius: "15px",autohidemode: true});
 });

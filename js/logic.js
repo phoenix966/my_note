@@ -150,3 +150,11 @@ defaultSearchForm.addEventListener('input',function(e){
     }
 })
 
+// scrolls
+
+$(function() {  
+    $("body").niceScroll({cursorcolor:"#bdfafa",cursorwidth: "10px",cursorborderradius: "5px",autohidemode: true});
+});
+$(function() {  
+    $(".blog__note").niceScroll({cursorcolor:"rgb(23, 111, 133) ",cursorwidth: "5px",cursorborderradius: "5px",autohidemode: true});
+});
