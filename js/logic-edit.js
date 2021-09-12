@@ -63,18 +63,11 @@ let showNewCat = document.querySelector('.modal__btn--show');
 
 document.querySelector('.modal__form').addEventListener('submit',(e)=>{
     e.preventDefault();
-    let textTemp = editor.root.innerHTML;
-    let textArray = textTemp.split('');
-    let text = '';
     const form = document.querySelector('.modal__form');
-    for(let value of textArray){
-      if(value == "'"){
-        value = "~";
-        text += value;
-      } else{
-        text += value;
-      }
-    }
+    let textTemp = editor.root.innerHTML;
+    let testText = 'какой то текст'
+    let regText = new RegExp('\'','gmi');
+    let text = textTemp.replace(regText,"\\'");
     let obj = {
       'title': `${form.elements.title.value}`,
       'text': `${text}`,
