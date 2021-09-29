@@ -1,6 +1,6 @@
 .register{
 	&__body{
-		background: url('../img/bg-1.jpg')top center / cover;
+		background: url('../img/bg.png')top center / cover;
 	};
 	&__wrapper{
 		display: flex;
@@ -25,6 +25,8 @@
 		border-radius: 5px;
 		transition: 0.5s;
 		height: 40px;
+		font-family: var(--font-regular);
+		color: var(--color-second);
 		&:hover{
 			cursor: pointer;
 			background: var(--color-second);
@@ -42,5 +44,7 @@
 		height: 30px;
 		border-radius: 5px;
 		border: none;
+		padding: 5px 10px;
+		font-family: var(--font-regular);
 	};
 };
