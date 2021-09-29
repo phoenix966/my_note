@@ -40,7 +40,7 @@
     position: fixed
     top: 5%
     left: 0
-    width: 70%
+    width: 75%
     height: 580px
     background: var(--color-btn)
     border-top-right-radius: 15px
@@ -51,20 +51,18 @@
     transition: all 0.6s
     transform: translateX(-98%)
     +media(928px)
-      width: 35%
+      width: 30%
     &--active
       transform: translateX(0)
       z-index: 3
   &__note
     position: absolute
     padding: 10px
-    padding-top: 30px
-    top: 50px
+    top: 100px
     left: 0
     width: 100%
-    height: 450px
+    height: 400px
     overflow-y: scroll
-
   &__list
     display: flex
     justify-content: flex-start
@@ -150,6 +148,7 @@
     background: #f1f1f1
     color: #4e4e4e93
     border: none
+    cursor: pointer
   &__link
     text-decoration: none
   &__row
@@ -216,7 +215,6 @@
     font-family: var(--font-regular)
     font-size: 16px
     padding-right: 10px
-    text-transform: lowercase
     &:hover
       color: var(--color-second)
     &--hide
@@ -227,9 +225,10 @@
   &__arrow
     display: block
     border: none
-    padding: 2%
     cursor: pointer
-    padding: 15px
+    padding: 15px 8px
+    padding-top: 17px
+    color: var(--color-second)
     background: #fff
     &--left
       position: fixed
@@ -238,8 +237,8 @@
       left: 5px
       border-top-left-radius: 50%
       border-bottom-left-radius: 50%
-      border-bottom-right-radius: 5px
-      border-top-right-radius: 5px
+      border-bottom-right-radius: 15px
+      border-top-right-radius: 15px
       -webkit-box-shadow: 2px 0px 9px 2px rgba(0, 0, 0, 0.1)
       -moz-box-shadow: 2px 0px 9px 2px rgba(0, 0, 0, 0.1)
       box-shadow: 2px 0px 9px 2px rgba(0, 0, 0, 0.1)
@@ -252,13 +251,33 @@
       z-index: 1
       border-top-right-radius: 50%
       border-bottom-right-radius: 50%
-      border-bottom-left-radius: 5px
-      border-top-left-radius: 5px
+      border-bottom-left-radius: 15px
+      border-top-left-radius: 15px
       -webkit-box-shadow: 2px 0px 9px 2px rgba(0, 0, 0, 0.1)
       -moz-box-shadow: 2px 0px 9px 2px rgba(0, 0, 0, 0.1)
       box-shadow: 2px 0px 9px 2px rgba(0, 0, 0, 0.1)
       +media(1200px)
         right: 12px
+  &__auth
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    height: 25px
+    padding: 5px 10px
+  &__quad
+    width: 15px
+    height: 15px
+    border-radius: 3px
+    border: 5px solid var(--color-border)
+    background: red
+    transform: rotate(45deg)
+    margin-right: 20px
+    &--active
+      background: #07F70AFF
+  &__name
+    font-size: 16px
+    font-family: var(--font-bold)
+    color: var(--color-second)
   &__pagination
     display: flex
     margin: 20px 0
@@ -302,5 +321,6 @@
   align-items: center
   height: 50px
   margin-bottom: 30px
+
 
 

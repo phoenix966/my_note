@@ -1,6 +1,16 @@
 <?php
     include('../config/db.php');
   ?>
+  <?php 
+    if(isset($_COOKIE['user'])){
+
+       $user_pass_temp = $_COOKIE['user'];
+       $current_user_data_temp = mysqli_query($connection,"SELECT * FROM `users` WHERE  `pass` = '$user_pass_temp'");
+       $user_data = mysqli_fetch_assoc($current_user_data_temp);
+       $userId = $user_data['id'];  
+    }
+     
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +20,6 @@
   <title>Edit post</title>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
-<!--   <link href="highlight.js/monokai-sublime.min.css" rel="stylesheet"> -->
 </head>
 <body>
    <?php
@@ -71,7 +80,7 @@
           }
         ?>
         <a href="/my_note/pages/post-editor.php?id=<?php echo $currentId; ?>&type=<?php echo $btn_url; ?>" class="post__btn post__btn--redact <?php echo $btn_link_class; ?>"><?php echo $btn_text;?><span class="post__btn-dot <?php echo $btn_class; ?>"></span></a>
-        <div class="post__editor" style="height: 70vh" id="editor">
+        <div class="post__editor" style="height: 68vh" id="editor">
           <?php echo $info['text']; ?>
         </div>
         <div class="post__test"></div>
@@ -86,9 +95,7 @@
 
 
 <script src="../js/jquery.min.js"></script>
-<!-- <script href="highlight.js"></script> -->
 <script src="../js/quill.js"></script>
-<script src="../js/jquery.nicescroll.min.js"></script>
 <script src="../js/logic.js"></script>
 <script src="../js/logic-edit.js"></script>
 

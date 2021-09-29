@@ -26,11 +26,33 @@
                         </ul>
                     </div>
                 </div>
-                <button <?php echo $conf['disabled']; ?> class="header__btn  header__btn--round <?php echo $conf['class']; ?>"><?php echo $conf['text']; ?></button>
+                <?php 
+                    $checkBtn = $_COOKIE['user'] ? '' : 'disabled';
+
+                ?>
+                <button <?php echo $checkBtn; ?> <?php echo $conf['disabled']; ?> class="header__btn  header__btn--round <?php echo $conf['class']; ?>"><?php echo $conf['text']; ?></button>
             </div>
         </form>
     </div>
     <div class="container">
         <button class="header__scroll">закрыть</button>
     </div>
+    <?php 
+        if(!$_COOKIE['user']){
+            echo <<<HTML
+                    <a href="/my_note/pages/register-page.php" class="header__box">
+                       <span class="header__icon icon-lock"></span>
+                    </a>
+                  HTML;
+        }else{
+            echo <<<HTML
+                    <a href="/my_note/pages/auth/exit.php?exit=true" class="header__box">
+                       <span class="header__icon icon-unlocked"></span>
+                    </a>
+                 HTML;
+        }
+    ?>   
 </header>
+<section>
+   
+</section>

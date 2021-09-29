@@ -1,5 +1,18 @@
 <div class="blog__overlay"></div>
 <div class="blog__sidebar <?php echo $style; ?>">
+    <div class="blog__auth">
+        <?php 
+            $user_check = $user_data['name'] ? '<span class="blog__quad blog__quad--active"></span>'  : '<span class="blog__quad"></span>' ;
+            echo $user_check;
+        ?>
+        <h4 class="blog__name">
+            <?php 
+                $user_name = $user_data['name'] ?  $user_data['name'] : 'Войдите или зарегестрируйтесь!' ; 
+                echo $user_name;
+            ?>
+            
+        </h4>
+    </div>
     <form class="blog__search" method="POST">
         <div class="blog__row">
             <input class="blog__input" type="text" name="catSearch" autocomplete="off">
@@ -7,7 +20,7 @@
         </div>
     </form>
     <?php
-    $result = mysqli_query($connection, "SELECT * FROM `articles_categories` ");
+    $result = mysqli_query($connection, "SELECT * FROM `articles_categories` WHERE `user_id` = '$userId' ");
     if (mysqli_num_rows($result) == 0){
         echo 'Категорий не найдено!';
     } else{
@@ -29,7 +42,8 @@
                                 </span>
                             </li>";
             }else{
-                echo "<li class='blog__item'>
+                echo <<<HTML
+                    <li class='blog__item'>
                         <span class='blog__row-wrap'>
                             <a href='/my_note/index.php?sort=${cat_id}' class='blog__cat'>{$cat_title}</a>
                             <span class='blog__count'>[{$total_count}]</span>
@@ -37,7 +51,8 @@
                         <button ${var} class='blog__del' value='${cat_id}'>
                             <span class='icon-bin'></span>
                         </button>
-                    </li>";
+                    </li>
+                    HTML;
             }
 
         }

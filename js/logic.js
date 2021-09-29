@@ -80,7 +80,10 @@ let blogCatForm = document.querySelector('.blog__search');
             let item = blogItems[i];
             let cat = blogCats[i];
             if(value){
-              if(cat.innerText.includes(value)){
+                let str = cat.innerText;
+                let re = new RegExp(`${value}`,'gmi');
+                let found = re.test(str);
+              if(found){
                 item.classList.remove('blog__cat--hide');
             } else{
                 item.classList.add('blog__cat--hide');
@@ -103,7 +106,7 @@ let btn = document.querySelector('.header__btn--new');
     })  
     }
 
-// Общий поиск записей
+// Общий живой поиск записей
 
  let defaultSearchResult = [];
 
@@ -126,9 +129,6 @@ let defaultSearchBar = document.querySelector('.header__searchbar-list');
 
 defaultSearchForm.addEventListener('input',function(e){
     let value = e.target.value;
-    // var reg = new RegExp(valueTemp, "i");
-    // value = reg(valueTemp);
-    // console.log(value)
 
     let createElement = (item)=>{
         let element = document.createElement('li');
@@ -139,7 +139,10 @@ defaultSearchForm.addEventListener('input',function(e){
 
     defaultSearchBar.innerHTML = '';
     defaultSearchResult.forEach((item)=>{
-        if(item.title.includes(value) && value){
+        let str = item.title;
+        let reg = new RegExp(`${value}`,'gmi');
+        let found = reg.test(str);
+        if(found && value){
                 defaultSearchBar.append(createElement(item));
             }
     })
@@ -149,12 +152,3 @@ defaultSearchForm.addEventListener('input',function(e){
         defaultSearch.classList.remove('header__searchbar--active');
     }
 })
-
-// scrolls
-
-$(function() {  
-    $("body").niceScroll({cursorcolor:"#bdfafa",cursorwidth: "10px",cursorborderradius: "5px",autohidemode: true});
-});
-$(function() {  
-    $(".blog__note").niceScroll({cursorcolor:"rgb(23, 111, 133) ",cursorwidth: "5px",cursorborderradius: "5px",autohidemode: true});
-});

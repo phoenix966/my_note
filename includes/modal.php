@@ -20,13 +20,13 @@
           <select name="catSelect" class="modal__select">
           <?php
             if($get_type == 'new'){
-              $temp_cat = mysqli_query($connection," SELECT * FROM `articles_categories` ");
+              $temp_cat = mysqli_query($connection," SELECT * FROM `articles_categories` WHERE `user_id` = '$userId' ");
               while(($cat = mysqli_fetch_assoc($temp_cat)) ){
                 echo '<option value="'. $cat['id'] .'">' . $cat['categorie_title'] . '</option>';
               }
             }
             if($get_type == 'edit'){
-              $temp_cat_edit = mysqli_query($connection," SELECT * FROM `articles_categories` ");
+              $temp_cat_edit = mysqli_query($connection," SELECT * FROM `articles_categories` WHERE `user_id` = '$userId' ");
               $selected_cat_id = $info['categorie_id'];
               while(($cat = mysqli_fetch_assoc($temp_cat_edit)) ){
                 if($cat['id'] == $selected_cat_id){

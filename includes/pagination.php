@@ -7,7 +7,7 @@
     $page_sort_url = $currentSortId ? '&sort='. $currentSortId .'' : '';
 ?>
     <div class="container">
-       <a href="./index.php?page=<?php echo $prev_page . $page_sort_url; ?>" class="blog__arrow blog__arrow--left"> < </a> 
+       <a href="./index.php?page=<?php echo $prev_page . $page_sort_url; ?>" class="blog__arrow blog__arrow--left"> <span class="icon-arrow-left2"></span> </a> 
     </div>
    
     <?php
@@ -68,7 +68,7 @@
         ?>
     </ul>
     <div class="container">
-         <a href="./index.php?page=<?php echo $next_page . $page_sort_url; ?>" class="blog__arrow blog__arrow--right"> > </a>
+         <a href="./index.php?page=<?php echo $next_page . $page_sort_url; ?>" class="blog__arrow blog__arrow--right"> <span class="icon-arrow-right2"></span> </a>
     </div>
    
 </div>

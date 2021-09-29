@@ -1,13 +1,7 @@
-//Highlight логика
-
-// hljs.configure({   // optionally configure hljs
-//   languages: ['javascript', 'ruby', 'python']
-// });
-
 
 // Quill логика
 
-let temp = window.location;
+    let temp = window.location;
     let url = new URL(`${temp.href}`);
     let searchParams = new URLSearchParams(url.search);
     let getType = searchParams.get('type'); 
@@ -59,15 +53,16 @@ let showNewCat = document.querySelector('.modal__btn--show');
       isNewCatActive ? select.disabled = true : select.disabled = false;
     });
 
-// Логика категорий
+// Логика категорий и создания записи
 
 document.querySelector('.modal__form').addEventListener('submit',(e)=>{
     e.preventDefault();
     const form = document.querySelector('.modal__form');
     let textTemp = editor.root.innerHTML;
-    let testText = 'какой то текст'
+
     let regText = new RegExp('\'','gmi');
     let text = textTemp.replace(regText,"\\'");
+
     let obj = {
       'title': `${form.elements.title.value}`,
       'text': `${text}`,
@@ -94,8 +89,9 @@ document.querySelector('.modal__form').addEventListener('submit',(e)=>{
     }
      //Создание новой
     if(getType == 'new'){
+     console.log(obj)
     $.ajax({
-      url:'/my_note/pages/foo.php',
+      url:'./foo.php',
       type: "POST",
       data: obj,
       success: function(data)
@@ -120,10 +116,4 @@ topBtn.addEventListener('click', function (e) {
 modalOverlay.addEventListener('click', function () {
     modalOverlay.classList.remove('modal__overlay--active');
     modalPanel.classList.remove('modal__window--active');
-});
-
-// управление скролом
-
- $(function() {  
-    $(".ql-editor").niceScroll({cursorcolor:"",cursorwidth: "80px",cursorborderradius: "15px",autohidemode: true});
 });
