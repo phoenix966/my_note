@@ -9,7 +9,7 @@ if(isset($_POST['title'])){
     $cat_id = $_POST['cat_id'];
     $new_cat = $_POST['new_cat'];
 
-    $userId = -1;
+    // $userId = -1;
 
     //Получение userID
 
