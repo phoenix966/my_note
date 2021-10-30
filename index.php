@@ -1,15 +1,14 @@
 <?php
-    require('config/db.php');
+    require __DIR__.'\config\db.php';
 ?>
 <?php 
     $userId = -1; // после теста поставить -1
 
     if(isset($_COOKIE['user'])){
-       $user_pass_temp = $_COOKIE['user'];
-       $current_user_data_temp = mysqli_query($connection,"SELECT * FROM `users` WHERE  `pass` = '$user_pass_temp'");
-       $user_data = mysqli_fetch_assoc($current_user_data_temp);
-       $userId = $user_data['id'];  
-    }
+        $user_pass_temp = $_COOKIE['user'];
+        $user_data = R::findOne('users','pass = ?',[$user_pass_temp]); // РАБОЧИЙ RB вариант потом вернуть
+        $userId = $user_data['id'];  
+     }
      
 ?>
 <!DOCTYPE html>
@@ -19,7 +18,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main</title>
+    <title>MyNote</title>
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -32,7 +31,8 @@
         'text' => 'Новая+',
         'disabled' => ''
       );
-      include('./includes/header.php');
+      // include('./includes/header.php');
+      include __DIR__.'/includes/header.php';
     ?>
     <section class="blog">
         <div class="blog__posts">
@@ -43,27 +43,44 @@
                         $currentSortId = $_GET['sort'];
                         $currentPage = $_GET['page'] ? $_GET['page'] : 1;
                         $offset = ($limit * $currentPage) - $limit;
-                        $articles_all = $currentSortId ?
 
-                        mysqli_query($connection, "SELECT * FROM `articles` WHERE `categorie_id` = '$currentSortId' AND `user_id` = '$userId' ") :
-                        mysqli_query($connection,"SELECT * FROM `articles` WHERE `user_id` = '$userId' ");
+                        $count = $currentSortId ? R::count('articles','categorie_id = ? AND user_id = ?',[$currentSortId,$user_id])
+                            : R::count('articles','user_id = ?',[$user_id]); // give count = ok
 
-                        $count = mysqli_num_rows($articles_all);
+                        //give selected articles = ok
+                        $selected_articles = $currentSortId ? R::getAll('SELECT * FROM `articles` WHERE `categorie_id` = ? AND `user_id` = ? ORDER BY `pubdate` DESC LIMIT  ?,?',[$currentSortId,$user_id,$offset,$limit])
+                        : R::getAll('SELECT * FROM `articles` WHERE `user_id` = ? ORDER BY `pubdate` DESC LIMIT ?,?',[$userId,$offset,$limit]);
+                        
+                        $sa_count = count($selected_articles);
 
-                        $selected_articles = $currentSortId ?
-                        mysqli_query($connection, "SELECT * FROM `articles` WHERE `categorie_id` = '$currentSortId'  AND `user_id` = '$userId' ORDER BY `pubdate` DESC LIMIT $offset,$limit") :
-                        mysqli_query($connection,"SELECT * FROM `articles` WHERE `user_id` = '$userId' ORDER BY `pubdate` DESC LIMIT $offset,$limit" );
-
-
-                        if (mysqli_num_rows($selected_articles) == 0) {
-                            echo 'Записей не найдено...';
-                        } else {
-                            while ($item = mysqli_fetch_assoc($selected_articles)) {
-                                echo '<li class="blog__post">' . '<div class="blog__head"><div class="blog__pin">' . '</div>'
-                                    . '<h2 class="blog__category">' . $item['title'] . '</h2>
-                          </div><div class="blog__info"><div class="blog__sticky">' . '</div><div class="blog__text">' . $item['text'] . '</div></div>' .
-                                    '<div class="blog__wrap"><button class="blog__btn blog__btn--delete" value="' . $item['id'] . '" ><span class="icon-bin"></span></button><a href="./pages/post-editor.php?id='. $item['id'] .'&type=read" ' . $item['id'] . '" class="blog__btn blog__btn--redact"><span class="icon-pencil2"></span></a></div></li>';
-                            }
+                        if($sa_count == 0){
+                          echo 'Записей не найдено...';
+                        }else{
+                          foreach($selected_articles as $value){
+                            $title = $value['title'];
+                            $text = $value['text'];
+                            $id = $value['id'];
+                            echo <<<HTML
+                                    <li class="blog__post">
+                                      <div class="blog__head">
+                                        <div class="blog__pin"></div>
+                                        <h2 class="blog__category">${title}</h2>
+                                          <div class="blog__info">
+                                                <div class="blog__sticky"></div>
+                                                <div class="blog__text">${text}</div>
+                                            </div>
+                                      </div>
+                                      <div class="blog__wrap">
+                                          <button class="blog__btn blog__btn--delete" value="${id}" >
+                                            <span class="icon-bin"></span>
+                                          </button>
+                                          <a href="./pages/post-editor.php?id=${id}&type=read" class="blog__btn blog__btn--redact">
+                                            <span class="icon-pencil2"></span>
+                                        </a>
+                                      </div>
+                                  </li>
+                                  HTML;
+                          }
                         }
                     ?>
                 </ul>

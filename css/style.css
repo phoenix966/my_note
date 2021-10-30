@@ -649,9 +649,14 @@ a {
   margin: 0 auto;
 }
 .blog__wrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: space-between;
   width: 90%;
+  background: #f1f1f1;
   margin: 0 auto;
 }
 .blog__text {
