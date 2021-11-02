@@ -1,6 +1,6 @@
 <?php
 
-include('../config/db.php');
+require __DIR__.'/../config/db.php';
 
 if(isset($_POST['title'])){
 
@@ -11,31 +11,43 @@ if(isset($_POST['title'])){
 
     // $userId = -1;
 
-    //Получение userID
+//     //Получение userID
 
     if(isset($_COOKIE['user'])){
 
-       $user_pass_temp = $_COOKIE['user'];
-       $current_user_data_temp = mysqli_query($connection,"SELECT * FROM `users` WHERE  `pass` = '$user_pass_temp'");
-       $user_data = mysqli_fetch_assoc($current_user_data_temp);
-       $userId = $user_data['id'];  
-    }
+     $user_pass_temp = $_COOKIE['user'];
+     $user_data = R::findOne('users','pass = ?',[$user_pass_temp]);   //ok
+     $userId = $user_data['id'];
      
-    // Логика создания записи
+}
+    
+//     // Логика создания записи
 
     if(isset($new_cat)){
-        mysqli_query($connection,"INSERT INTO `articles_categories` (`categorie_title`,`user_id`) VALUES ('$new_cat','$userId') ");
-
-        $temp = mysqli_query($connection,"SELECT `id` FROM `articles_categories` WHERE `categorie_title` = '$new_cat' AND `user_id` = '$userId' ");
-        $new_cat_id = mysqli_fetch_assoc($temp);
+        R::exec('INSERT INTO `articles_categories` (`categorie_title`,`user_id`) VALUES (?,?)',[$new_cat,$userId]); //ok
+        $new_cat_id = R::findOne('articles_categories','categorie_title = ? AND user_id = ?',[$new_cat,$userId]);  // Мы получаем id из БД
         $id = $new_cat_id['id'];
-        mysqli_query($connection,"INSERT INTO `articles`  (`title`,`text`,`categorie_id`,`user_id`) VALUES ('$title','$text','$id','$userId')");
+       
+        R::exec('INSERT INTO `articles` (`title`,`text`,`categorie_id`,`user_id`) VALUES (?,?,?,?)',[$title,$text,$id,$userId]);
+        // $articles = R::dispense('articles');
+        // $articles->title = $title;
+        // $articles->text = $text;
+        // $articles->categorie_id = $id;   // создаем новую запись
+        // $articles->user_id = $userId;
+        // R::store($articles);
     }else{
-        mysqli_query($connection,"INSERT INTO `articles`  (`title`,`text`,`categorie_id`,`user_id`) VALUES ('$title','$text','$cat_id','$userId')");
+        R::exec('INSERT INTO `articles` (`title`,`text`,`categorie_id`,`user_id`) VALUES (?,?,?,?)',[$title,$text,$cat_id,$userId]);
+        // $articles = R::dispense('articles');
+        // $articles->title = $title;
+        // $articles->text = $text;
+        // $articles->categorie_id = $cat_id;
+        // $articles->user_id = $userId;
+        // R::store($articles);
     }
-    mysqli_close($connection); 
+
+    R::close();
 }else{
-    //Do whatever you want
+//     //Do whatever you want
     
 }
 

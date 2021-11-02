@@ -1,6 +1,6 @@
 <?php
 
-include('../config/db.php');
+require __DIR__.'/../config/db.php';
 
 
 if(isset($_POST['updateKey'])){
@@ -14,22 +14,21 @@ if(isset($_POST['updateKey'])){
     $userId = -1;
     
     if(isset($_COOKIE['user'])){
-
-       $user_pass_temp = $_COOKIE['user'];
-       $current_user_data_temp = mysqli_query($connection,"SELECT * FROM `users` WHERE  `pass` = '$user_pass_temp'");
-       $user_data = mysqli_fetch_assoc($current_user_data_temp);
-       $userId = $user_data['id'];  
-    }
+      $user_pass_temp = $_COOKIE['user'];
+      $user_data = R::findOne('users','pass = ?',[$user_pass_temp]);   //ok
+      $userId = $user_data['id'];
+ }
      
     // Обновление записи
   if(isset($new_cat)){
-    mysqli_query($connection,"INSERT INTO `articles_categories` (`categorie_title`,`user_id`) VALUES ('$new_cat','$userId') ");
-    $temp = mysqli_query($connection,"SELECT `id` FROM `articles_categories` WHERE `categorie_title` = '$new_cat' AND `user_id` = '$userId' ");
-    $new_cat_id = mysqli_fetch_assoc($temp);
+    R::exec('INSERT INTO articles_categories (categorie_title,user_id) VALUES (?,?)',[$new_cat,$userId]);
+    $new_cat_id = R::findOne('articles_categories','categorie_title = ? AND user_id = ?',[$new_cat,$userId]);
     $id = $new_cat_id['id'];
-    mysqli_query($connection,"UPDATE `articles` SET `title` = '$title',`text` = '$text',`categorie_id` = '$id' WHERE `id` = '$updateId' AND `user_id` = '$userId' ");
+    R::exec('UPDATE articles SET title = ?, text = ?,categorie_id = ? WHERE id = ? AND user_id = ?',[$title,$text,$id,$updateId,$userId]);
+  }else{
+    R::exec('UPDATE articles SET title = ?,text = ?,categorie_id = ? WHERE id = ? AND user_id = ?',[$title,$text,$cat,$updateId,$userId]);
   }
-  mysqli_query($connection,"UPDATE `articles` SET `title` = '$title', `text` = '$text',`categorie_id` = '$cat' WHERE `id` = '$updateId' AND `user_id` = '$userId' ");
+  
 } else{
   //Что то выведешь!
 }

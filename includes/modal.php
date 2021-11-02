@@ -20,22 +20,23 @@
           <select name="catSelect" class="modal__select">
           <?php
             if($get_type == 'new'){
-              $temp_cat = mysqli_query($connection," SELECT * FROM `articles_categories` WHERE `user_id` = '$userId' ");
-              while(($cat = mysqli_fetch_assoc($temp_cat)) ){
-                echo '<option value="'. $cat['id'] .'">' . $cat['categorie_title'] . '</option>';
+              $cats = R::getAll('SELECT * FROM `articles_categories` WHERE `user_id` = ?',[$userId]);
+              foreach($cats as $cat){
+                  echo '<option value="'. $cat['id'] .'">' . $cat['categorie_title'] . '</option>';  //ok
               }
-            }
-            if($get_type == 'edit'){
-              $temp_cat_edit = mysqli_query($connection," SELECT * FROM `articles_categories` WHERE `user_id` = '$userId' ");
+          }
+          if($get_type == 'edit'){
               $selected_cat_id = $info['categorie_id'];
-              while(($cat = mysqli_fetch_assoc($temp_cat_edit)) ){
-                if($cat['id'] == $selected_cat_id){
-                  echo '<option selected="true" value="'. $cat['id'] .'">' . $cat['categorie_title'] . '</option>';
-                  continue;
-                }
+              $cats = R::getAll('SELECT * FROM `articles_categories` WHERE `user_id` = ?',[$userId]); //ok
+              foreach($cats as $cat){
+                  if($cat['id'] == $selected_cat_id){
+                      echo '<option selected="true" value="'. $cat['id'] .'">' . $cat['categorie_title'] . '</option>';
+                      continue;          
+                  }
                   echo '<option value="'. $cat['id'] .'">' . $cat['categorie_title'] . '</option>';
               }
-            }
+      
+              }
           ?>
         </select>
         <button class="modal__btn modal__btn--show">+</button>

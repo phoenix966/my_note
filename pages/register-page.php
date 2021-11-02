@@ -10,7 +10,7 @@
 <body class="register__body">
 	<div class="wrapper">
 		<section class="register">
-			<h1 class="register__title">Пожалуйста зарегестрируйтесь:</h1>
+			<h1 class="register__title">Пожалуйста зарегестрируйтесь: </h1>
 			<div class="container">
 				<div class="register__wrap">
 					<form action="./auth/reg.php" class="register__form" method="POST">

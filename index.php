@@ -6,7 +6,7 @@
 
     if(isset($_COOKIE['user'])){
         $user_pass_temp = $_COOKIE['user'];
-        $user_data = R::findOne('users','pass = ?',[$user_pass_temp]); // РАБОЧИЙ RB вариант потом вернуть
+        $user_data = R::findOne('users','pass = ?',[$user_pass_temp]);
         $userId = $user_data['id'];  
      }
      
@@ -31,7 +31,6 @@
         'text' => 'Новая+',
         'disabled' => ''
       );
-      // include('./includes/header.php');
       include __DIR__.'/includes/header.php';
     ?>
     <section class="blog">
@@ -44,11 +43,11 @@
                         $currentPage = $_GET['page'] ? $_GET['page'] : 1;
                         $offset = ($limit * $currentPage) - $limit;
 
-                        $count = $currentSortId ? R::count('articles','categorie_id = ? AND user_id = ?',[$currentSortId,$user_id])
-                            : R::count('articles','user_id = ?',[$user_id]); // give count = ok
+                        $count = $currentSortId ? R::count('articles','categorie_id = ? AND user_id = ?',[$currentSortId,$userId])
+                            : R::count('articles','user_id = ?',[$userId]); // give count = ok
 
                         //give selected articles = ok
-                        $selected_articles = $currentSortId ? R::getAll('SELECT * FROM `articles` WHERE `categorie_id` = ? AND `user_id` = ? ORDER BY `pubdate` DESC LIMIT  ?,?',[$currentSortId,$user_id,$offset,$limit])
+                        $selected_articles = $currentSortId ? R::getAll('SELECT * FROM `articles` WHERE `categorie_id` = ? AND `user_id` = ? ORDER BY `pubdate` DESC LIMIT  ?,?',[$currentSortId,$userId,$offset,$limit])
                         : R::getAll('SELECT * FROM `articles` WHERE `user_id` = ? ORDER BY `pubdate` DESC LIMIT ?,?',[$userId,$offset,$limit]);
                         
                         $sa_count = count($selected_articles);
@@ -88,13 +87,15 @@
         </div>
     <?php 
         $style = 'blog__sidebar';
-        include('./includes/sidebar.php');
+        include __DIR__.'/includes/sidebar.php'; //ok
       ?>
     </section>
-    <?php include('./includes/pagination.php');?>
+    <?php
+        include __DIR__.'\includes\pagination.php';  // ok
+    ?>
   
     <?php
-        include('includes/footer.php');
+        include __DIR__.'/includes/footer.php'; // ok
     ?>
 </div>
 

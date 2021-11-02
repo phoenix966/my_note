@@ -1,13 +1,11 @@
 <?php
-    include('../config/db.php');
+    require __DIR__.'/../config/db.php';
   ?>
   <?php 
     if(isset($_COOKIE['user'])){
-
-       $user_pass_temp = $_COOKIE['user'];
-       $current_user_data_temp = mysqli_query($connection,"SELECT * FROM `users` WHERE  `pass` = '$user_pass_temp'");
-       $user_data = mysqli_fetch_assoc($current_user_data_temp);
-       $userId = $user_data['id'];  
+      $user_pass_temp = $_COOKIE['user'];
+      $user_data = R::findOne('users','pass = ?',[$user_pass_temp]); //ok
+      $userId = $user_data['id'];  
     }
      
 ?>
@@ -25,8 +23,7 @@
    <?php
       $currentId = $_GET['id'];
       $currentType = $_GET['type'];
-      $res = mysqli_query($connection,"SELECT * FROM `articles` WHERE  `id` = '$currentId' ");
-      $info = mysqli_fetch_assoc($res);
+      $info = R::findOne('articles','id = ?',[$currentId]);  //ok
     ?>
   <div class="wrapper">
     <?php
@@ -51,10 +48,10 @@
         );
        }
         
-        include('../includes/header.php');
+        include __DIR__.'/../includes/header.php';
        ?>
        <?php 
-        include('../includes/modal.php');
+        include __DIR__.'/../includes/modal.php';
      ?>
     <section class="post">
       <div class="post__container">
@@ -87,10 +84,12 @@
       </div>
       <?php 
         $style = 'blog__sidebar--mix';
-        include('../includes/sidebar.php');
+        include __DIR__.'/../includes/sidebar.php';
       ?>
     </section>
-    <?php include('../includes/footer.php');?>
+    <?php 
+        include __DIR__.'/../includes/footer.php';
+    ?>
   </div>
 
 
@@ -98,7 +97,6 @@
 <script src="../js/quill.js"></script>
 <script src="../js/logic.js"></script>
 <script src="../js/logic-edit.js"></script>
-
 
 </body>
 </html>

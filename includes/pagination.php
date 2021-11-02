@@ -31,7 +31,6 @@
         if ($currentPage <= 3) {
             for ($i = 1; $i <= $linksPerPage; $i++) {
                 $isActive = $i == $currentPage ? $classActive : $classDefault;
-                // echo '<li><a class="' . $isActive . '">' . $i . '</a></li>';
                 echo '<li><a href="./index.php?page='. $i .''.  $page_sort_url .'" class="' . $isActive . '">' . $i . '</a></li>';
 
             }
@@ -41,7 +40,6 @@
         if ($currentPage >= $pages - 2) {
             for ($i = $pages - $linksPerPage + 1; $i <= $pages; $i++) {
                 $isActive = $i == $currentPage ? $classActive : $classDefault;
-                // echo '<li><a class="' . $isActive . '">' . $i . '</a></li>';
                 echo '<li><a href="./index.php?page='. $i .''.  $page_sort_url .'" class="' . $isActive . '">' . $i . '</a></li>';
 
             }
@@ -51,7 +49,6 @@
 
         for ($i = $min; $i <= $max; $i++) {
             $isActive = $i == $currentPage ? 'blog__pagination-btn blog__pagination-btn--active' : 'blog__pagination-btn';
-            // echo '<li><a class="' . $isActive . '">' . $i . '</a></li>';
             echo '<li><a href="./index.php?page='. $i .''.  $page_sort_url .'" class="' . $isActive . '">' . $i . '</a></li>';
 
         }

@@ -19,45 +19,44 @@
             <div class="blog__btn" type="submit">Поиск</div>
         </div>
     </form>
-    <?php
-    $result = mysqli_query($connection, "SELECT * FROM `articles_categories` WHERE `user_id` = '$userId' ");
-    if (mysqli_num_rows($result) == 0){
+<?php
+    $result = R::getAll('SELECT * FROM `articles_categories` WHERE `user_id` = ?',[$userId]);
+    $cat_count = count($result);
+    if ($cat_count == 0){
         echo 'Категорий не найдено!';
     } else{
-    ?>
+?>
     <ul class="blog__note">
         <?php
-        while (($cat = mysqli_fetch_assoc($result))) {
-            $articles_count = mysqli_query($connection, "SELECT COUNT(`id`) AS `total_count` FROM `articles`
-                    WHERE `categorie_id` = " . $cat['id']);
-            $articles_count_result = mysqli_fetch_assoc($articles_count);
-            $id = $cat['id'];
-            $total_count = $articles_count_result['total_count'];
-            $cat_id = $cat['id'];
-            $cat_title = $cat['categorie_title']; 
-            if ($id == 18){
-                echo  "<li class='blog__item'>
+            foreach($result as $cat){
+                $total_count = R::count('articles','categorie_id = ?',[$cat['id']]);
+                $cat_id = $cat['id'];
+                $cat_title = $cat['categorie_title'];
+                $hide_trash_id = 18;
+                if($cat_id == $hide_trash_id){
+                    echo <<<HTML
+                            <li class='blog__item'>
                                 <span class='blog__row-wrap'>
-                                    <a href='/my_note/index.php?sort=${cat_id}' class='blog__cat'>{$cat_title}</a><span class='blog__count'>[{$total_count}]</span>
+                                    <a href='/my_note/index.php?sort=${cat_id}' class='blog__cat'>${cat_title}</a><span class='blog__count'>[${total_count}]</span>
                                 </span>
-                            </li>";
-            }else{
-                echo <<<HTML
-                    <li class='blog__item'>
-                        <span class='blog__row-wrap'>
-                            <a href='/my_note/index.php?sort=${cat_id}' class='blog__cat'>{$cat_title}</a>
-                            <span class='blog__count'>[{$total_count}]</span>
-                        </span>
-                        <button ${var} class='blog__del' value='${cat_id}'>
-                            <span class='icon-bin'></span>
-                        </button>
-                    </li>
-                    HTML;
-            }
-
+                            </li> 
+                            HTML;
+                }else{
+                    echo <<<HTML
+                            <li class='blog__item'>
+                                <span class='blog__row-wrap'>
+                                    <a href='/my_note/index.php?sort=${cat_id}' class='blog__cat'>{$cat_title}</a>
+                                    <span class='blog__count'>[{$total_count}]</span>
+                                </span>
+                                <button ${var} class='blog__del' value='${cat_id}'>
+                                    <span class='icon-bin'></span>
+                                </button>
+                            </li>
+                            HTML;       
+                }
+            }           
         }
-        }
-        mysqli_close($connection);
+        R::close();
         ?>
     </ul>
 </div>

@@ -59,13 +59,9 @@ document.querySelector('.modal__form').addEventListener('submit',(e)=>{
     e.preventDefault();
     const form = document.querySelector('.modal__form');
     let textTemp = editor.root.innerHTML;
-
-    let regText = new RegExp('\'','gmi');
-    let text = textTemp.replace(regText,"\\'");
-
     let obj = {
       'title': `${form.elements.title.value}`,
-      'text': `${text}`,
+      'text': `${textTemp}`,
     }
     if(!isNewCatActive){
       obj.cat_id = `${form.elements.catSelect.value}`;
@@ -77,7 +73,7 @@ document.querySelector('.modal__form').addEventListener('submit',(e)=>{
     if(getType == 'edit'){
     obj.updateKey = getId;
     $.ajax({
-      url:'./update.php',
+      url:'/my_note/pages/update.php',
       type: "POST",
       data: obj,
       success: function(data)
@@ -89,9 +85,8 @@ document.querySelector('.modal__form').addEventListener('submit',(e)=>{
     }
      //Создание новой
     if(getType == 'new'){
-     console.log(obj)
     $.ajax({
-      url:'./foo.php',
+      url:'/my_note/pages/foo.php',
       type: "POST",
       data: obj,
       success: function(data)

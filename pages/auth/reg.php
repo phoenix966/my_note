@@ -17,10 +17,18 @@ if(isset($_POST['login'])){ // выполняем проверку на суще
 
 	$pass = md5($pass.'troddmdf983430000g0fglfjflh'); // создаем md5 хеш с любой доп припиской (сахар)
 
-	require('../../config/db.php'); // вызываем базу из файла config.php
+	require __DIR__.'/../../config/db.php'; // вызываем базу из файла config.php
 
 	mysqli_query($connection,"INSERT INTO `users` (`login`,`name`,`email`,`pass`) VALUES ('$login','$name','$email','$pass')"); //ложим в БД
-	mysqli_close($connection); // закрываем соединение с бд
+	
+	$users = R::dispense('users');
+	$users->login = $login;
+	$users->name  = $name;
+	$users->email = $email;
+	$users->pass  = $pass;
+	R::store($users);
+	
+	R::close(); // закрываем соединение с бд
 
 	header('Location: /my_note/index.php'); // переадресовываем на др страницу
 }
