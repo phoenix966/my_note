@@ -15,20 +15,29 @@ if(isset($_POST['login'])){ // выполняем проверку на суще
 		exit();
 	}
 
-	$pass = md5($pass.'troddmdf983430000g0fglfjflh'); // создаем md5 хеш с любой доп припиской (сахар)
-
+	$pass = password_hash($pass, PASSWORD_DEFAULT);
+	$email_hash = md5($email.'troddmdf983430000g0fglfjflh');
+	
 	require __DIR__.'/../../config/db.php'; // вызываем базу из файла config.php
 
-	mysqli_query($connection,"INSERT INTO `users` (`login`,`name`,`email`,`pass`) VALUES ('$login','$name','$email','$pass')"); //ложим в БД
-	
-	$users = R::dispense('users');
-	$users->login = $login;
-	$users->name  = $name;
-	$users->email = $email;
-	$users->pass  = $pass;
-	R::store($users);
-	
-	R::close(); // закрываем соединение с бд
+	function add_to_bd($login,$name,$email,$pass,$email_hash) {
+		$users = R::dispense('users');
+		$users->login = $login;
+		$users->name  = $name;
+		$users->email = $email;
+		$users->pass  = $pass;
+		$users->hash = $email_hash;
+		R::store($users);
+		R::close();
+	}
 
-	header('Location: /my_note/index.php'); // переадресовываем на др страницу
+	try {
+		add_to_bd($login,$name,$email,$pass,$email_hash);
+		header('Location: /my_note/pages/register-page.php?reg=true');
+	} catch (Exception $e) {
+		print $e->getMessage();
+		header('Location: /my_note/pages/register-page.php?reg=false');
+	}
+	
+	
 }

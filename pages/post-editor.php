@@ -2,11 +2,11 @@
     require __DIR__.'/../config/db.php';
   ?>
   <?php 
-    if(isset($_COOKIE['user'])){
-      $user_pass_temp = $_COOKIE['user'];
-      $user_data = R::findOne('users','pass = ?',[$user_pass_temp]); //ok
-      $userId = $user_data['id'];  
-    }
+  if(isset($_COOKIE['user'])){
+    $user_pass_hash = $_COOKIE['user'];
+    $user_data = R::findOne('users','hash = ?',[$user_pass_hash]);
+    $userId = $user_data['id'];  
+ }
      
 ?>
 <!DOCTYPE html>

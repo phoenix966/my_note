@@ -1,3 +1,15 @@
+<?php 
+	$check = '';
+	if(isset($_COOKIE['user'])){
+        $user_pass_hash = $_COOKIE['user'];
+        $user_data = R::findOne('users','hash = ?',[$user_pass_hash]);
+        $userId = $user_data['id'];
+		$check = 'style="display: none"';  
+     }
+	 if($_GET['reg'] == 'true'){
+		$check = 'style="display: none"';
+	 }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,9 +22,20 @@
 <body class="register__body">
 	<div class="wrapper">
 		<section class="register">
-			<h1 class="register__title">Пожалуйста зарегестрируйтесь: </h1>
+			<h3 class="register__title">
+				<?php
+					if(isset($_GET['reg'])){
+						if($_GET['reg'] == 'true'){
+							echo 'Вы успешно зарегестрировались!';
+						} else{
+							echo 'Возникли ошибки при регистрации!';
+						}
+					}
+				?>
+			</h3>
 			<div class="container">
-				<div class="register__wrap">
+				<div  class="register__wrap" <?php echo $check ?>>
+				<h1 class="register__title">Пожалуйста зарегестрируйтесь: </h1>
 					<form action="./auth/reg.php" class="register__form" method="POST">
 					<div class="register__wrapper">
 						<input name="login" id="login" type="text" class="register__input" placeholder="Введите логин" required>
@@ -26,11 +49,11 @@
 
 				</form>
 				</div>
-				<h2 class="register__title">или выполните вход:</h2>
 				<div class="register__wrap">
+				<h2 class="register__title">Выполните вход: </h2>
 					<form action="./auth/auth.php" class="register__form" method="POST">
 					<div class="register__wrapper register__wrapper--min">
-						<input name="login_auth" id="login_auth" type="text" class="register__input" placeholder="Введите логин" required>
+						<input name="email_auth" id="login_auth" type="email" class="register__input" placeholder="Введите почту" required>
 						<input name="pass_auth" id="pass_auth" type="password" class="register__input" placeholder="Введите пароль" required>
 						<button type="submit" class="register__btn">Войти</button>
 					</div>

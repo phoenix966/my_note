@@ -14,10 +14,10 @@ if(isset($_POST['updateKey'])){
     $userId = -1;
     
     if(isset($_COOKIE['user'])){
-      $user_pass_temp = $_COOKIE['user'];
-      $user_data = R::findOne('users','pass = ?',[$user_pass_temp]);   //ok
-      $userId = $user_data['id'];
- }
+      $user_pass_hash = $_COOKIE['user'];
+      $user_data = R::findOne('users','hash = ?',[$user_pass_hash]);
+      $userId = $user_data['id'];  
+   }
      
     // Обновление записи
   if(isset($new_cat)){
@@ -28,7 +28,7 @@ if(isset($_POST['updateKey'])){
   }else{
     R::exec('UPDATE articles SET title = ?,text = ?,categorie_id = ? WHERE id = ? AND user_id = ?',[$title,$text,$cat,$updateId,$userId]);
   }
-  
+  R::close();
 } else{
   //Что то выведешь!
 }
