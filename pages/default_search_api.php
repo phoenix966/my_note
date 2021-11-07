@@ -4,7 +4,7 @@ require __DIR__.'/../config/db.php';
 
 if(isset($_GET['isTrue'])){
 	//Получение userID
-	$userId = -1;
+	$userId = 1;
 
 	if(isset($_COOKIE['user'])){
         $user_pass_hash = $_COOKIE['user'];

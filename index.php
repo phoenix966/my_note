@@ -2,7 +2,7 @@
     require __DIR__.'\config\db.php';
 ?>
 <?php 
-    $userId = -1; // после теста поставить -1
+    $userId = 1;
 
     if(isset($_COOKIE['user'])){
         $user_pass_hash = $_COOKIE['user'];
