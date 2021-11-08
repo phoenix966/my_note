@@ -8,7 +8,6 @@ if(isset($_POST['title'])){
     $text = $_POST['text'];
     $cat_id = $_POST['cat_id'];
     $new_cat = $_POST['new_cat'];
-
 //     //Получение userID
 
 if(isset($_COOKIE['user'])){

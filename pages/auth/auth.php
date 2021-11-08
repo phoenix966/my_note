@@ -9,10 +9,6 @@ $pass = password_hash($pass, PASSWORD_DEFAULT);
 require __DIR__.'\..\..\config\db.php';
 
 $user = R::findOne('users','email = ?',[$email]);
-// $cookie = [
-// 	'pass' => $user['pass'],
-// 	'hash' => $user['hash']
-// ];
 
 if(password_verify($pass, $user['pass'])){
 	echo "Такой пользователь не найден";  // проверяем на пустой массив

@@ -8,9 +8,9 @@
           $dataInfo = $info['title'];
           $get_type = $_GET['type'];
           if($get_type == 'edit'){
-            echo '<input maxlength="65" type="text" class="modal__input modal__name" name="title" value="'. $dataInfo .'">';
+            echo '<input pattern="[A-z 0-9 А-яё]{1,50}" maxlength="65" type="text" class="modal__input modal__name" name="title" value="'. $dataInfo .'">';
           }else{
-            echo '<input maxlength="65" type="text" class="modal__input modal__name" name="title">';
+            echo '<input pattern="[A-z 0-9 А-яё]{1,50}" maxlength="65" type="text" class="modal__input modal__name" name="title">';
           }
         ?>
       </div>
@@ -41,7 +41,7 @@
         </select>
         <button class="modal__btn modal__btn--show">+</button>
           <div class="modal__bar">
-            <input type="text" class="modal__new-category" name="newCat" placeholder="Новая категория...">
+            <input pattern="[A-z 0-9 А-яё]{1,50}" type="text" class="modal__new-category" name="newCat" placeholder="Новая категория...">
           </div>
         </div>
         </div>
