@@ -7,15 +7,6 @@ if(isset($_POST['login'])){ // выполняем проверку на суще
 	$email = filter_var(trim($_POST['email']),FILTER_SANITIZE_STRING);
 	$pass = filter_var(trim($_POST['pass']),FILTER_SANITIZE_STRING);
 
-	if(mb_strlen($login) < 1 || mb_strlen($login) > 90){ // проверка на длину логина
-		echo 'Недопустимая длина логина';
-		exit();
-	}
-	if(mb_strlen($pass) < 1 || mb_strlen($pass) > 90){ // проверка на длину пароля
-		echo 'Недопустимая длина пароля (от 2 до 6 символов)';
-		exit();
-	}
-
 	$pass = password_hash($pass, PASSWORD_DEFAULT);
 	$email_hash = md5($email.'troddmdf983430000g0fglfjflh');
 	

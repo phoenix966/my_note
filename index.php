@@ -7,7 +7,7 @@
     if(isset($_COOKIE['user'])){
         $user_pass_hash = $_COOKIE['user'];
         $user_data = R::findOne('users','hash = ?',[$user_pass_hash]);
-        $userId = $user_data['id'];  
+        $userId = $user_data['id'];
      }
      
 ?>

@@ -12,7 +12,7 @@
                 </button>
             </div>
             <div class="header__logo">
-                <a href="<?php echo $config['root_name'];?>/index.php"><img src="<?php echo $config['root_name']; ?>/img/logo.png" alt="logo" class="header__img"></a>
+                <a href="<?php echo $config['root_name'];?>/index.php"><img src="<?php echo $config['root_name']; ?>/img/logo.webp" alt="logo" class="header__img"></a>
             </div>
         </div>
         <form class="header__form">
@@ -27,14 +27,14 @@
                     </div>
                 </div>
                 <?php 
-                    $checkBtn = $_COOKIE['user'] ? '' : 'disabled';
+                    $checkBtn = isset($_COOKIE['user']) ? '' : 'disabled';
 
                 ?>
                 <button <?php echo $checkBtn; ?> <?php echo $conf['disabled']; ?> class="header__btn  header__btn--round <?php echo $conf['class']; ?>"><?php echo $conf['text']; ?></button>
             </div>
         </form>
     <?php 
-        if(!$_COOKIE['user']){
+        if(!isset($_COOKIE['user'])){
             echo <<<HTML
                     <a href="${config['root_name']}/pages/register-page.php" class="header__box">
                        <span class="header__icon icon-lock"></span>

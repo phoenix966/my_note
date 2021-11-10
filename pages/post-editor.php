@@ -23,8 +23,8 @@
 </head>
 <body>
    <?php
-      $currentId = $_GET['id'];
-      $currentType = $_GET['type'];
+      $currentId = isset($_GET['id']) ? $_GET['id'] : null;
+      $currentType = isset($_GET['type']) ? $_GET['type'] : null;
       $info = R::findOne('articles','id = ? AND user_id = ?',[$currentId,$userId]);  //ok
     ?>
   <div class="wrapper">
@@ -57,7 +57,7 @@
      ?>
     <section class="post">
       <div class="post__container">
-        <h1 class="post__title"> <?php echo $info['title']?> </h1>
+        <h1 class="post__title"> <?php echo $info['title']?></h1>
         <?php 
           $btn_text = '';
           $btn_url = '';

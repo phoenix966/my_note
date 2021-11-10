@@ -1,6 +1,6 @@
 .register{
 	&__body{
-		background: url('../img/bg.png')top center / cover;
+		background: url('../img/bg.webp')top center / cover;
 	};
 	&__wrapper{
 		display: flex;
@@ -17,6 +17,13 @@
 			flex-direction: column;
 			justify-content: space-between;
 		};
+	};
+	&__text{
+		padding-top: 8px;
+		font-family: var(--font-regular);
+		font-size: 16px;
+		color: rgba(199, 0, 0, 0.842);
+		text-align: center;
 	};
 	&__btn{
 		padding: 5px 10px;

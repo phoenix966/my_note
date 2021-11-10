@@ -6,9 +6,10 @@
         $userId = $user_data['id'];
 		$check = 'style="display: none"';  
      }
-	 if($_GET['reg'] == 'true'){
+	 if(isset($_GET['reg']) AND $_GET['reg'] == 'true'){
 		$check = 'style="display: none"';
 	 }
+	 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,6 +51,13 @@
 				</form>
 				</div>
 				<div class="register__wrap">
+				<h3 class="register__text">
+				<?php
+					if(isset($_GET['auth'])){
+						echo 'Ошибка авторизации повторите еще раз!';
+					}
+				?>
+			</h3>
 				<h2 class="register__title">Выполните вход: </h2>
 					<form action="./auth/auth.php" class="register__form" method="POST">
 					<div class="register__wrapper register__wrapper--min">

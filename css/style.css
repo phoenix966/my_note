@@ -258,21 +258,31 @@ a {
   justify-content: flex-end;
 }
 .header__wrap {
-  position: relative;
-  display: none;
+  position: absolute;
+  bottom: -55px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  display: flex;
   align-items: center;
   background: var(--color-btn);
   justify-content: space-between;
   border: 4px solid #f8f8f8;
   border-radius: 5px;
   height: 50px;
-  width: 90%;
+  width: 96%;
   -webkit-box-shadow: -7px 16px 15px -18px rgba(0, 0, 0, 0.21);
   -moz-box-shadow: -7px 16px 15px -18px rgba(0, 0, 0, 0.21);
   box-shadow: -7px 16px 15px -18px rgba(0, 0, 0, 0.21);
 }
 @media screen and (min-width: 728px) {
   .header__wrap {
+    position: relative;
+    bottom: unset;
+    left: unset;
+    right: unset;
+    margin: unset;
+    width: 90%;
     display: flex;
   }
 }
@@ -323,11 +333,16 @@ a {
   cursor: pointer;
 }
 .header__btn--search {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: none;
   font-size: 14px;
   cursor: default;
+}
+@media screen and (min-width: 728px) {
+  .header__btn--search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 .header__btn--round {
   width: 80px;
@@ -348,7 +363,7 @@ a {
   cursor: not-allowed;
 }
 .header__input {
-  width: 90%;
+  width: 100%;
   height: 100%;
   border: none;
   font-family: var(--font-regular);
@@ -358,6 +373,11 @@ a {
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   background: var(--color-btn);
+}
+@media screen and (min-width: 728px) {
+  .header__input {
+    width: 90%;
+  }
 }
 .header__scroll {
   display: block;
@@ -378,14 +398,14 @@ a {
 .header__box {
   position: absolute;
   bottom: -18px;
-  right: 0;
+  right: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
-  height: 40px;
+  width: 37px;
+  height: 37px;
   border-radius: 5px;
-  border: 5px solid #fff;
+  border: 3px solid #fff;
   background: #fff;
   text-align: center;
   background: #C6EDED98;
@@ -393,8 +413,8 @@ a {
 }
 .header__icon {
   display: inline;
-  padding-left: 7px;
-  font-size: 20px;
+  padding-left: 5px;
+  font-size: 18px;
   color: #fff;
   transform: rotate(-45deg);
 }
@@ -506,7 +526,12 @@ a {
   position: relative;
   min-height: 100vh;
   width: 100%;
-  padding: 20px 10px 0 10px;
+  padding: 40px 10px 0 10px;
+}
+@media screen and (min-width: 728px) {
+  .blog {
+    padding: 20px 10px 0 10px;
+  }
 }
 @media screen and (min-width: 928px) {
   .blog {
@@ -549,10 +574,10 @@ a {
 }
 .blog__sidebar {
   position: fixed;
-  top: 5%;
+  top: 0;
   left: 0;
-  width: 75%;
-  height: 580px;
+  width: 85%;
+  height: 100vh;
   background: var(--color-btn);
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
@@ -561,6 +586,11 @@ a {
   padding: 5px;
   transition: all 0.6s;
   transform: translateX(-98%);
+}
+@media screen and (min-width: 728px) {
+  .blog__sidebar {
+    width: 70%;
+  }
 }
 @media screen and (min-width: 928px) {
   .blog__sidebar {
@@ -577,8 +607,13 @@ a {
   top: 100px;
   left: 0;
   width: 100%;
-  height: 400px;
+  height: 68%;
   overflow-y: scroll;
+}
+@media screen and (min-width: 928px) {
+  .blog__note {
+    height: 80%;
+  }
 }
 .blog__list {
   display: flex;
@@ -854,7 +889,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
+  cursor: default;
   width: 40px;
   height: 40px;
   border-radius: 25px;
@@ -1948,7 +1983,7 @@ a {
 }
 
 .register__body {
-  background: url("../img/bg.png") top center/cover;
+  background: url("../img/bg.webp") top center/cover;
 }
 .register__wrapper {
   display: flex;
@@ -1965,6 +2000,13 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+.register__text {
+  padding-top: 8px;
+  font-family: var(--font-regular);
+  font-size: 16px;
+  color: rgba(199, 0, 0, 0.842);
+  text-align: center;
 }
 .register__btn {
   padding: 5px 10px;

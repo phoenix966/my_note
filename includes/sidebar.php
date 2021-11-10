@@ -5,12 +5,12 @@
 <div class="blog__sidebar <?php echo $style; ?>">
     <div class="blog__auth">
         <?php 
-            $user_check = $user_data['name'] ? '<span class="blog__quad blog__quad--active"></span>'  : '<span class="blog__quad"></span>' ;
+            $user_check = isset($user_data['name']) ? '<span class="blog__quad blog__quad--active"></span>'  : '<span class="blog__quad"></span>' ;
             echo $user_check;
         ?>
         <h4 class="blog__name">
             <?php 
-                $user_name = $user_data['name'] ?  $user_data['name'] : 'Войдите или зарегестрируйтесь!' ; 
+                $user_name = isset($user_data['name']) ?  $user_data['name'] : 'Войдите или зарегестрируйтесь!' ; 
                 echo $user_name;
             ?>
             
@@ -36,9 +36,9 @@
     <ul class="blog__note">
         <?php
         $default_cat = R::findOne('articles_categories', 'user_id = ? AND default_cat = ?', [$userId,1]);
-        $default_id = $default_cat['id'];
+        $default_id = isset($default_cat) ? $default_cat['id'] : null;
             foreach($result as $cat){
-                $total_count = R::count('articles','categorie_id = ?',[$cat['id']]);
+                $total_count = R::count('articles','categorie_id = ? AND user_id = ?',[$cat['id'],$userId]);
                 $cat_id = $cat['id'];
                 $cat_title = $cat['categorie_title'];
                 if($cat_id == $default_id){
