@@ -1400,7 +1400,7 @@ class RPDO implements Driver
 	 * Returns the version identifier string of the database client.
 	 * This method can be used to identify the currently installed
 	 * database client. Note that this method will also establish a connection
-	 * (because this is required to obtain the version information).
+	 * (because this is require_onced to obtain the version information).
 	 *
 	 * Example of a version string:
 	 *
@@ -1503,7 +1503,7 @@ class RPDO implements Driver
 	 * The query counter can be used to monitor the number
 	 * of database queries that have
 	 * been processed according to the database driver. You can use this
-	 * to monitor the number of queries required to render a page.
+	 * to monitor the number of queries require_onced to render a page.
 	 *
 	 * Usage:
 	 *
@@ -1524,7 +1524,7 @@ class RPDO implements Driver
 	 * Returns the number of SQL queries processed.
 	 * This method returns the number of database queries that have
 	 * been processed according to the database driver. You can use this
-	 * to monitor the number of queries required to render a page.
+	 * to monitor the number of queries require_onced to render a page.
 	 *
 	 * Usage:
 	 *
@@ -2418,7 +2418,7 @@ class OODBBean implements \IteratorAggregate,\ArrayAccess,\Countable,Jsonable
 	 * page list of book without loading all the pages first.
 	 * If you know in advance that you are not going to use
 	 * the contents of the list, you may use the noLoad() modifier
-	 * to make sure the queries required to load the list will not
+	 * to make sure the queries require_onced to load the list will not
 	 * be executed.
 	 *
 	 * @return self
@@ -4513,7 +4513,7 @@ interface Cursor
 
 	/**
 	 * Closes the database cursor.
-	 * Some databases require a cursor to be closed before executing
+	 * Some databases require_once a cursor to be closed before executing
 	 * another statement/opening a new cursor.
 	 *
 	 * @return void
@@ -4825,7 +4825,7 @@ interface QueryWriter
 	 *   LEFT JOIN `detail` ON `detail`.id = `book`.detail_id
 	 *   WHERE author.name LIKE ? OR detail.title LIKE ? '
 	 *
-	 * @note this feature requires Narrow Field Mode to be activated (default).
+	 * @note this feature require_onces Narrow Field Mode to be activated (default).
 	 *
 	 * @note A default implementation is available in AQueryWriter
 	 * unless a database uses very different SQL this should suffice.
@@ -4935,9 +4935,9 @@ interface QueryWriter
 	/**
 	 * Returns the Column Type Code (integer) that corresponds
 	 * to the given value type. This method is used to determine the minimum
-	 * column type required to represent the given value. There are two modes of
+	 * column type require_onced to represent the given value. There are two modes of
 	 * operation: with or without special types. Scanning without special types
-	 * requires the second parameter to be set to FALSE. This is useful when the
+	 * require_onces the second parameter to be set to FALSE. This is useful when the
 	 * column has already been created and prevents it from being modified to
 	 * an incompatible type leading to data loss. Special types will be taken
 	 * into account when a column does not exist yet (parameter is then set to TRUE).
@@ -5245,7 +5245,7 @@ interface QueryWriter
 	 * for safe use in a query. A database structure has to conform to the
 	 * RedBeanPHP DB security policy which basically means only alphanumeric
 	 * symbols are allowed. This security policy is more strict than conventional
-	 * SQL policies and does therefore not require database specific escaping rules.
+	 * SQL policies and does therefore not require_once database specific escaping rules.
 	 *
 	 * @param string  $databaseStructure name of the column/table to check
 	 * @param boolean $noQuotes          TRUE to NOT put backticks or quotes around the string
@@ -7180,7 +7180,7 @@ class MySQL extends AQueryWriter implements QueryWriter
 	/**
 	 * Enables certain features/dialects.
 	 *
-	 * - ignoreDisplayWidth required for MySQL8+
+	 * - ignoreDisplayWidth require_onced for MySQL8+
 	 *   (automatically set by setup() if you pass dsn instead of PDO object)
 	 *
 	 * @param string $name feature ID
@@ -8170,7 +8170,7 @@ abstract class Repository
 	 * This bean processor processes the beans in the shared residue
 	 * group. This group of beans 'remains' in the list but might need
 	 * to be updated or synced. The affected beans will be stored
-	 * to perform the required database queries.
+	 * to perform the require_onced database queries.
 	 *
 	 * @param OODBBean $bean          bean to process
 	 * @param array    $sharedresidue list to process
@@ -8232,7 +8232,7 @@ abstract class Repository
 	}
 
 	/**
-	 * Constructor, requires a query writer and OODB.
+	 * Constructor, require_onces a query writer and OODB.
 	 * Creates a new instance of the bean respository class.
 	 *
 	 * @param OODB        $oodb   instance of object database
@@ -8738,7 +8738,7 @@ class Fluid extends Repository
 	/**
 	 * Modifies the table to fit the bean data.
 	 * Given a property and a value and the bean, this method will
-	 * adjust the table structure to fit the requirements of the property and value.
+	 * adjust the table structure to fit the require_oncements of the property and value.
 	 * This may include adding a new column or widening an existing column to hold a larger
 	 * or different kind of value. This method employs the writer to adjust the table
 	 * structure in the database. Schema updates are recorded in meta properties of the bean.
@@ -9273,14 +9273,14 @@ class OODB extends Observable
 			$bean = $bean->unbox();
 		}
 		if ( !( $bean instanceof OODBBean ) ) {
-			throw new RedException( 'OODB Store requires a bean, got: ' . gettype( $bean ) );
+			throw new RedException( 'OODB Store require_onces a bean, got: ' . gettype( $bean ) );
 		}
 
 		return $bean;
 	}
 
 	/**
-	 * Constructor, requires a query writer.
+	 * Constructor, require_onces a query writer.
 	 * Most of the time, you do not need to use this constructor,
 	 * since the facade takes care of constructing and wiring the
 	 * RedBeanPHP core objects. However if you would like to
@@ -9815,7 +9815,7 @@ class ToolBox
 	 * assemble a toolbox instance. The toolbox is then passed to
 	 * the plugin, helper or manager object. Instances of
 	 * TagManager, AssociationManager and so on are examples of
-	 * this, they all require a toolbox. The toolbox can also
+	 * this, they all require_once a toolbox. The toolbox can also
 	 * be obtained from the facade using: R::getToolBox();
 	 *
 	 * @param OODB        $oodb    Object Database, OODB
@@ -9953,7 +9953,7 @@ class Finder
 
 	/**
 	 * Constructor.
-	 * The Finder requires a toolbox.
+	 * The Finder require_onces a toolbox.
 	 *
 	 * @param ToolBox $toolbox
 	 */
@@ -10361,7 +10361,7 @@ class Finder
 	 * set a different SQL template (sprintf-style) for processing the original query.
 	 *
 	 * @note the SQL query provided IS NOT THE ONE used internally by this function,
-	 * this function will pre-process the query to get all the data required to find the beans.
+	 * this function will pre-process the query to get all the data require_onced to find the beans.
 	 *
 	 * @note if you use the 'book.*' notation make SURE you're
 	 * selector starts with a SPACE. ' book.*' NOT ',book.*'. This is because
@@ -12021,7 +12021,7 @@ class Facade
 	 *
 	 * Note that setup() will not immediately establish a connection to the database.
 	 * Instead, it will prepare the connection and connect 'lazily', i.e. the moment
-	 * a connection is really required, for instance when attempting to load
+	 * a connection is really require_onced, for instance when attempting to load
 	 * a bean.
 	 *
 	 * @param string  $dsn          Database connection string
@@ -12200,7 +12200,7 @@ class Facade
 	 *
 	 * Note that createToolbox() will not immediately establish a connection to the database.
 	 * Instead, it will prepare the connection and connect 'lazily', i.e. the moment
-	 * a connection is really required, for instance when attempting to load a bean.
+	 * a connection is really require_onced, for instance when attempting to load a bean.
 	 *
 	 * @param string  $dsn      Database connection string
 	 * @param string  $username Username for database
@@ -12899,7 +12899,7 @@ class Facade
 	 * </code>
 	 *
 	 * @note the SQL query provided IS NOT THE ONE used internally by this function,
-	 * this function will pre-process the query to get all the data required to find the beans.
+	 * this function will pre-process the query to get all the data require_onced to find the beans.
 	 *
 	 * @note if you use the 'book.*' notation make SURE you're
 	 * selector starts with a SPACE. ' book.*' NOT ',book.*'. This is because
@@ -13093,7 +13093,7 @@ class Facade
 	}
 
 	/**
-	 * Returns the insert ID for databases that support/require this
+	 * Returns the insert ID for databases that support/require_once this
 	 * functionality. Alias for R::getAdapter()->getInsertID().
 	 *
 	 * @return mixed
@@ -14576,7 +14576,7 @@ class Facade
 	 * The query counter can be used to monitor the number
 	 * of database queries that have
 	 * been processed according to the database driver. You can use this
-	 * to monitor the number of queries required to render a page.
+	 * to monitor the number of queries require_onced to render a page.
 	 *
 	 * Usage:
 	 *
@@ -14596,7 +14596,7 @@ class Facade
 	 * Returns the number of SQL queries processed.
 	 * This method returns the number of database queries that have
 	 * been processed according to the database driver. You can use this
-	 * to monitor the number of queries required to render a page.
+	 * to monitor the number of queries require_onced to render a page.
 	 *
 	 * Usage:
 	 *
@@ -16187,7 +16187,7 @@ class QuickExport
 
 	/**
 	 * Constructor.
-	 * The Quick Export requires a toolbox.
+	 * The Quick Export require_onces a toolbox.
 	 *
 	 * @param ToolBox $toolbox
 	 */
@@ -16312,7 +16312,7 @@ class MatchUp
 
 	/**
 	 * Constructor.
-	 * The MatchUp class requires a toolbox
+	 * The MatchUp class require_onces a toolbox
 	 *
 	 * @param ToolBox $toolbox
 	 */
@@ -16427,7 +16427,7 @@ class Look
 
 	/**
 	 * Constructor.
-	 * The MatchUp class requires a toolbox
+	 * The MatchUp class require_onces a toolbox
 	 *
 	 * @param ToolBox $toolbox
 	 */
@@ -16536,7 +16536,7 @@ class Diff
 
 	/**
 	 * Constructor.
-	 * The MatchUp class requires a toolbox
+	 * The MatchUp class require_onces a toolbox
 	 *
 	 * @param ToolBox $toolbox
 	 */
@@ -16948,7 +16948,7 @@ namespace RedBeanPHP {
  * Marker interface for plugins.
  * Use this interface when defining new plugins, it's an
  * easy way for the rest of the application to recognize your
- * plugin. This plugin interface does not require you to
+ * plugin. This plugin interface does not require_once you to
  * implement a specific API.
  *
  * @file    RedBean/Plugin.php

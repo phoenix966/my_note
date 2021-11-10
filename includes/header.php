@@ -1,14 +1,14 @@
 <?php 
-    include('../config/config.php');
+    include __DIR__.'/../config/config.php';
 ?>
 <header class="header">
     <div class="container header__container">
         <div class="header__wrapper">
             <div class="header__burger">
                 <button class="hamburger hamburger--emphatic" type="button">
-          <span class="hamburger-box">
-            <span class="hamburger-inner"></span>
-          </span>
+                    <span class="hamburger-box">
+                        <span class="hamburger-inner"></span>
+                    </span>
                 </button>
             </div>
             <div class="header__logo">
@@ -33,25 +33,26 @@
                 <button <?php echo $checkBtn; ?> <?php echo $conf['disabled']; ?> class="header__btn  header__btn--round <?php echo $conf['class']; ?>"><?php echo $conf['text']; ?></button>
             </div>
         </form>
-    </div>
-    <div class="container">
-        <button class="header__scroll">закрыть</button>
-    </div>
     <?php 
         if(!$_COOKIE['user']){
             echo <<<HTML
-                    <a href="/my_note/pages/register-page.php" class="header__box">
+                    <a href="${config['root_name']}/pages/register-page.php" class="header__box">
                        <span class="header__icon icon-lock"></span>
                     </a>
                   HTML;
         }else{
             echo <<<HTML
-                    <a href="/my_note/pages/auth/exit.php?exit=true" class="header__box">
+                    <a href="${config['root_name']}/pages/auth/exit.php?exit=true" class="header__box">
                        <span class="header__icon icon-unlocked"></span>
                     </a>
                  HTML;
         }
-    ?>   
+    ?>
+    </div>
+    <div class="container">
+        <button class="header__scroll">закрыть</button>
+    </div>
+       
 </header>
 <section>
    

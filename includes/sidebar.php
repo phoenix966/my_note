@@ -1,3 +1,6 @@
+<?php
+    require_once __DIR__.'/../config/config.php';
+?>
 <div class="blog__overlay"></div>
 <div class="blog__sidebar <?php echo $style; ?>">
     <div class="blog__auth">
@@ -25,14 +28,14 @@
     if ($cat_count == 0){
         echo 'Категорий не найдено!';
         if(isset($_COOKIE['user'])){
-            R::exec('INSERT INTO `articles_categories` (`categorie_title`,`user_id`) VALUES (?,?)',['Без категории',$userId]);
-            header('Location: /my_note/index.php');
+            R::exec('INSERT INTO `articles_categories` (`categorie_title`,`user_id`,`default_cat`) VALUES (?,?,?)',['Без категории',$userId,1]);
+            header('Location: '. $config["root_name"] .'/index.php');
         }
     } else{
 ?>
     <ul class="blog__note">
         <?php
-        $default_cat = R::findOne('articles_categories', 'user_id = ? AND categorie_title = ?', [$userId,'Без категории']);
+        $default_cat = R::findOne('articles_categories', 'user_id = ? AND default_cat = ?', [$userId,1]);
         $default_id = $default_cat['id'];
             foreach($result as $cat){
                 $total_count = R::count('articles','categorie_id = ?',[$cat['id']]);
@@ -42,7 +45,7 @@
                     echo <<<HTML
                             <li class='blog__item'>
                                 <span class='blog__row-wrap'>
-                                    <a href='/my_note/index.php?sort=${cat_id}' class='blog__cat'>${cat_title}</a><span class='blog__count'>[${total_count}]</span>
+                                    <a href='${config["root_name"]}/index.php?sort=${cat_id}' class='blog__cat'>${cat_title}</a><span class='blog__count'>[${total_count}]</span>
                                 </span>
                             </li> 
                             HTML;
@@ -50,10 +53,10 @@
                     echo <<<HTML
                             <li class='blog__item'>
                                 <span class='blog__row-wrap'>
-                                    <a href='/my_note/index.php?sort=${cat_id}' class='blog__cat'>{$cat_title}</a>
+                                    <a href='${config["root_name"]}/index.php?sort=${cat_id}' class='blog__cat'>{$cat_title}</a>
                                     <span class='blog__count'>[{$total_count}]</span>
                                 </span>
-                                <button ${var} class='blog__del' value='${cat_id}'>
+                                <button  class='blog__del' value='${cat_id}'>
                                     <span class='icon-bin'></span>
                                 </button>
                             </li>

@@ -38,11 +38,11 @@
 				<h1 class="register__title">Пожалуйста зарегестрируйтесь: </h1>
 					<form action="./auth/reg.php" class="register__form" method="POST">
 					<div class="register__wrapper">
-						<input name="login" id="login" type="text" class="register__input" placeholder="Введите логин" required>
-						<input name="name" id="name" type="text" class="register__input" placeholder="Введите имя" required>
-						<input name="email" id="email" type="email" class="register__input" placeholder="Введите адрес почты" required>
+						<input name="login" id="login" type="text" class="register__input" placeholder="Введите логин" require_onced>
+						<input name="name" id="name" type="text" class="register__input" placeholder="Введите имя" require_onced>
+						<input name="email" id="email" type="email" class="register__input" placeholder="Введите адрес почты" require_onced>
 
-						<input name="pass" id="pass" type="password" class="register__input" placeholder="Введите пароль" required>
+						<input name="pass" id="pass" type="password" class="register__input" placeholder="Введите пароль" require_onced>
 
 						<button type="submit" class="register__btn">Регистрация</button>
 					</div>
@@ -53,8 +53,8 @@
 				<h2 class="register__title">Выполните вход: </h2>
 					<form action="./auth/auth.php" class="register__form" method="POST">
 					<div class="register__wrapper register__wrapper--min">
-						<input name="email_auth" id="login_auth" type="email" class="register__input" placeholder="Введите почту" required>
-						<input name="pass_auth" id="pass_auth" type="password" class="register__input" placeholder="Введите пароль" required>
+						<input name="email_auth" id="login_auth" type="email" class="register__input" placeholder="Введите почту" require_onced>
+						<input name="pass_auth" id="pass_auth" type="password" class="register__input" placeholder="Введите пароль" require_onced>
 						<button type="submit" class="register__btn">Войти</button>
 					</div>
 				</form>

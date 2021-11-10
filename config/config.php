@@ -2,12 +2,12 @@
 
 $config = array(
     'title' => 'title name',
-    'root_name' => '/my_note',
+    'root_name' => 'https://note.portfol.ru',
     'db' => array(
-        'url' => 'localhost',
-        'login' => 'root',
-        'pass' => 'root',
-        'name' => 'note_db'
+        'url' => 'localhost:3310',
+        'login' => 'portfolr_stranger354666',
+        'pass' => 'zmDQOWSx[\gT`If#UsQ(',
+        'name' => 'portfolr_note_db'
     )
 
 

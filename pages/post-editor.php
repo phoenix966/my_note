@@ -1,7 +1,9 @@
 <?php
-    require __DIR__.'/../config/db.php';
+    require_once __DIR__.'/../config/db.php';
+    require_once __DIR__.'/../config/config.php';
   ?>
   <?php 
+  $userId = 1;
   if(isset($_COOKIE['user'])){
     $user_pass_hash = $_COOKIE['user'];
     $user_data = R::findOne('users','hash = ?',[$user_pass_hash]);
@@ -23,7 +25,7 @@
    <?php
       $currentId = $_GET['id'];
       $currentType = $_GET['type'];
-      $info = R::findOne('articles','id = ?',[$currentId]);  //ok
+      $info = R::findOne('articles','id = ? AND user_id = ?',[$currentId,$userId]);  //ok
     ?>
   <div class="wrapper">
     <?php
@@ -76,7 +78,7 @@
             $btn_link_class = 'post__btn--disabled';
           }
         ?>
-        <a href="/my_note/pages/post-editor.php?id=<?php echo $currentId; ?>&type=<?php echo $btn_url; ?>" class="post__btn post__btn--redact <?php echo $btn_link_class; ?>"><?php echo $btn_text;?><span class="post__btn-dot <?php echo $btn_class; ?>"></span></a>
+        <a href="<?php echo $config['root_name'];?>/pages/post-editor.php?id=<?php echo $currentId; ?>&type=<?php echo $btn_url; ?>" class="post__btn post__btn--redact <?php echo $btn_link_class; ?>"><?php echo $btn_text;?><span class="post__btn-dot <?php echo $btn_class; ?>"></span></a>
         <div class="post__editor" style="height: 68vh" id="editor">
           <?php echo $info['text']; ?>
         </div>

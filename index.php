@@ -1,5 +1,5 @@
 <?php
-    require __DIR__.'\config\db.php';
+    require_once __DIR__.'/config/db.php';
 ?>
 <?php 
     $userId = 1;
@@ -39,8 +39,8 @@
                 <ul class="blog__list">
                     <?php
                         $limit = 8;
-                        $currentSortId = $_GET['sort'];
-                        $currentPage = $_GET['page'] ? $_GET['page'] : 1;
+                        $currentSortId = isset($_GET['sort']) ? $_GET['sort'] : false;
+                        $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
                         $offset = ($limit * $currentPage) - $limit;
 
                         $count = $currentSortId ? R::count('articles','categorie_id = ? AND user_id = ?',[$currentSortId,$userId])
@@ -91,7 +91,7 @@
       ?>
     </section>
     <?php
-        include __DIR__.'\includes\pagination.php';  // ok
+        include __DIR__.'/includes/pagination.php';  // ok
     ?>
   
     <?php

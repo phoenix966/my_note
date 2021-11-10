@@ -73,12 +73,12 @@ document.querySelector('.modal__form').addEventListener('submit',(e)=>{
     if(getType == 'edit'){
     obj.updateKey = getId;
     $.ajax({
-      url:'/my_note/pages/update.php',
+      url:'../pages/update.php',
       type: "POST",
       data: obj,
       success: function(data)
         {
-          window.location.href = "/my_note/index.php";
+          window.location.href = "../index.php";
         }
 });
     return;
@@ -86,12 +86,12 @@ document.querySelector('.modal__form').addEventListener('submit',(e)=>{
      //Создание новой
     if(getType == 'new'){
     $.ajax({
-      url:'/my_note/pages/foo.php',
+      url:'../pages/foo.php',
       type: "POST",
       data: obj,
       success: function(data)
         {
-          window.location.href = "/my_note/index.php";
+          window.location.href = '../index.php';
         }
 });
     }

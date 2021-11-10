@@ -1,3 +1,4 @@
+let rootUrl = 'https://note.portfol.ru';
 
 let hamburger = document.querySelector(".hamburger");
 let overlay = document.querySelector('.blog__overlay');
@@ -32,12 +33,12 @@ catRemover.forEach(function (item) {
         e.preventDefault();
         let value = e.currentTarget.value;
         $.ajax({
-            url: '/my_note/pages/categorie-remover.php',
+            url: `${rootUrl}/pages/categorie-remover.php`,
             type: 'GET',
             data: {
                 id: `${value}`,
             }, success: () => {
-                window.location.href = "/my_note/index.php";
+                window.location.href = `${rootUrl}/index.php`;
             }
         });
     })
@@ -50,13 +51,13 @@ const removeBtn = document.querySelectorAll('.blog__btn--delete');
         removeBtn.addEventListener('click', function () {
             let value = this.value;
             $.ajax({
-                url: '/my_note/pages/delete.php',
+                url: `${rootUrl}/pages/delete.php`,
                 type: 'GET',
                 data: {
                     'removeKey': value
                 },
                 success: function (data) {
-                    window.location.href = "/my_note/index.php";
+                    window.location.href = `${rootUrl}/index.php`;
 
                 }
             });
@@ -102,7 +103,7 @@ let btn = document.querySelector('.header__btn--new');
     if(btn){
       btn.addEventListener('click', function (e) {
         e.preventDefault();
-        window.location.href = "./pages/post-editor.php?type=new";
+        window.location.href = `${rootUrl}/pages/post-editor.php?type=new`;
     })  
     }
 
@@ -111,7 +112,7 @@ let btn = document.querySelector('.header__btn--new');
  let defaultSearchResult = [];
 
   $.ajax({
-    url:'/my_note/pages/default_search_api.php',
+    url:`${rootUrl}/pages/default_search_api.php`,
     type: 'GET',
     data:{
       isTrue: true
@@ -133,7 +134,7 @@ defaultSearchForm.addEventListener('input',function(e){
     let createElement = (item)=>{
         let element = document.createElement('li');
         element.classList.add('header__searchbar-item');
-        element.innerHTML = `<a href="/my_note/pages/post-editor.php?type=read&id=${item.id}" class="header__searchbar-link">${item.title}</a>`;
+        element.innerHTML = `<a href="${rootUrl}/pages/post-editor.php?type=read&id=${item.id}" class="header__searchbar-link">${item.title}</a>`;
         return element;
     }
 
